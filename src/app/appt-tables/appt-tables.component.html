@@ -37,11 +37,22 @@
             <button type="button" class="btn btn-primary">Q</button>
             {{meeting.time}}
           </th>
-          <td><a href="./#/record/{{meeting.studentId}}">{{meeting.name}}</a></td>
+          <td *ngIf="meeting.contactId">
+            <a href="./#/record/{{meeting.contactId}}">
+              {{meeting.name}}
+            </a>
+          </td>
+          <td *ngIf="!meeting.contactId">
+            <a>
+              {{meeting.name}}
+            </a>
+          </td>
           <td>{{meeting.ownerName}}</td>
           <td>{{meeting.teamName}}</td>
-          <td *ngIf="!meeting.meeting">(none)</td>
-          <td *ngIf="meeting.meeting">{{meeting.reasons}}</td>
+          <!-- His example only has (none) where that is the actual value, not sure how this should interact -->
+          <!-- <td *ngIf="!meeting.interactionOwnerName">(none)</td> -->
+          <!-- <td *ngIf="meeting.interactionOwnerName">{{meeting.interactionOwnerName}}</td> -->
+          <td>{{meeting.interactionOwnerName}}</td>
           <td>
             <button type="button" class="btn btn-primary">S</button>
             {{meeting.subject}}

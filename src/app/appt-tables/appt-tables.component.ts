@@ -103,6 +103,7 @@ export class ApptTablesComponent implements OnInit {
     return this.http.get('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
       // since we don't know if they're going to be given to us sorted, we will do it (can remove later if they do come sorted by time)
       this.appointments = this.sort(data); 
+      console.log(this.appointments);
       this.initializeAllArrays();
     });
   }
