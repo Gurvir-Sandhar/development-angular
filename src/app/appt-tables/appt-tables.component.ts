@@ -84,12 +84,12 @@ export class ApptTablesComponent implements OnInit {
   ];
 
   /**
- * Condition Options:
- * Queue: Scheduled (Reset), Checked In (Check-In)
- * In Progress: Active (Begin)
- * Completed: Finished (Finish), Canceled (Cancel), No show (No-show)
- */
-appointments: any;
+   * Condition Options:
+   * Queue: Scheduled (Reset), Checked In (Check-In)
+   * In Progress: Active (Begin)
+   * Completed: Finished (Finish), Canceled (Cancel), No show (No-show)
+   */
+  appointments: any;
 
   constructor(private http: HttpClient) { }
 
@@ -118,7 +118,7 @@ appointments: any;
 
   /**
    * Updates the entries to be displayed in respective table
-   * @param table which table
+   * @param table which table (int)
    */
   setDisplayArray(table) {
     if(table == 0 || table == 'queues') {
@@ -132,6 +132,8 @@ appointments: any;
 
   /**
    * Checks if the condition matches the table being filled in the html and returns true or false accordingly
+   * @param table which table (int)
+   * @param condition the status of the meeting
    */
   checkCondition(table, condition) {
     if(((table == 'queues') && (condition == 'Scheduled' || condition == 'Checked In')) || ((table == 'actives') && (condition == 'Active')) || ((table == 'completeds') && condition == 'Finished' || condition == 'Canceled' || condition == 'No show')) {
@@ -143,6 +145,7 @@ appointments: any;
 
   /**
    * For pagination of queues table, updates the values for functionality
+   * @param which which table (int)
    */
   updateTablePagesInfo(table) {
     // # entries total
@@ -188,11 +191,11 @@ appointments: any;
 
   /**
    * changes the look and text of filter type button
-   * @param table which table
+   * @param table which table (string)
    * TODO change how it filters
    */
   public filterType(table) {
-    let element = document.getElementById(table + "FilterButton");
+    let element = document.getElementById(table + 'FilterButton');
     if(element.innerHTML == "Matching Any") {
       element.innerHTML = "Requiring All";
       element.className = "btn btn-success";
@@ -202,8 +205,13 @@ appointments: any;
     }
   }
 
-  // Updates condition of meeting and removes it from current array, then adds it to the correct array
-  // Note: this should be an AJAX call to the server, this is just for client implementation
+  /**
+   * Note: this should be an AJAX call to the server, this is just for client implementation
+   * Updates condition of meeting and removes it from current array, then adds it to the correct array
+   * @param which the condition selected
+   * @param meeting the meeting object being referenced
+   * @param table which table (int)
+   */
   public updateCondition(which, meeting, table) {
     let index = this.appointments.indexOf(meeting);
     let oldcondition = meeting.condition;
@@ -221,8 +229,12 @@ appointments: any;
     return;
   }
 
-  // Decide if tables need to be updated or if condition change is only thing needed
-  // Note: this may not be needed - depends on server's interaction
+  /**
+   * Decide if tables need to be updated or if condition change is only thing needed
+   * Note: this may not be needed - depends on server's interaction
+   * @param oldCondition current condition
+   * @param newCondition condition to change current one to
+   */
   private checkIfUpdateNeeded(oldCondition, newCondition) {
     if((oldCondition == 'Scheduled' || oldCondition == 'Checked In') && (newCondition == 'Scheduled' || newCondition == 'Checked In')) {
       return false;
@@ -233,8 +245,12 @@ appointments: any;
     }
   }
 
-  // Adds object to specific array based on input string and condition
-  // Note: this may not be needed - depends on server's interaction
+  /**
+   * Adds object to specific array based on input string and condition
+   * Note: this may not be needed - depends on server's interaction
+   * @param condition meeting condition
+   * @param obj meeting object being referenced
+   */
   public add(condition, obj) {
     if(condition == 'Scheduled' || condition == 'Checked In') {
       this.queues.push(obj);
@@ -248,8 +264,12 @@ appointments: any;
     }
   }
 
-  // Removes object from specific array based on input string and condition
-  // Note: this may not be needed - depends on server's interaction
+  /**
+   * Removes object from specific array based on input string and condition
+   * Note: this may not be needed - depends on server's interaction
+   * @param condition meeting condition
+   * @param obj meeting object being referenced
+   */
   public remove(condition, obj) {
     if(condition == 'Scheduled' || condition == 'Checked In') {
       let index = this.queues.indexOf(obj);
@@ -263,7 +283,10 @@ appointments: any;
     }
   }
 
-  // Refreshes a table based on input string
+  /**
+   * Refreshes a table based on input string
+   * @param table which table (int)
+   */
   public refresh(table) {
     if(table == 0) {
       this.queues = this.appointments.filter(data => data.condition == 'Scheduled' || data.condition == 'Checked In');
@@ -274,9 +297,14 @@ appointments: any;
     }
   }
 
-  // Filters specific tables based on input string - Requiring All(?)
-  // Matching Any implementation still needed
+  /**
+   * Filters specific tables based on input string - Requiring All(?)
+   * Matching Any implementation still needed
+   * @param thing the input event object from HTML
+   * @param table which table (int)
+   */
   public filter(thing, table) {
+    // usually indicates 'delete' so we refilter for remaining characters
     if(thing.data == null) {
       switch(table) {
         case 0: {
@@ -287,6 +315,8 @@ appointments: any;
               temp = this.filterByValue(temp, this.queuesFilter.substring(i, i+1));
             }
             this.queues = temp;
+          } else {
+            this.refresh(table);
           }
           break;
         }
@@ -298,6 +328,8 @@ appointments: any;
               temp = this.filterByValue(temp, this.activesFilter.substring(i, i+1));
             }
             this.actives = temp;
+          } else {
+            this.refresh(table);
           }
           break;
         }
@@ -309,10 +341,13 @@ appointments: any;
               temp = this.filterByValue(temp, this.completedsFilter.substring(i, i+1));
             }
             this.completeds = temp;
+          } else {
+            this.refresh(table);
           }
           break;
         }
       }
+    // indicates a new character was added so filter based on the new character of existing filtered array
     } else {
       switch(table) {
         case 0: {
@@ -333,20 +368,24 @@ appointments: any;
       }
     }
 
-    if((this.queuesFilter == '' && table == 0) || (this.activesFilter == '' && table == 1) || (this.completedsFilter == '' && table == 2)) {
-      this.refresh(table);
-    }
-
     this.updateTablePagesInfo(table);
   }
 
-  // Searches array of objects for substring(s) within all fields
+  /**
+   * Searches array of objects for substring(s) within all fields
+   * @param array which array we're changing
+   * @param string the string we're searching for (in array)
+   */
   private filterByValue(array, string: string) {
     return array.filter(o =>
       Object.keys(o).some(k => o[k].toString().toLowerCase().includes(string.toLowerCase())));
   }
 
-  // Updates array based on table's select menu
+  /**
+   * Updates array based on table's select menu
+   * @param max new entries displayed value
+   * @param table which table (int)
+   */
   changeRange(max: number, table) {
     this.tables[table].range = Number(max);
     this.updateTablePagesInfo(table);
@@ -354,6 +393,7 @@ appointments: any;
 
   /**
    * Calculates the proper indexes of pages being shown for queues table
+   * @param table which table (int)
    */
   nextPage(table) {
     if(this.tables[table].page == this.tables[table].totalPages) {
@@ -370,6 +410,7 @@ appointments: any;
 
   /**
    * Calculates the proper indexes of pages being shown for queues table
+   * @param table which table (int)
    */
   prevPage(table) {
     if(this.tables[table].page <= 1) {
@@ -385,7 +426,6 @@ appointments: any;
       this.tables[table].end = this.tables[table].end - this.tables[table].range;
     }
 
-    // note: changed from < to >
     if(this.tables[table].end > this.tables[table].range) {
       this.tables[table].end = this.tables[table].range;
     }

@@ -3,11 +3,11 @@
   
     <h1>{{table.name}}</h1>
   
-    <div aria-label="subheader" class="mfsw-row" id="table.id+Filters">
+    <div aria-label="subheader" class="mfsw-row" id="{{table.id}}Filters">
       <!-- Show _ entries select dropdown -->
       <div class="column left">
         <label>Show
-          <select id="table.id+Entries" type="selectdropdown" aria-controls="table.id+Range" (change)="changeRange($event.target.value, table.index)">
+          <select id="{{table.id}}Entries" type="selectdropdown" aria-controls="{{table.id}}Range" (change)="changeRange($event.target.value, table.index)">
             <option *ngFor="let value of entries" [value]="value">{{value}}</option>
           </select>
           entries
@@ -17,13 +17,13 @@
       <!-- Filter search bar and button -->
       <div class="column right">
         <label style="font-weight: bold;">Filter Results: &nbsp;</label> 
-        <input id="table.id+FilterInput" type="text" (input)="filter($event, table.index)" placeholder="">
+        <input id="{{table.id}}FilterInput" type="text" (input)="filter($event, table.index)" placeholder="">
         <span>&nbsp;</span>
-        <button id="table.id+FilterButton" type="button" class="btn btn-success" (click)="filterType(table.id)">Requiring All</button>
+        <button id="{{table.id}}FilterButton" type="button" class="btn btn-success" (click)="filterType(table.id)">Requiring All</button>
       </div>
     </div>
   
-    <table class="table" id="table.id">
+    <table class="table" id="{{table.id}}">
       <thead>
         <!-- Labels for columns -->
         <tr>
@@ -31,7 +31,7 @@
         </tr>
       </thead>
   
-      <tbody *ngFor="let meeting of table.source; let k = index;" id="table.id + Display">
+      <tbody *ngFor="let meeting of table.source; let k = index;" id="{{table.id}}Display">
         <tr *ngIf="checkCondition(table.id, meeting.condition)">
           <th scope="rowgroup">
             <button type="button" class="btn btn-primary">Q</button>
@@ -69,7 +69,7 @@
       </tbody>
     </table>
     
-    <div aria-label="table.id+Footer" class="mfsw-row">
+    <div aria-label="{{table.id}}Footer" class="mfsw-row">
       <!-- Showing _ to _ of _ -->
       <div class="column left"> Showing {{table.start}} to {{table.end}} of {{table.total}} entries
       </div>
