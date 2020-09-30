@@ -158,7 +158,7 @@ appointments: any;
     this.tables[table].totalPages = Math.round(this.tables[table].total / this.tables[table].range);
     if((this.tables[table].total / this.tables[table].range) > this.tables[table].totalPages) {
       this.tables[table].totalPages += 1;
-    }
+    } 
 
     // last entry being displayed
     if(this.tables[table].end > this.tables[table].total) {
@@ -167,6 +167,9 @@ appointments: any;
 
     // current page
     this.tables[table].page = 1;
+    if(this.tables[table].total == 0) {
+      this.tables[table].page = 0;
+    } 
 
     // first entry being displayed
     this.tables[table].start = 1;
@@ -175,6 +178,10 @@ appointments: any;
     } else {
       this.tables[table].end = this.tables[table].range;
     }
+
+    if(this.tables[table].end == 0) {
+      this.tables[table].start = 0;
+    } 
 
     this.setDisplayArray(table);
   }
@@ -365,7 +372,7 @@ appointments: any;
    * Calculates the proper indexes of pages being shown for queues table
    */
   prevPage(table) {
-    if(this.tables[table].page == 1) {
+    if(this.tables[table].page <= 1) {
       return;
     }
     this.tables[table].start = this.tables[table].start - this.tables[table].range;
