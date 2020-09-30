@@ -54,7 +54,7 @@
           <!-- <td *ngIf="meeting.interactionOwnerName">{{meeting.interactionOwnerName}}</td> -->
           <td>{{meeting.interactionOwnerName}}</td>
           <td>
-            <button *ngIf="meeting.interactionId" type="button" class="btn btn-primary">S</button>
+            <a *ngIf="meeting.interactionId" href="./#/appointments/{{meeting.interactionId}}" role="button" class="btn btn-primary">S</a>
             {{meeting.subject}}
           </td>
           <td>
