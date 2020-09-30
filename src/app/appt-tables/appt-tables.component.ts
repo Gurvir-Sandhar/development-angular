@@ -101,7 +101,8 @@ export class ApptTablesComponent implements OnInit {
   // API call to server for list of all appointments - when received, we sort them into respective arrays aka tables
   getAppointments() {
     return this.http.get('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
-      this.appointments = data;
+      // since we don't know if they're going to be given to us sorted, we will do it (can remove later if they do come sorted by time)
+      this.appointments = this.sort(data); 
       this.initializeAllArrays();
     });
   }
@@ -254,14 +255,25 @@ export class ApptTablesComponent implements OnInit {
   public add(condition, obj) {
     if(condition == 'Scheduled' || condition == 'Checked In') {
       this.queues.push(obj);
+      this.queues = this.sort(this.queues);
       this.updateTablePagesInfo(0);
     } else if(condition == 'Active') {
       this.actives.push(obj);
+      this.actives = this.sort(this.actives);
       this.updateTablePagesInfo(1);
     } else {
       this.completeds.push(obj);
+      this.completeds = this.sort(this.completeds);
       this.updateTablePagesInfo(2);
     }
+  }
+
+  /**
+   * Sorts array of objets (appointments) based on time value (earliest first)
+   * @param array array of objects (appointments) to be sorted
+   */
+  sort(array) {
+    return array.sort((a,b) => a.time.localeCompare(b.time));
   }
 
   /**
