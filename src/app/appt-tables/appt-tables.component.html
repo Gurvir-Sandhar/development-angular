@@ -1,0 +1,89 @@
+<body>
+  <div *ngFor="let table of tables">
+  
+    <h1>{{table.name}}</h1>
+  
+    <div aria-label="subheader" class="mfsw-row" id="table.id+Filters">
+      <!-- Show _ entries select dropdown -->
+      <div class="column left">
+        <label>Show
+          <select id="table.id+Entries" type="selectdropdown" aria-controls="table.id+Range" (change)="changeRange($event.target.value, table.index)">
+            <option *ngFor="let value of entries" [value]="value">{{value}}</option>
+          </select>
+          entries
+        </label>
+      </div>
+  
+      <!-- Filter search bar and button -->
+      <div class="column right">
+        <label style="font-weight: bold;">Filter Results: &nbsp;</label> 
+        <input id="table.id+FilterInput" type="text" (input)="filter($event, table.index)" placeholder="">
+        <span>&nbsp;</span>
+        <button id="table.id+FilterButton" type="button" class="btn btn-success" (click)="filterType(table.id)">Requiring All</button>
+      </div>
+    </div>
+  
+    <table class="table" id="table.id">
+      <thead>
+        <!-- Labels for columns -->
+        <tr>
+          <th scope="col" class="columns" *ngFor="let column of columnNames">{{column.label}}</th>
+        </tr>
+      </thead>
+  
+      <tbody *ngFor="let meeting of table.source; let k = index;" id="table.id + Display">
+        <tr *ngIf="checkCondition(table.id, meeting.condition)">
+          <th scope="rowgroup">
+            <button type="button" class="btn btn-primary">Q</button>
+            {{meeting.time}}
+          </th>
+          <td><a href="./#/record/{{meeting.studentId}}">{{meeting.name}}</a></td>
+          <td>{{meeting.ownerName}}</td>
+          <td>{{meeting.teamName}}</td>
+          <td *ngIf="!meeting.meeting">(none)</td>
+          <td *ngIf="meeting.meeting">{{meeting.reasons}}</td>
+          <td>
+            <button type="button" class="btn btn-primary">S</button>
+            {{meeting.subject}}
+          </td>
+          <td>
+            <div class="dropdown">
+              <a *ngIf="meeting.condition === 'Scheduled' && table.id === 'queues'"class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{meeting.condition}}
+              </a>
+              <a *ngIf="meeting.condition === 'Checked In' && table.id === 'queues'" class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{meeting.condition}}
+              </a>
+              <a *ngIf="meeting.condition === 'Active' && table.id === 'actives'" class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{meeting.condition}}
+              </a>
+              <a *ngIf="(meeting.condition === 'Finished' || meeting.condition === 'No show' || meeting.condition === 'Canceled') && table.id === 'completeds'" class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{meeting.condition}}
+              </a>
+              <div class="dropdown-menu">
+                <button class="dropdown-item" *ngFor="let meetingCondition of meetingConditions" (click)="updateCondition(meetingCondition, meeting, table.index)">{{meetingCondition.label}}</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div aria-label="table.id+Footer" class="mfsw-row">
+      <!-- Showing _ to _ of _ -->
+      <div class="column left"> Showing {{table.start}} to {{table.end}} of {{table.total}} entries
+      </div>
+      <!-- Page _ / _ -->
+      <div class="column right">
+        <button type="button"
+                class="btn btn-primary"
+                (click)="prevPage(table.index)">Prev</button>&nbsp;
+        <button type="button"
+                class="btn btn-primary"
+                (click)="nextPage(table.index)">Next</button>
+        <span>&nbsp;Page {{table.page}}/{{table.totalPages}}&nbsp;</span>
+      </div>
+    </div>
+  
+  </div>
+  </body>
