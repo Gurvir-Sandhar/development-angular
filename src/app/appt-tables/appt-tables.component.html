@@ -64,7 +64,7 @@
               <a *ngIf="meeting.condition === 'Active' && table.id === 'actives'" class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
-              <a *ngIf="(meeting.condition === 'Finished' || meeting.condition === 'No show' || meeting.condition === 'Canceled') && table.id === 'completeds'" class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a *ngIf="(meeting.condition === 'Finished' || meeting.condition === 'No-show' || meeting.condition === 'Canceled') && table.id === 'completeds'" class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
               <div class="dropdown-menu">
