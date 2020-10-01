@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 interface Appointment {
   apptType: string;
@@ -103,7 +104,6 @@ export class ApptTablesComponent implements OnInit {
     return this.http.get('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
       // since we don't know if they're going to be given to us sorted, we will do it (can remove later if they do come sorted by time)
       this.appointments = this.sort(data); 
-      console.log(this.appointments);
       this.initializeAllArrays();
     });
   }
@@ -116,6 +116,9 @@ export class ApptTablesComponent implements OnInit {
     this.updateTablePagesInfo(0);
     this.updateTablePagesInfo(1);
     this.updateTablePagesInfo(2);
+    this.changeRange(25, 0);
+    this.changeRange(25, 1);
+    this.changeRange(25, 2);
   }
 
   /**
@@ -218,7 +221,9 @@ export class ApptTablesComponent implements OnInit {
     let index = this.appointments.indexOf(meeting);
     let oldcondition = meeting.condition;
 
+    // set meeting's condition as new condition
     meeting.condition = which.condition;
+    // set the meeting in appointment's array as the updated meeting 
     this.appointments[index] = meeting;
 
     if(this.checkIfUpdateNeeded(oldcondition, meeting.condition)) {
