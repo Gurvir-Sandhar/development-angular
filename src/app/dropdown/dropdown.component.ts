@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http'
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -8,64 +8,85 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./dropdown.component.css']
 })
 export class DropdownComponent implements OnInit {
+
+  // Lists fetched from api
   users;
-  teams;
-  current_user;
+  // TODO: get team data from API
+  teams = ['Red', 'Blue', 'Green', 'White', 'Black']
   appointments;
 
-  constructor(private http: HttpClient) {}
+  // Variables decided by user
+  currentTeamId;
+  currentUserId;
+  currentDay;
+
+  constructor(
+    private api: ApiService) {}
 
   ngOnInit() {
     this.getUsers();
     this.refresh();
-
-    // TODO: get team data from API
-    // Unsure which call to get team data from
-
-    var test_data = ['Red', 'Blue', 'Green', 'White', 'Black']
-    this.teams = test_data;
   }
 
   form = new FormGroup({
-    list: new FormControl('', Validators.required)
+    dropdown: new FormControl('', Validators.required)
   });
 
   selectTeam(item) {
-    console.log(item.target.value);
-    this.getUsers();
-    
-    // TODO: ser var currentTeam
-    // Filter users based on team and user ID
-    // /apps/api/test/filters/?teamId=(teamID)&pickOwner=(userID)&pickDay=(today)
+    var team = item.target.value;
+    console.log(team);
+
+    // TODO: set var currentTeam
+    // How are teams defined in the api?
+
+    this.updateFilters();
   }
 
   selectUser(item) {
-    console.log(item.target.value);
+    var user = item.target.value;
+    console.log(user);
 
-    // TODO: set var currentUser
-    // Filter users based on team and user ID
-    // /apps/api/test/filters/?teamId=(teamID)&pickOwner=(userID)&pickDay=(today)
+    function search(key, inputArray) {
+      for (let i = 0; i < inputArray.length; i++) {
+        if (inputArray[i].name == user) {
+          console.log(inputArray[i])
+          return inputArray[i].id;
+        } 
+        // if not in list, return 0
+        else {
+          return 0;
+        }
+      }
+    }
+    this.currentUserId = search(user, this.users)
+    console.log(this.currentUserId)
+
+    this.updateFilters();
   }
 
   getUsers() {
-    this.http.get('http://localhost:6543/apps/api/test/users')
-    .subscribe(Response => {
-      this.users = Response;
-      for (var i = 0; i < this.users.length; i++)
-        this.users[i] = this.users[i].name
-      console.log(this.users)
-    });
+    this.users = this.api.query('users').subscribe(Response =>
+      this.users = Response)
   }
 
-  getFilters() {
-    this.http.get('http://localhost:6543/apps/api/test/users')
-    .subscribe(Response => {
-      this.users = Response;
-    });
+  updateFilters() {
+    // TODO:
+    // Filter users based on team and user ID
+    // /apps/api/test/filters/?teamId=(teamID)&pickOwner=(userID)&pickDay=(today)
+
+    if (this.currentDay == undefined && this.currentTeamId == undefined)
+      return
+
+    this.api.filter(this.currentTeamId, this.currentUserId, 
+      this.currentDay)
+    .subscribe()
+
+    // Unsure what to do with returned value.
+    // Even in demo the query always 404s
   }
 
   refresh(){
-    this.http.get('http://localhost:6543/apps/api/test/appointments')
+    this.api.query('appointments')
     .subscribe(Response => {
       this.appointments = Response;
     })
