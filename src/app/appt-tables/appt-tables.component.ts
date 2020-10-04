@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+/*
+Still todo (for this screen):
+- second filter algorithm (Matching any vs Requiring All)
+- reassign status to meeting (in server)
+- meeting information screen
+- appointment/interaction screen
+- connect to navbar to filter appointments
+- add glyphicons for the Time and Subject column buttons (and others throughout app)
+- font is off? get the correct one from Alan
 
-interface Appointment {
+For reference, meeting objects are in the following form:
+array = [{
   apptType: string;
   condition: string;
   contactId: string;
@@ -24,8 +34,8 @@ interface Appointment {
   subject: string;
   teamId: string;
   teamName: string;
-  time: string;
-}
+  time: string; }]
+*/
 
 @Component({
   selector: 'app-appt-tables',
@@ -47,14 +57,11 @@ export class ApptTablesComponent implements OnInit {
   meetingConditions = [
     {id: 0, label: 'Reset', condition: 'Scheduled'}, {id: 1, label: 'Check-In', condition: 'Checked In'},
     {id: 2, label: 'Begin', condition: 'Active'}, {id: 3, label: 'Finish', condition: 'Finished'},
-    {id: 4, label: 'Cancel', condition: 'Canceled'}, {id: 5, label: 'No-show', condition: 'No show'},
+    {id: 4, label: 'Cancel', condition: 'Canceled'}, {id: 5, label: 'No-show', condition: 'No-show'},
   ];
 
   // List of possible entries-visible limiters
   entries = [5, 10, 25, 50, 100];
-
-  // Variables to control which meetings are being displayed on each table (pagination)
-  // Note: default is 5 entries displayed
 
   // List of arrays the tables use to know the total appointments in each
   queues;
@@ -78,9 +85,9 @@ export class ApptTablesComponent implements OnInit {
    * => range is the # of meetings being displayed per each table's select menu
    * */
   tables = [
-    {index: 0, name: 'Appointments Queue', id: 'queues', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 5},
-    {index: 1, name: 'Appointments In Progress', id: 'actives', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 5},
-    {index: 2, name: 'Appointments Completed', id: 'completeds', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 5},
+    {index: 0, name: 'Appointments Queue', id: 'queues', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
+    {index: 1, name: 'Appointments In Progress', id: 'actives', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
+    {index: 2, name: 'Appointments Completed', id: 'completeds', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
   ];
 
   /**
@@ -93,7 +100,7 @@ export class ApptTablesComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  // General etiquite is initializing all variables onInit vs in constructor 
+  // General etiquite is initializing all variables in NgOnInit vs in constructor 
   ngOnInit() {
     this.getAppointments();
   }
@@ -103,7 +110,6 @@ export class ApptTablesComponent implements OnInit {
     return this.http.get('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
       // since we don't know if they're going to be given to us sorted, we will do it (can remove later if they do come sorted by time)
       this.appointments = this.sort(data); 
-      console.log(this.appointments);
       this.initializeAllArrays();
     });
   }
@@ -112,7 +118,7 @@ export class ApptTablesComponent implements OnInit {
   public initializeAllArrays() {
     this.queues = this.appointments.filter(data => data.condition == 'Scheduled' || data.condition == 'Checked In');
     this.actives = this.appointments.filter(data => data.condition == 'Active');
-    this.completeds = this.appointments.filter(data => data.condition == 'Finished' || data.condition == 'Canceled' || data.condition == 'No show');
+    this.completeds = this.appointments.filter(data => data.condition == 'Finished' || data.condition == 'Canceled' || data.condition == 'No-show');
     this.updateTablePagesInfo(0);
     this.updateTablePagesInfo(1);
     this.updateTablePagesInfo(2);
@@ -138,7 +144,7 @@ export class ApptTablesComponent implements OnInit {
    * @param condition the status of the meeting
    */
   checkCondition(table, condition) {
-    if(((table == 'queues') && (condition == 'Scheduled' || condition == 'Checked In')) || ((table == 'actives') && (condition == 'Active')) || ((table == 'completeds') && condition == 'Finished' || condition == 'Canceled' || condition == 'No show')) {
+    if(((table == 'queues') && (condition == 'Scheduled' || condition == 'Checked In')) || ((table == 'actives') && (condition == 'Active')) || ((table == 'completeds') && condition == 'Finished' || condition == 'Canceled' || condition == 'No-show')) {
       return true;
     } else {
       return false;
@@ -218,7 +224,9 @@ export class ApptTablesComponent implements OnInit {
     let index = this.appointments.indexOf(meeting);
     let oldcondition = meeting.condition;
 
+    // set meeting's condition as new condition
     meeting.condition = which.condition;
+    // set the meeting in appointment's array as the updated meeting 
     this.appointments[index] = meeting;
 
     if(this.checkIfUpdateNeeded(oldcondition, meeting.condition)) {
@@ -240,7 +248,7 @@ export class ApptTablesComponent implements OnInit {
   private checkIfUpdateNeeded(oldCondition, newCondition) {
     if((oldCondition == 'Scheduled' || oldCondition == 'Checked In') && (newCondition == 'Scheduled' || newCondition == 'Checked In')) {
       return false;
-    } else if ((oldCondition == 'Finished' || oldCondition == 'No show' || oldCondition == 'Canceled') && (newCondition == 'Finished' || newCondition == 'No show' || newCondition == 'Canceled')) {
+    } else if ((oldCondition == 'Finished' || oldCondition == 'No-show' || oldCondition == 'Canceled') && (newCondition == 'Finished' || newCondition == 'No-show' || newCondition == 'Canceled')) {
       return false;
     } else {
       return true;
@@ -306,7 +314,7 @@ export class ApptTablesComponent implements OnInit {
     } else if(table == 1) {
       this.actives = this.appointments.filter(data => data.condition == 'Active');
     } else if(table == 2) {
-      this.completeds = this.appointments.filter(data => data.condition == 'Finished' || data.condition == 'Canceled' || data.condition == 'No show');
+      this.completeds = this.appointments.filter(data => data.condition == 'Finished' || data.condition == 'Canceled' || data.condition == 'No-show');
     }
   }
 

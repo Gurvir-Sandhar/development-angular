@@ -7,8 +7,8 @@
       <!-- Show _ entries select dropdown -->
       <div class="column left">
         <label>Show
-          <select id="{{table.id}}Entries" type="selectdropdown" aria-controls="{{table.id}}Range" (change)="changeRange($event.target.value, table.index)">
-            <option *ngFor="let value of entries" [value]="value">{{value}}</option>
+          <select id="{{table.id}}Entries" type="selectdropdown" aria-controls="{{table.id}}Range" (change)="changeRange($event.target.value, table.index)" [(ngModel)]="table.range">
+            <option *ngFor="let value of entries" id="{{table.id}}{{value}}" value="{{value}}">{{value}}</option>
           </select>
           entries
         </label>
@@ -43,14 +43,10 @@
             {{meeting.time}}
           </th>
           <td *ngIf="meeting.contactId">
-            <a href="./#/record/{{meeting.contactId}}">
-              {{meeting.name}}
-            </a>
+            <a href="./#/record/{{meeting.contactId}}">{{meeting.name}}</a>
           </td>
           <td *ngIf="!meeting.contactId">
-            <a>
-              {{meeting.name}}
-            </a>
+            <a>{{meeting.name}}</a>
           </td>
           <td>{{meeting.ownerName}}</td>
           <td>{{meeting.teamName}}</td>
@@ -78,7 +74,7 @@
               <a *ngIf="meeting.condition === 'Active' && table.id === 'actives'" class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
-              <a *ngIf="(meeting.condition === 'Finished' || meeting.condition === 'No show' || meeting.condition === 'Canceled') && table.id === 'completeds'" class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a *ngIf="(meeting.condition === 'Finished' || meeting.condition === 'No-show' || meeting.condition === 'Canceled') && table.id === 'completeds'" class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
               <div class="dropdown-menu">
