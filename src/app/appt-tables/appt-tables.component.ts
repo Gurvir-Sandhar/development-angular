@@ -50,7 +50,7 @@ export class ApptTablesComponent implements OnInit {
     {id: 1, label: 'Time'}, {id: 2, label: 'Student'},
     {id: 3, label: 'Here to See'}, {id: 4, label: 'On Team'},
     {id: 5, label: 'Meeting With'}, {id: 6, label: 'Subject'},
-    {id: 7, label: 'Condition'}
+    {id: 7, label: 'Status'}
   ]
 
   // All possible conditiones of meetings
@@ -100,7 +100,7 @@ export class ApptTablesComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  // General etiquite is initializing all variables in NgOnInit vs in constructor 
+  // General etiquite is initializing all variables in NgOnInit vs in constructor
   ngOnInit() {
     this.getAppointments();
   }
@@ -109,7 +109,7 @@ export class ApptTablesComponent implements OnInit {
   getAppointments() {
     return this.http.get('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
       // since we don't know if they're going to be given to us sorted, we will do it (can remove later if they do come sorted by time)
-      this.appointments = this.sort(data); 
+      this.appointments = this.sort(data);
       this.initializeAllArrays();
     });
   }
@@ -169,7 +169,7 @@ export class ApptTablesComponent implements OnInit {
     this.tables[table].totalPages = Math.round(this.tables[table].total / this.tables[table].range);
     if((this.tables[table].total / this.tables[table].range) > this.tables[table].totalPages) {
       this.tables[table].totalPages += 1;
-    } 
+    }
 
     // last entry being displayed
     if(this.tables[table].end > this.tables[table].total) {
@@ -180,7 +180,7 @@ export class ApptTablesComponent implements OnInit {
     this.tables[table].page = 1;
     if(this.tables[table].total == 0) {
       this.tables[table].page = 0;
-    } 
+    }
 
     // first entry being displayed
     this.tables[table].start = 1;
@@ -192,7 +192,7 @@ export class ApptTablesComponent implements OnInit {
 
     if(this.tables[table].end == 0) {
       this.tables[table].start = 0;
-    } 
+    }
 
     this.setDisplayArray(table);
   }
@@ -226,7 +226,7 @@ export class ApptTablesComponent implements OnInit {
 
     // set meeting's condition as new condition
     meeting.condition = which.condition;
-    // set the meeting in appointment's array as the updated meeting 
+    // set the meeting in appointment's array as the updated meeting
     this.appointments[index] = meeting;
 
     if(this.checkIfUpdateNeeded(oldcondition, meeting.condition)) {
