@@ -64,9 +64,9 @@ export class ApptTablesComponent implements OnInit {
   entries = [5, 10, 25, 50, 100];
 
   // List of arrays the tables use to know the total appointments in each
-  queues;
-  actives;
-  completeds;
+  queues = [];
+  actives = [];
+  completeds = [];
 
   // Strings that contain our substring for each table that we're filtering for
   queuesFilter = '';
