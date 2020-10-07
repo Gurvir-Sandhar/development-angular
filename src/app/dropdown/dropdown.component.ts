@@ -11,14 +11,14 @@ export class DropdownComponent implements OnInit {
 
   // Lists fetched from api
   users;
+  appointments;
   // TODO: get team data from API
   teams = ['Red', 'Blue', 'Green', 'White', 'Black']
-  appointments;
 
   // Variables decided by user
   currentTeamId;
   currentUserId;
-  currentDay;
+  currentDate;
 
   constructor(
     private api: ApiService) {}
@@ -47,7 +47,7 @@ export class DropdownComponent implements OnInit {
     console.log(user);
 
     function search(key, inputArray) {
-      for (let i = 0; i < inputArray.length; i++) {
+      for (var i = 0; i < inputArray.length; i++) {
         if (inputArray[i].name == user) {
           console.log(inputArray[i])
           return inputArray[i].id;
@@ -58,10 +58,20 @@ export class DropdownComponent implements OnInit {
         }
       }
     }
+
     this.currentUserId = search(user, this.users)
     console.log(this.currentUserId)
 
     this.updateFilters();
+  }
+
+  getDateUsc(val) {
+      //NOTE: To ensure the locale and timezone match, can
+      //alternately set the timeZone in the options to UTC.
+      return (new Date(`${val}T00:00:00`))
+          .toLocaleDateString(
+              "en-US"
+              , { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
   }
 
   getUsers() {
@@ -74,11 +84,11 @@ export class DropdownComponent implements OnInit {
     // Filter users based on team and user ID
     // /apps/api/test/filters/?teamId=(teamID)&pickOwner=(userID)&pickDay=(today)
 
-    if (this.currentDay == undefined && this.currentTeamId == undefined)
+    if (this.currentDate == undefined && this.currentTeamId == undefined)
       return
 
     this.api.filter(this.currentTeamId, this.currentUserId, 
-      this.currentDay)
+      this.currentDate)
     .subscribe()
 
     // Unsure what to do with returned value.

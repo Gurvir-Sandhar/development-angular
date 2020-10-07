@@ -21,7 +21,8 @@
         </form>
     </li>
     <li>
-        <p>[Calendar goes here]</p>
+        <span>{{currentDate ? getDateUsc(currentDate) : "Today"}}</span>;
+        <input type="date" class="form-group" placeholder="'mm/dd/yyyy'">
     </li>
     <li>
         <button (click)="refresh()">Refresh</button>
