@@ -25,10 +25,17 @@ export class QuickviewComponent implements OnInit {
     });
   }
 
+  /**
+   * Emits to parent componet 'Appointments' to toggle this view being shown
+   */
   closeQuickView() {
     this.toggleDetail.emit();
   }
 
+  /**
+   * Changes the select value
+   * @param index int for which users to display  in dropdown
+   */
   changeSelect(index) {
     if(index != "") {
       this.changeTo = this.users[index].name;
@@ -42,15 +49,25 @@ export class QuickviewComponent implements OnInit {
     }
   }
 
+  /**
+   * Returns true/false if detail variable is valid value
+   */
   public check() {
     if(this.detail) return true;
     return false;
   }
 
+  /**
+   * Hides/shows the select dropdown list
+   */
   public show() {
     this.list = !this.list;
   }
 
+  /**
+   * NOT FINISHED - SHOULD CHANGE THE ACTUAL OBJECT IN SERVER
+   * Changes the name being displayed - changed value of who the user is meeting
+   */
   reassign() {
     this.detail.ownerName = this.changeTo;
   }
