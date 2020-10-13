@@ -15,8 +15,14 @@ export class ApiService {
     return this.http.get(this.apiURL+endpoint)
   }
 
-  public filter(teamId: string, pickOwner: string, pickDay: string) {
-    return this.http.get(this.apiURL+'?teamId='+teamId+'&pickOwner='+
-      pickOwner+'&pickDay='+pickDay)
+  public stateQuery(teamId: string, owner: string, day: string) {
+    if (teamId == undefined)
+      teamId = '';
+    if (owner == undefined)
+      owner = '';
+    if (day == undefined)
+      day = '';
+    return this.http.get(this.apiURL+'filters?teamId='+teamId+'&pickOwner='+
+      owner+'&pickDay='+day)
   }
 }
