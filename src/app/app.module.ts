@@ -5,13 +5,13 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
+import { StateFilterComponent } from './state-filter/state-filter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    DropdownComponent
+    StateFilterComponent
   ],
   imports: [
     BrowserModule,
