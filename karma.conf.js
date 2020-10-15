@@ -29,8 +29,5 @@ module.exports = function (config) {
     browsers: ['Chrome','Firefox'],
     singleRun: false,
     restartOnFileChange: true,
-    files: [
-      './node_modules/bootstrap/dist/css/bootstrap-reboot.css'
-    ]
   });
 };
