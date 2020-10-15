@@ -53,7 +53,7 @@ export class ApptTablesComponent implements OnInit {
     {id: 7, label: 'Status'}
   ]
 
-  // All possible conditiones of meetings
+  // All possible conditions of meetings
   meetingConditions = [
     {id: 0, label: 'Reset', condition: 'Scheduled'}, {id: 1, label: 'Check-In', condition: 'Checked In'},
     {id: 2, label: 'Begin', condition: 'Active'}, {id: 3, label: 'Finish', condition: 'Finished'},
