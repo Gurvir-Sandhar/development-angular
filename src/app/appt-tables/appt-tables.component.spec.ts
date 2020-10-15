@@ -7,6 +7,80 @@ describe('ApptTablesComponent', () => {
   let component: ApptTablesComponent;
   let fixture: ComponentFixture<ApptTablesComponent>;
 
+  // test data resembles api data but with only the data appt-tables needs
+  const testData = [
+    {
+      id: '0',
+      condition: 'Scheduled',
+      contactName: 'Sam Student 0',
+      interactionOwnerName: 'Adam Advisor',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '1',
+      condition: 'Checked In',
+      contactName: 'Sam Student 1',
+      interactionOwnerName: 'Adam Advisor',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '2',
+      condition: 'Active',
+      contactName: 'Sam Student 2',
+      interactionOwnerName: 'Adam Advisor',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '3',
+      condition: 'Canceled',
+      contactName: 'Sam Student 3',
+      interactionOwnerName: 'Adam Advisor',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '4',
+      condition: 'Finished',
+      contactName: 'Sam Student 4',
+      interactionOwnerName: 'Adam Advisor',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '5',
+      condition: 'No-Show',
+      contactName: 'Sam Student 5',
+      interactionOwnerName: 'Adam Advisor',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '6',
+      condition: '(Test)',
+      contactName: 'Sam Student 6',
+      interactionOwnerName: 'Adam Advisor',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      time: '10:00 AM - 10:50'
+    }
+  ];
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ ApptTablesComponent ],
@@ -18,8 +92,12 @@ describe('ApptTablesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ApptTablesComponent);
     component = fixture.componentInstance;
+    component.ngOnInit = () => {};
+    component.appointments = component.sort(testData);
+    component.initializeAllArrays();
     fixture.detectChanges();
   });
+
 
   /* four test to write:
     1. three tables of appointments displayed in tables by status
@@ -52,4 +130,7 @@ describe('ApptTablesComponent', () => {
     component.nextPage(0);
     expect(component.tables[0].page).toBe(2);
   });
+
+  // hello
+
 });

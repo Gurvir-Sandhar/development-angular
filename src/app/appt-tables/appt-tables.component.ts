@@ -100,7 +100,7 @@ export class ApptTablesComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  // General etiquite is initializing all variables in NgOnInit vs in constructor
+  // General etiquette is initializing all variables in NgOnInit vs in constructor
   ngOnInit() {
     this.getAppointments();
   }
