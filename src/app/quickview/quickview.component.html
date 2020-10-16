@@ -1,0 +1,205 @@
+<body>
+  <div class="overlay">
+    <div class="summary" *ngIf="check()">
+      <h1>Appointment/Interaction Summary</h1>
+      <button type="button" class="btn btn-danger btn-block" (click)="closeQuickView()">
+        <!-- Span is missing X glyphicon -->
+        <span></span>X Done
+      </button>
+      <hr>
+  
+      <div class="mfsw-row">
+        <div class="column">
+          <p>
+            <a *ngIf="detail.contactId" href="./#/record/{{detail.contactId}}">{{detail.contactName}}</a>
+            <a *ngIf="!detail.contactId">{{detail.contactName}}</a>
+          </p>
+        </div>
+      </div>
+      
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Team</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.teamName}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Appointment</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.id}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Interaction</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.interactionId}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Here for</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.apptType}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Signed in at</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.interactionCreatedOn}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Here to see</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.ownerName}}</span>&nbsp;
+          <button type="button" class="btn btn-primary" (click)="show()">
+            <!-- btn-default -->
+            <!-- <span class="glyphicon glyphicon-edit"></span> -->
+            T
+          </button>
+          <div class="right">
+            <select *ngIf="list" id="options" type="selectdropdown block" (change)="changeSelect($event.target.value)">
+              <option value="">Choose One</option>
+              <option *ngFor="let user of users; let k = index" value="{{k}}">{{user.name}}</option>
+            </select> 
+          </div>
+          <div class="right">
+            <button type="button" class="btn btn-warning" *ngIf="reassignShow" (click)="reassign()">
+              <!-- Glyphicon -->
+              Reassign Appointment
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Meeting with</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.interactionOwnerName}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Major asserted</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.major}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Preprof asserted</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.preprof}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Honors asserted</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.honors}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Expected grad</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.gradExpected}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>State</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.condition}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Subject</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.subject}}</span>&nbsp;
+          <a *ngIf="detail.interactionId" href="./#/appointments/{{detail.interactionId}}" role="button" class="btn btn-primary">
+            <!-- Glyphicon -->
+            T
+          </a>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Name</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.name}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Reasons</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.reasons}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Notes</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.notes}}</span>
+        </div>
+      </div>
+  
+      <div class="mfsw-row">
+        <div class="column left">
+          <strong>Appointment Start</strong>
+        </div>
+        <div class="column right">
+          <span>{{detail.startOn}}</span>
+        </div>
+      </div>
+  
+      <hr>
+      <button type="button" class="btn btn-success btn-block">
+        <!-- TODO BEGIN SESSION SCREEN + UPDATE STATUS -->
+        <span>>> Begin Session</span>
+      </button>
+  
+    </div>
+    <div *ngIf="!check()">
+      ERROR
+    </div>
+  </div>
+  </body>

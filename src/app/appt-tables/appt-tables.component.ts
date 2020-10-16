@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api.service';
 
-interface Appointment {
+/*
+For reference, meeting objects are in the following form:
+array = [{
   apptType: string;
   condition: string;
   contactId: string;
@@ -24,8 +27,8 @@ interface Appointment {
   subject: string;
   teamId: string;
   teamName: string;
-  time: string;
-}
+  time: string; }]
+*/
 
 @Component({
   selector: 'app-appt-tables',
@@ -33,6 +36,8 @@ interface Appointment {
   styleUrls: ['./appt-tables.component.css']
 })
 export class ApptTablesComponent implements OnInit {
+
+  @Output() toggleDetail = new EventEmitter();
 
   isDataAvailable:boolean = false;
 
@@ -47,24 +52,16 @@ export class ApptTablesComponent implements OnInit {
   meetingConditions = [
     {id: 0, label: 'Reset', condition: 'Scheduled'}, {id: 1, label: 'Check-In', condition: 'Checked In'},
     {id: 2, label: 'Begin', condition: 'Active'}, {id: 3, label: 'Finish', condition: 'Finished'},
-    {id: 4, label: 'Cancel', condition: 'Canceled'}, {id: 5, label: 'No-show', condition: 'No show'},
+    {id: 4, label: 'Cancel', condition: 'Canceled'}, {id: 5, label: 'No-show', condition: 'No-show'},
   ];
 
   // List of possible entries-visible limiters
   entries = [5, 10, 25, 50, 100];
 
-  // Variables to control which meetings are being displayed on each table (pagination)
-  // Note: default is 5 entries displayed
-
   // List of arrays the tables use to know the total appointments in each
   queues;
   actives;
   completeds;
-
-  // Strings that contain our substring for each table that we're filtering for
-  queuesFilter = '';
-  activesFilter = '';
-  completedsFilter = '';
 
   /**
    *  Labels for each of the 3 tables
@@ -78,9 +75,9 @@ export class ApptTablesComponent implements OnInit {
    * => range is the # of meetings being displayed per each table's select menu
    * */
   tables = [
-    {index: 0, name: 'Appointments Queue', id: 'queues', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 5},
-    {index: 1, name: 'Appointments In Progress', id: 'actives', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 5},
-    {index: 2, name: 'Appointments Completed', id: 'completeds', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 5},
+    {index: 0, name: 'Appointments Queue', id: 'queues', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
+    {index: 1, name: 'Appointments In Progress', id: 'actives', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
+    {index: 2, name: 'Appointments Completed', id: 'completeds', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
   ];
 
   /**
@@ -91,28 +88,32 @@ export class ApptTablesComponent implements OnInit {
    */
   appointments: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private apiService: ApiService) { }
 
-  // General etiquite is initializing all variables onInit vs in constructor 
+  // General etiquite is initializing all variables in NgOnInit vs in constructor 
   ngOnInit() {
     this.getAppointments();
   }
 
+  openQuickView(meeting) {
+    this.apiService.saveUserInformation(meeting);
+    this.toggleDetail.emit();
+  }
+
   // API call to server for list of all appointments - when received, we sort them into respective arrays aka tables
   getAppointments() {
-    return this.http.get('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
+    return this.apiService.httpGET('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
       // since we don't know if they're going to be given to us sorted, we will do it (can remove later if they do come sorted by time)
       this.appointments = this.sort(data); 
-      console.log(this.appointments);
       this.initializeAllArrays();
     });
   }
 
   // Updates all tables based on appointments table
   public initializeAllArrays() {
-    this.queues = this.appointments.filter(data => data.condition == 'Scheduled' || data.condition == 'Checked In');
-    this.actives = this.appointments.filter(data => data.condition == 'Active');
-    this.completeds = this.appointments.filter(data => data.condition == 'Finished' || data.condition == 'Canceled' || data.condition == 'No show');
+    this.queues = this.refilter(0);
+    this.actives = this.refilter(1);
+    this.completeds = this.refilter(2);
     this.updateTablePagesInfo(0);
     this.updateTablePagesInfo(1);
     this.updateTablePagesInfo(2);
@@ -138,7 +139,7 @@ export class ApptTablesComponent implements OnInit {
    * @param condition the status of the meeting
    */
   checkCondition(table, condition) {
-    if(((table == 'queues') && (condition == 'Scheduled' || condition == 'Checked In')) || ((table == 'actives') && (condition == 'Active')) || ((table == 'completeds') && condition == 'Finished' || condition == 'Canceled' || condition == 'No show')) {
+    if(((table == 'queues') && (condition == 'Scheduled' || condition == 'Checked In')) || ((table == 'actives') && (condition == 'Active')) || ((table == 'completeds') && condition == 'Finished' || condition == 'Canceled' || condition == 'No-show')) {
       return true;
     } else {
       return false;
@@ -209,7 +210,8 @@ export class ApptTablesComponent implements OnInit {
 
   /**
    * Note: this should be an AJAX call to the server, this is just for client implementation
-   * Updates condition of meeting and removes it from current array, then adds it to the correct array
+   * Updates condition of meeting and removes it from current array, then adds it to the correct array.
+   * Then we have to refilter the table the meeting was moved to (if it did move tables)
    * @param which the condition selected
    * @param meeting the meeting object being referenced
    * @param table which table (int)
@@ -218,7 +220,9 @@ export class ApptTablesComponent implements OnInit {
     let index = this.appointments.indexOf(meeting);
     let oldcondition = meeting.condition;
 
+    // set meeting's condition as new condition
     meeting.condition = which.condition;
+    // set the meeting in appointment's array as the updated meeting 
     this.appointments[index] = meeting;
 
     if(this.checkIfUpdateNeeded(oldcondition, meeting.condition)) {
@@ -228,7 +232,19 @@ export class ApptTablesComponent implements OnInit {
       // update based on table
       this.updateTablePagesInfo(table);
     }
-    return;
+    // we have to identify the new table (both int and name) to refilter results shown
+    let temp, temp2;
+    if(meeting.condition == 'Scheduled' || meeting.condition == 'Checked In') {
+      temp = 0;
+      temp2 = 'queues';
+    } else if (meeting.condition == 'Active') {
+      temp = 1;
+      temp2 = 'actives';
+    } else {
+      temp = 2;
+      temp2 = 'completeds';
+    }
+    this.filter(temp, temp, temp2);
   }
 
   /**
@@ -240,7 +256,7 @@ export class ApptTablesComponent implements OnInit {
   private checkIfUpdateNeeded(oldCondition, newCondition) {
     if((oldCondition == 'Scheduled' || oldCondition == 'Checked In') && (newCondition == 'Scheduled' || newCondition == 'Checked In')) {
       return false;
-    } else if ((oldCondition == 'Finished' || oldCondition == 'No show' || oldCondition == 'Canceled') && (newCondition == 'Finished' || newCondition == 'No show' || newCondition == 'Canceled')) {
+    } else if ((oldCondition == 'Finished' || oldCondition == 'No-show' || oldCondition == 'Canceled') && (newCondition == 'Finished' || newCondition == 'No-show' || newCondition == 'Canceled')) {
       return false;
     } else {
       return true;
@@ -297,16 +313,32 @@ export class ApptTablesComponent implements OnInit {
   }
 
   /**
-   * Refreshes a table based on input string
+   * Returns array for table based on input string
    * @param table which table (int)
    */
-  public refresh(table) {
+  public refilter(table) {
     if(table == 0) {
-      this.queues = this.appointments.filter(data => data.condition == 'Scheduled' || data.condition == 'Checked In');
+      return this.appointments.filter(data => data.condition == 'Scheduled' || data.condition == 'Checked In');
     } else if(table == 1) {
-      this.actives = this.appointments.filter(data => data.condition == 'Active');
+      return this.appointments.filter(data => data.condition == 'Active');
     } else if(table == 2) {
-      this.completeds = this.appointments.filter(data => data.condition == 'Finished' || data.condition == 'Canceled' || data.condition == 'No show');
+      return this.appointments.filter(data => data.condition == 'Finished' || data.condition == 'Canceled' || data.condition == 'No-show');
+    }
+  }
+
+  /**
+   * Filters specific tables based on input string - calls which function
+   * @param thing the input event object from HTML
+   * @param table which table (int)
+   * @param tableName which table is being interacted with 
+   */
+  public filter(thing, table, tableName) {
+    let element = document.getElementById(tableName + "FilterButton");
+    let input = (<HTMLInputElement>document.getElementById(tableName+"FilterInput")).value;
+    if(element.innerHTML == 'Matching Any') {
+      this.filterMA(thing, table, input);
+    } else {
+      this.filterMA(thing, table, input);
     }
   }
 
@@ -315,69 +347,55 @@ export class ApptTablesComponent implements OnInit {
    * Matching Any implementation still needed
    * @param thing the input event object from HTML
    * @param table which table (int)
+   * @param input the value currently in input (filter) field
    */
-  public filter(thing, table) {
+  public filterMA(thing, table, input) {
+    // status of meeting is changed to this table so we have to re-filter it
+    if(typeof thing == 'number') {
+      let temp = this.filterByValue(this.refilter(table), input.substring(0, 1));
+      for(let i = 1; i < input.length; i++) {
+        temp = this.filterByValue(temp, input.substring(i, i+1));
+      } 
+      if(table == 0) {
+        this.queues = temp;
+      } else if (table == 1) {
+        this.actives = temp;
+      } else if (table == 2) {
+        this.completeds = temp;
+      }
     // usually indicates 'delete' so we refilter for remaining characters
-    if(thing.data == null) {
-      switch(table) {
-        case 0: {
-          this.queuesFilter = this.queuesFilter.slice(0, -1);
-          if(this.queuesFilter != '') {
-            let temp = this.filterByValue(this.queues, this.queuesFilter.substring(0, 1));
-            for(let i = 1; i < this.queuesFilter.length; i++) {
-              temp = this.filterByValue(temp, this.queuesFilter.substring(i, i+1));
-            }
-            this.queues = temp;
-          } else {
-            this.refresh(table);
-          }
-          break;
+    } else if(thing.data == null) {
+      if(input != '') {
+        let temp = this.filterByValue(this.refilter(table), input.substring(0, 1));
+        for(let i = 1; i < input.length; i++) {
+          temp = this.filterByValue(temp, input.substring(i, i+1));
+        } 
+        if(table == 0) {
+          this.queues = temp;
+        } else if (table == 1) {
+          this.actives = temp;
+        } else if (table == 2) {
+          this.completeds = temp;
         }
-        case 1: {
-          this.activesFilter = this.activesFilter.slice(0, -1);
-          if(this.activesFilter != '') {
-            let temp = this.filterByValue(this.actives, this.activesFilter.substring(0, 1));
-            for(let i = 1; i < this.activesFilter.length; i++) {
-              temp = this.filterByValue(temp, this.activesFilter.substring(i, i+1));
-            }
-            this.actives = temp;
-          } else {
-            this.refresh(table);
-          }
-          break;
-        }
-        case 2: {
-          this.completedsFilter = this.completedsFilter.slice(0, -1);
-          if(this.completedsFilter != '') {
-            let temp = this.filterByValue(this.completeds, this.completedsFilter.substring(0, 1));
-            for(let i = 1; i < this.completedsFilter.length; i++) {
-              temp = this.filterByValue(temp, this.completedsFilter.substring(i, i+1));
-            }
-            this.completeds = temp;
-          } else {
-            this.refresh(table);
-          }
-          break;
+      } else {
+        if(table == 0) {
+          this.queues = this.refilter(table);
+        } else if (table == 1) {
+          this.actives = this.refilter(table);
+        } else if (table == 2) {
+          this.completeds = this.refilter(table);
         }
       }
     // indicates a new character was added so filter based on the new character of existing filtered array
     } else {
-      switch(table) {
-        case 0: {
-          this.queuesFilter = this.queuesFilter + thing.data;
+        if(table == 0) {
           this.queues = this.filterByValue(this.queues, thing.data);
-          break;
         }
-        case 1: {
-          this.activesFilter = this.activesFilter + thing.data;
+        else if(table == 1) {
           this.actives = this.filterByValue(this.actives, thing.data);
-          break;
         }
-        case 2: {
-          this.completedsFilter = this.completedsFilter + thing.data;
+        else if(table == 2) {
           this.completeds = this.filterByValue(this.completeds, thing.data);
-          break;
-        }
       }
     }
 
@@ -385,7 +403,7 @@ export class ApptTablesComponent implements OnInit {
   }
 
   /**
-   * Searches array of objects for substring(s) within all fields
+   * Searches array of objects for substring within all fields
    * @param array which array we're changing
    * @param string the string we're searching for (in array)
    */
