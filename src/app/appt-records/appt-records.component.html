@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Appointment Information</title>
+  <link rel="stylesheet" href="appt-records.component.css"/>
+  <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+  <SCRIPT LANGUAGE="javascript">
+    function openwin(){
+      window.open("test.html", "new_window", "height=400, width=1200, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+    }
+  </SCRIPT>
+
+</head>
+<body>
+  <div>
+    <div class="container">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <h1 align="center" valign="center">
+            Appointment Information
+          </h1>
+        </div>
+        <div *ngif="isPhoto; else notPhoto" class="form-group" align="center" valign="center">
+          <!-- Waiting for student's photo from test data -->
+        </div>
+        <ng-template #notPhoto>
+          <div class="form-group" align="center" valign="center">
+            <img id ="not_photo" src="photo.png" alert="student's photo" width="15%">
+            <p>No photo on file</p>
+          </div>
+        </ng-template>
+
+        <div class="form-group">
+          <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
+            <div style="width: 400px;">Record for: {{name}}</div>
+          </h2>
+          <label for="id" class="control-label col-sm-3" style="margin:1.5% 25%;">
+            <h3>ID: {{id}}</h3>
+          </label>
+          <p> </p>
+          <label for="email" class="control-label col-sm-3" style="margin:1.5% 25%;">
+            <h3>Email: {{email}}</h3>
+          </label>
+          <p></p>
+        </div>
+
+        <div id="light" class="white_content">test
+          <a button style="position: absolute; right: 3%; top: 0;" type="button" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">X</a>
+        </div>
+        <div id="fade" class="black_overlay"></div>
+
+      </form>
+
+      <div class="footer">
+        <li id="tab_advisingContact"><a href="javascript:void(0)" data-for-block="block_advisingContact" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Contact Details</a></li>
+        <li id="tab_interactionHistory"><a href="javascript:void(0) " data-for-block="block_interactionHistory" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">History</a></li>
+        <li id="tab_contactAttachments"><a href="javascript:void(0) " data-for-block="block_contactAttachments" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Attachments</a></li>
+        <li v-show="numTeams > 0" id="tab_interactionCreate"><a href="javascript:void(0) " data-for-modal="createInteractionModal" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Create Interaction</a></li>
+        <li id="tab_otherResources" class="dropdown">
+          <a href=" " class="dropdown-toggle" data-toggle="dropdown" tabindex="0">External Resources<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+            <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+            <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+            <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+          </ul>
+        </li>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    </div>
+    <!--<div class="footer">
+      <li id="tab_advisingContact"><a data-for-block="block_advisingContact">Contact Details</a></li>
+      <li id="tab_interactionHistory"><a data-for-block="block_interactionHistory">History</a></li>
+      <li id="tab_contactAttachments"><a data-for-block="block_contactAttachments">Attachments</a></li>
+      <li v-show="numTeams > 0" id="tab_interactionCreate"><a data-for-modal="createInteractionModal">Create Interaction</a></li>
+      <li id="tab_otherResources" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" tabindex="0">External Resources<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+          <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+          <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+          <li><a href="https://example.com" target="_blank" rel="noopener">Link</a></li>
+        </ul>
+      </li>
+    </div>-->
+
+</body>
+</html>
