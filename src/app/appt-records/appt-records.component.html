@@ -14,6 +14,7 @@
     function dropMenu() {
       document.getElementById("myDropdown").classList.toggle("show");
     }
+    <!--Function for displaying dropdown menu -->
 
   </SCRIPT>
 
@@ -22,11 +23,17 @@
   <div>
     <div class="container">
       <form class="form-horizontal" role="form">
+
+        <!--Header of form START -->
         <div class="form-group">
           <h1 align="center" valign="center">
             Appointment Information
           </h1>
         </div>
+        <!--Header of form END -->
+
+        <!--Student's photo START -->
+        <!--If there is a photo for student from test data, run 'isPhoto', otherwise run 'notPhoto' -->
         <div *ngif="isPhoto; else notPhoto" class="form-group" align="center" valign="center">
           <!-- Waiting for student's photo from test data -->
         </div>
@@ -36,7 +43,9 @@
             <p>No photo on file</p>
           </div>
         </ng-template>
+        <!--Student's photo END -->
 
+        <!--Student's information content START -->
         <div class="form-group">
           <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
             <div style="width: 400px;">Record for: {{name}}</div>
@@ -50,14 +59,20 @@
           </label>
           <p></p>
         </div>
+        <!--Student's information content END -->
 
+        <!--Contents of floating popup START -->
         <div id="light" class="white_content">test
+          <!--Close button X of floating popup -->
           <a button style="position: absolute; right: 3%; top: 0;" type="button" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">X</a>
         </div>
         <div id="fade" class="black_overlay"></div>
+        <!--Contents of floating popup END -->
 
       </form>
 
+      <!--Footer START -->
+      <!--Still need to change the style of dropdown to dropup. -->
       <div class="footer">
         <li id="tab_advisingContact"><a href="javascript:void(0)" data-for-block="block_advisingContact" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Contact Details</a></li>
         <li id="tab_interactionHistory"><a href="javascript:void(0) " data-for-block="block_interactionHistory" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">History</a></li>
@@ -73,6 +88,7 @@
           </div>
         </li>
       </div>
+      <!--Footer END -->
     </div>
 
 
