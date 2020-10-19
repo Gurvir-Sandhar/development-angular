@@ -37,10 +37,11 @@ array = [{
 })
 export class ApptTablesComponent implements OnInit {
 
+  // Emitter and variable used to trigger quickview page
   @Output() toggleDetail = new EventEmitter();
-
   isDataAvailable:boolean = false;
 
+  // List of all column names for html to load
   columnNames = [
     {id: 1, label: 'Time'}, {id: 2, label: 'Student'},
     {id: 3, label: 'Here to See'}, {id: 4, label: 'On Team'},
@@ -95,6 +96,7 @@ export class ApptTablesComponent implements OnInit {
     this.getAppointments();
   }
 
+  // Triggers emitter to send data to parent to toggle the quickview page with the correct user's information
   openQuickView(meeting) {
     this.apiService.saveUserInformation(meeting);
     this.toggleDetail.emit();
@@ -194,18 +196,28 @@ export class ApptTablesComponent implements OnInit {
 
   /**
    * changes the look and text of filter type button
+   * @param thing the event of changing the button
    * @param table which table (string)
+   * @param which which table (int)
    * TODO change how it filters
    */
-  public filterType(table) {
+  public filterType(thing, table, which) {
     let element = document.getElementById(table + 'FilterButton');
+
+    // Matching Any --> Match Exact
     if(element.innerHTML == "Matching Any") {
-      element.innerHTML = "Requiring All";
-      element.className = "btn btn-success";
-    } else {
+      element.innerHTML = "Match Exact";
+      element.className = "btn btn-dark";
+    // Requiring All --> Matching Any
+    } else if(element.innerHTML == "Requiring All") {
       element.innerHTML = "Matching Any";
       element.className = "btn btn-light";
+    // Match Exact --> Requiring All
+    } else {
+      element.innerHTML = "Requiring All";
+      element.className = "btn btn-success";
     }
+    this.filter(thing, which, table);
   }
 
   /**
@@ -333,29 +345,32 @@ export class ApptTablesComponent implements OnInit {
    * @param tableName which table is being interacted with 
    */
   public filter(thing, table, tableName) {
-    let element = document.getElementById(tableName + "FilterButton");
-    let input = (<HTMLInputElement>document.getElementById(tableName+"FilterInput")).value;
-    if(element.innerHTML == 'Matching Any') {
+    let button = document.getElementById(tableName + "FilterButton");
+    let input = (<HTMLInputElement>document.getElementById(tableName + "FilterInput")).value;
+
+    // Filter set to Matching Any
+    if(button.innerHTML == 'Matching Any') {
       this.filterMA(thing, table, input);
+    // Filter set to Requiring All
+    } else if(button.innerHTML == 'Requiring All') {
+      this.filterRA(thing, table, input);
+    // Filter set to Match Exact
     } else {
-      this.filterMA(thing, table, input);
+      this.filterME(thing, table, input);
     }
   }
 
   /**
-   * Filters specific tables based on input string - Requiring All(?)
-   * Matching Any implementation still needed
-   * @param thing the input event object from HTML
-   * @param table which table (int)
-   * @param input the value currently in input (filter) field
+   * Filters specific tables based on input string - Match Exact
+   * Example: input => "foo bar" => return results containing both "foo bar", exactly as input
+   * @param thing the input event object from HTML => used to determine how the input has changed
+   * @param table which table (int) => used to determine which table the user is interacting with
+   * @param input the value currently in input (filter) field => full string of user's input 
    */
-  public filterMA(thing, table, input) {
+  public filterME(thing, table, input) {
     // status of meeting is changed to this table so we have to re-filter it
     if(typeof thing == 'number') {
-      let temp = this.filterByValue(this.refilter(table), input.substring(0, 1));
-      for(let i = 1; i < input.length; i++) {
-        temp = this.filterByValue(temp, input.substring(i, i+1));
-      } 
+      let temp = this.filterByValue(this.refilter(table), input);
       if(table == 0) {
         this.queues = temp;
       } else if (table == 1) {
@@ -363,13 +378,11 @@ export class ApptTablesComponent implements OnInit {
       } else if (table == 2) {
         this.completeds = temp;
       }
-    // usually indicates 'delete' so we refilter for remaining characters
+    // usually indicates 'delete' so we need to refilter based on remaining input
     } else if(thing.data == null) {
+      // input not empty, filter on input
       if(input != '') {
-        let temp = this.filterByValue(this.refilter(table), input.substring(0, 1));
-        for(let i = 1; i < input.length; i++) {
-          temp = this.filterByValue(temp, input.substring(i, i+1));
-        } 
+        let temp = this.filterByValue(this.refilter(table), input);
         if(table == 0) {
           this.queues = temp;
         } else if (table == 1) {
@@ -377,6 +390,7 @@ export class ApptTablesComponent implements OnInit {
         } else if (table == 2) {
           this.completeds = temp;
         }
+      // input is empty, show all entries
       } else {
         if(table == 0) {
           this.queues = this.refilter(table);
@@ -388,14 +402,14 @@ export class ApptTablesComponent implements OnInit {
       }
     // indicates a new character was added so filter based on the new character of existing filtered array
     } else {
-        if(table == 0) {
-          this.queues = this.filterByValue(this.queues, thing.data);
-        }
-        else if(table == 1) {
-          this.actives = this.filterByValue(this.actives, thing.data);
-        }
-        else if(table == 2) {
-          this.completeds = this.filterByValue(this.completeds, thing.data);
+      if(table == 0) {
+        this.queues = this.filterByValue(this.queues, input);
+      }
+      else if(table == 1) {
+        this.actives = this.filterByValue(this.actives, input);
+      }
+      else if(table == 2) {
+        this.completeds = this.filterByValue(this.completeds, input);
       }
     }
 
@@ -403,13 +417,191 @@ export class ApptTablesComponent implements OnInit {
   }
 
   /**
+   * Filters specific tables based on input string - Requiring All
+   * Example: input => "foo bar" => return results containing "foo" OR "bar" - nonexclusive
+   * @param thing the input event object from HTML => used to determine how the input has changed
+   * @param table which table (int) => used to determine which table the user is interacting with
+   * @param input the value currently in input (filter) field => full string of user's input 
+   */
+  public filterRA(thing, table, input) {
+    let temp = input.split(" ").filter(o => o);
+    input = temp;
+    // status of meeting is changed to this table so we have to re-filter it
+    if(typeof thing == 'number') {
+      if(input.length > 0) {
+        this.callRA(table, input, 2);
+      } else {
+        if(table == 0) {
+          this.queues = this.refilter(table);
+        } else if (table == 1) {
+          this.actives = this.refilter(table);
+        } else if (table == 2) {
+          this.completeds = this.refilter(table);
+        }
+    }
+    // usually indicates 'delete' so we need to refilter based on remaining input
+    } else if(thing.data == null) {
+      if(input.length > 0) {
+        this.callRA(table, input, 1);
+      } else {
+        if(table == 0) {
+          this.queues = this.refilter(table);
+        } else if (table == 1) {
+          this.actives = this.refilter(table);
+        } else if (table == 2) {
+          this.completeds = this.refilter(table);
+        }
+      }
+    // indicates a new character was added so filter based on the new character of existing filtered array
+    } else {
+      this.callRA(table, input, 2);
+    }
+
+    this.updateTablePagesInfo(table);
+  }
+
+  /**
+   * A middle-man function to properly call the function to filter the function - Requiring All
+   * @param table which table (int) => used to determine which table the user is interacting with
+   * @param input the value currently in input (filter) field => full string of user's input 
+   * @param type int value to tell us how the user interacted with the filter => changes the array we fill feed into the RA filter function
+   */
+  private callRA(table, input, type) {
+    let temp;
+    if(table == 0) {
+      if(type == 1) {
+        temp = this.requiringAll(this.refilter(table), input);
+      } else if(type == 2) {
+        temp = this.requiringAll(this.queues, input);
+      }
+      this.queues = this.sort(temp);
+    }
+    else if(table == 1) {
+      if(type == 1) {
+        temp = this.requiringAll(this.refilter(table), input);
+      } else if(type == 2) {
+        temp = this.requiringAll(this.actives, input);
+      }
+      this.actives = this.sort(temp);
+    }
+    else if(table == 2) {
+      if(type == 1) {
+        temp = this.requiringAll(this.refilter(table), input);
+      } else if(type == 2) {
+        temp = this.requiringAll(this.completeds, input);
+      }
+      this.completeds = this.sort(temp);
+    }
+  }
+
+  /**
+   * Filters specific tables based on input string - Matching Any
+   * Example: input => "foo bar" => return results containing "foo" or "bar"
+   * @param thing the input event object from HTML => used to determine how the input has changed
+   * @param table which table (int) => used to determine which table the user is interacting with
+   * @param input the value currently in input (filter) field => full string of user's input 
+   */
+  public filterMA(thing, table, input) {
+    let temp = input.split(" ").filter(o => o);
+    input = temp;
+    // status of meeting is changed to this table so we have to re-filter it
+    if(typeof thing == 'number') {
+      this.callMA(table, input);
+    // usually indicates 'delete' so we need to refilter based on remaining input
+    } else if(thing.data == null) {
+      if(input.length > 0) {
+        this.callMA(table, input);
+      } else {
+        if(table == 0) {
+          this.queues = this.refilter(table);
+        } else if (table == 1) {
+          this.actives = this.refilter(table);
+        } else if (table == 2) {
+          this.completeds = this.refilter(table);
+        }
+      }
+    // indicates a new character was added so filter based on the new character of existing filtered array
+    } else {
+      this.callMA(table, input);
+    }
+
+    this.updateTablePagesInfo(table);
+  }
+
+    /**
+   * A middle-man function to properly call the function to filter the function - Matching Any
+   * @param table which table (int) => used to determine which table the user is interacting with
+   * @param input the value currently in input (filter) field => full string of user's input 
+   * @param type int value to tell us how the user interacted with the filter => changes the array we fill feed into the MA filter function
+   */
+  private callMA(table, input) {
+    let temp;
+    temp = this.matchingAny(table, input);
+    if(table == 0) {
+      this.queues = this.sort(temp);
+    }
+    else if(table == 1) {
+      this.actives = this.sort(temp);
+    }
+    else if(table == 2) {
+      this.completeds = this.sort(temp);
+    }
+  }
+
+  /**
+   * Logic to filter based on the words delimited by spaces - Requiring All
+   * @param table the array displayed on the table that we are searching from
+   * @param input space delimited filter we are searching the appointments by
+   */
+  private requiringAll(table, input) {
+    let matches = [];
+    // Note: foreach doesn't allow us to 'break' from it but it still seems like the best option
+    input.forEach(element => {
+      if(element == input[0]) {
+        var temp = this.filterByValue(table, element);
+      } else {
+        var temp = this.filterByValue(matches, element);
+      }
+      matches = temp;
+    });
+    return matches;
+  }
+
+    /**
+   * Logic to filter based on the words delimited by spaces - Matching Any
+   * @param which which table (int) => used to determine which table the user is interacting with
+   * @param input space delimited filter we are searching the appointments by
+   */
+  private matchingAny(which, input) {
+    let table = this.refilter(which);
+    let matches = [];
+    // Note: foreach doesn't allow us to 'break' from it but it still seems like the best option
+    input.forEach(element => {
+      let temp = this.filterByValue(table, element);
+      temp.forEach(o => {
+        // need some way to check if object already exists in array so we don't have duplicates
+        if(!(matches.some( ({id}) => id === o.id))) {
+          // add matching values to final array
+          matches.push(o);
+          // remove matching values from further matches (already matches at least 1)
+          table = table.filter(function(el) { return el.id != o.id})
+        } 
+      });
+    });
+    return matches;
+  }
+
+  /**
    * Searches array of objects for substring within all fields
    * @param array which array we're changing
    * @param string the string we're searching for (in array)
    */
-  private filterByValue(array, string: string) {
+  private filterByValue(array, string) {
     return array.filter(o =>
-      Object.keys(o).some(k => o[k].toString().toLowerCase().includes(string.toLowerCase())));
+      Object.keys(o).some(k => 
+        o[k].toString().toLowerCase().includes(string.toLowerCase())
+      )
+    );
   }
 
   /**

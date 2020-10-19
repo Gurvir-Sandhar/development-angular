@@ -1,8 +1,8 @@
 <body>
   <div *ngFor="let table of tables">
-  
+
     <h1>{{table.name}}</h1>
-  
+
     <div aria-label="subheader" class="mfsw-row" id="{{table.id}}Filters">
       <!-- Show _ entries select dropdown -->
       <div class="column left">
@@ -13,50 +13,24 @@
           entries
         </label>
       </div>
-  
+
       <!-- Filter search bar and button -->
       <div class="column right">
-<<<<<<< HEAD
-<<<<<<< HEAD
         <label style="font-weight: bold;">Filter Results: &nbsp;</label>
-<<<<<<< HEAD
-=======
-        <label style="font-weight: bold;">Filter Results: &nbsp;</label> 
->>>>>>> parent of 8a34578... Sample of record page
-=======
-        <label style="font-weight: bold;">Filter Results: &nbsp;</label> 
->>>>>>> parent of 8a34578... Sample of record page
-        <input id="{{table.id}}FilterInput" type="text" (input)="filter($event, table.index)" placeholder="">
-=======
         <input id="{{table.id}}FilterInput" type="text" (input)="filter($event, table.index, table.id)" value="">
->>>>>>> 893c307afb92cc0a6996aea9dc4aabba57639acd
         <span>&nbsp;</span>
-        <button id="{{table.id}}FilterButton" type="button" class="btn btn-success" (click)="filterType(table.id)">Requiring All</button>
+        <button id="{{table.id}}FilterButton" type="button" class="btn btn-success" (click)="filterType($event, table.id, table.index)">Requiring All</button>
       </div>
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-    <table class="table table-striped table-hover" id="{{table.id}}">
-=======
     <table class="table" id="{{table.id}}">
->>>>>>> 893c307afb92cc0a6996aea9dc4aabba57639acd
-=======
-  
-    <table class="table" id="{{table.id}}">
->>>>>>> parent of 8a34578... Sample of record page
-=======
-  
-    <table class="table" id="{{table.id}}">
->>>>>>> parent of 8a34578... Sample of record page
       <thead>
         <!-- Labels for columns -->
         <tr>
           <th scope="col" class="columns" *ngFor="let column of columnNames">{{column.label}}</th>
         </tr>
       </thead>
-  
+
       <tbody *ngFor="let meeting of table.source; let k = index;" id="{{table.id}}Display">
         <tr *ngIf="checkCondition(table.id, meeting.condition)">
           <th scope="rowgroup">
@@ -111,7 +85,7 @@
         </tr>
       </tbody>
     </table>
-    
+
     <div aria-label="{{table.id}}Footer" class="mfsw-row">
       <!-- Showing _ to _ of _ -->
       <div class="column left"> Showing {{table.start}} to {{table.end}} of {{table.total}} entries
@@ -127,18 +101,7 @@
         <span>&nbsp;Page {{table.page}}/{{table.totalPages}}&nbsp;</span>
       </div>
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     <br>
->>>>>>> 893c307afb92cc0a6996aea9dc4aabba57639acd
 
-=======
-  
->>>>>>> parent of 8a34578... Sample of record page
-=======
-  
->>>>>>> parent of 8a34578... Sample of record page
-  </div>
-  </body>
+  </div>  
+</body>
