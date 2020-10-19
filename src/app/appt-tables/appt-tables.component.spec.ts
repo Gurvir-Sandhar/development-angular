@@ -100,6 +100,84 @@ describe('ApptTablesComponent', () => {
       teamName: 'Red Team',
       name: 'Sam6',
       time: '10:00 AM - 10:50'
+    },
+    {
+      id: '7',
+      condition: 'Finished',
+      contactName: 'Sam Student7',
+      contactId: '106',
+      interactionOwnerName: 'Adam Advisor',
+      interactionId: '80',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      name: 'Sam7',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '8',
+      condition: 'Finished',
+      contactName: 'Sam Student8',
+      contactId: '107',
+      interactionOwnerName: 'Adam Advisor',
+      interactionId: '90',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      name: 'Sam8',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '9',
+      condition: 'Finished',
+      contactName: 'Sam Student9',
+      contactId: '108',
+      interactionOwnerName: 'Adam Advisor',
+      interactionId: '100',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      name: 'Sam9',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '10',
+      condition: 'Finished',
+      contactName: 'Sam Student10',
+      contactId: '109',
+      interactionOwnerName: 'Adam Advisor',
+      interactionId: '110',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      name: 'Sam10',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '11',
+      condition: 'Finished',
+      contactName: 'Sam Student11',
+      contactId: '110',
+      interactionOwnerName: 'Adam Advisor',
+      interactionId: '120',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      name: 'Sam11',
+      time: '10:00 AM - 10:50 AM'
+    },
+    {
+      id: '12',
+      condition: 'No-show',
+      contactName: 'Sam Student12',
+      contactId: '111',
+      interactionOwnerName: 'Adam Advisor',
+      interactionId: '130',
+      ownerName: 'Adam Advisor',
+      subject: 'graduation',
+      teamName: 'Red Team',
+      name: 'Sam12',
+      time: '10:00 AM - 10:50 AM'
     }
   ];
 
@@ -110,16 +188,17 @@ describe('ApptTablesComponent', () => {
     })
     .compileComponents();
   });
+
   // setup for before each test
   beforeEach(() => {
     fixture = TestBed.createComponent(ApptTablesComponent);
     component = fixture.componentInstance;
+    // redefines ngOnInit() so we can use our own testData
     component.ngOnInit = () => {};
     component.appointments = component.sort(testData);
     component.initializeAllArrays();
     fixture.detectChanges();
   });
-
 
   /* four test to write:
     1. three tables of appointments displayed in tables by status
@@ -132,6 +211,7 @@ describe('ApptTablesComponent', () => {
   it('simply assert true is true', () => {
     expect(true).toEqual(true);
   });
+
   // example test - asserts component exists
   it ('assert tables to exist', () => {
     expect(component).toBeDefined();
@@ -139,13 +219,31 @@ describe('ApptTablesComponent', () => {
     expect(component.tables[1].name).toContain('Progress');
     expect(component.tables[2].name).toContain('Complete');
   });
+
+  // test to fill tables correctly and check if status change will changes tables
+  it ('should fill tables correctly', () => {
+    // there are a total of 7 records in testData but only 6 should show on the tables
+    expect(component.tables[0].source.length).toBe(2);
+    expect(component.tables[1].source.length).toBe(1);
+    expect(component.tables[2].source.length).toBe(9);
+    // take row out a specific table and insert into a different table
+    // queue to in-progress
+    component.updateCondition(component.meetingConditions[2], component.tables[0].source[0], 1 );
+    expect(component.tables[1].source.length).toBe(2);
+    // in-progress to finished
+    component.updateCondition(component.meetingConditions[3], component.tables[1].source[0], 2);
+    expect(component.tables[2].source.length).toBe(10);
+  });
+
   // example test - asserts appointments by status
   // example test - asserts table index value can change and paging functions
   it ('assert table range changes', () => {
-    expect(component.tables[0].range).toBe(25);
-    component.changeRange(5, 0);
-    expect(component.tables[0].range).toBe(5);
+    expect(component.tables[2].range).toBe(25);
+    component.changeRange(5, 2);
+    expect(component.tables[2].range).toBe(5);
+    component.updateTablePagesInfo(2);
   });
+
   // example test - asserts table can change pages
   it ('assert table page changes', () => {
     expect(component.tables[0].page).toBe(1);
@@ -153,19 +251,10 @@ describe('ApptTablesComponent', () => {
     expect(component.tables[0].page).toBe(1);
   });
 
-  it ('should fill tables correctly', () => {
-    // there are a total of 7 records in testData but only 6 should show on the tables
-    expect(component.tables[0].source.length).toBe(2);
-    expect(component.tables[1].source.length).toBe(1);
-    expect(component.tables[2].source.length).toBe(3);
-
-    // take row out a specific table and insert into a different table
-    // queue to in progress
-    component.updateCondition(component.meetingConditions[2], component.tables[0].source[0], 1 );
-    expect(component.tables[1].source.length).toBe(2);
-    // in progress to finished
-    component.updateCondition(component.meetingConditions[3], component.tables[1].source[0], 2);
-    expect(component.tables[2].source.length).toBe(4);
+  // test to show number of entries are shown correctly
+  it ('should update entries', () => {
+    expect(component.tables[0].total).toBe(1);
+    expect(component.tables[1].total).toBe(1);
+    expect(component.tables[2].total).toBe(10);
   });
-
 });
