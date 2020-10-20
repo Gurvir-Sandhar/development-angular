@@ -222,7 +222,7 @@ describe('ApptTablesComponent', () => {
 
   // test to fill tables correctly and check if status change will changes tables
   it ('should fill tables correctly', () => {
-    // there are a total of 7 records in testData but only 6 should show on the tables
+    // there are a total of 13 records in testData but only 12 should show on the tables
     expect(component.tables[0].source.length).toBe(2);
     expect(component.tables[1].source.length).toBe(1);
     expect(component.tables[2].source.length).toBe(9);
