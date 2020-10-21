@@ -53,7 +53,7 @@ export class ApptTablesComponent implements OnInit {
     {id: 7, label: 'Status'}
   ]
 
-  // All possible conditiones of meetings
+  // All possible conditions of meetings
   meetingConditions = [
     {id: 0, label: 'Reset', condition: 'Scheduled'}, {id: 1, label: 'Check-In', condition: 'Checked In'},
     {id: 2, label: 'Begin', condition: 'Active'}, {id: 3, label: 'Finish', condition: 'Finished'},
@@ -64,9 +64,9 @@ export class ApptTablesComponent implements OnInit {
   entries = [5, 10, 25, 50, 100];
 
   // List of arrays the tables use to know the total appointments in each
-  queues;
-  actives;
-  completeds;
+  queues = [];
+  actives = [];
+  completeds = [];
 
   // Strings that contain our substring for each table that we're filtering for
   queuesFilter = '';
@@ -100,7 +100,7 @@ export class ApptTablesComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  // General etiquite is initializing all variables in NgOnInit vs in constructor
+  // General etiquette is initializing all variables in NgOnInit vs in constructor
   ngOnInit() {
     this.getAppointments();
   }
