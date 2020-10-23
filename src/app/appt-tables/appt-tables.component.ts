@@ -38,6 +38,7 @@ array = [{
 export class ApptTablesComponent implements OnInit {
 
   @Output() toggleDetail = new EventEmitter();
+  @Output() toggleRecord = new EventEmitter();
 
   isDataAvailable:boolean = false;
 
@@ -90,21 +91,26 @@ export class ApptTablesComponent implements OnInit {
 
   constructor(private http: HttpClient, private apiService: ApiService) { }
 
-  // General etiquite is initializing all variables in NgOnInit vs in constructor 
-  ngOnInit() {
+  // General etiquite is initializing all variables in NgOnInit vs in constructor
+  ngOnInit(): void {
     this.getAppointments();
   }
 
-  openQuickView(meeting) {
+  openQuickView(meeting): void {
     this.apiService.saveUserInformation(meeting);
     this.toggleDetail.emit();
+  }
+
+  openRecordView(meeting): void {
+    this.apiService.saveUserInformation((meeting));
+    this.toggleRecord.emit();
   }
 
   // API call to server for list of all appointments - when received, we sort them into respective arrays aka tables
   getAppointments() {
     return this.apiService.httpGET('http://localhost:6543/apps/api/test/appointments').subscribe(data => {
       // since we don't know if they're going to be given to us sorted, we will do it (can remove later if they do come sorted by time)
-      this.appointments = this.sort(data); 
+      this.appointments = this.sort(data);
       this.initializeAllArrays();
     });
   }
@@ -164,7 +170,7 @@ export class ApptTablesComponent implements OnInit {
     this.tables[table].totalPages = Math.round(this.tables[table].total / this.tables[table].range);
     if((this.tables[table].total / this.tables[table].range) > this.tables[table].totalPages) {
       this.tables[table].totalPages += 1;
-    } 
+    }
 
     // last entry being displayed
     if(this.tables[table].end > this.tables[table].total) {
@@ -175,7 +181,7 @@ export class ApptTablesComponent implements OnInit {
     this.tables[table].page = 1;
     if(this.tables[table].total == 0) {
       this.tables[table].page = 0;
-    } 
+    }
 
     // first entry being displayed
     this.tables[table].start = 1;
@@ -187,7 +193,7 @@ export class ApptTablesComponent implements OnInit {
 
     if(this.tables[table].end == 0) {
       this.tables[table].start = 0;
-    } 
+    }
 
     this.setDisplayArray(table);
   }
@@ -222,7 +228,7 @@ export class ApptTablesComponent implements OnInit {
 
     // set meeting's condition as new condition
     meeting.condition = which.condition;
-    // set the meeting in appointment's array as the updated meeting 
+    // set the meeting in appointment's array as the updated meeting
     this.appointments[index] = meeting;
 
     if(this.checkIfUpdateNeeded(oldcondition, meeting.condition)) {
@@ -330,7 +336,7 @@ export class ApptTablesComponent implements OnInit {
    * Filters specific tables based on input string - calls which function
    * @param thing the input event object from HTML
    * @param table which table (int)
-   * @param tableName which table is being interacted with 
+   * @param tableName which table is being interacted with
    */
   public filter(thing, table, tableName) {
     let element = document.getElementById(tableName + "FilterButton");
@@ -355,7 +361,7 @@ export class ApptTablesComponent implements OnInit {
       let temp = this.filterByValue(this.refilter(table), input.substring(0, 1));
       for(let i = 1; i < input.length; i++) {
         temp = this.filterByValue(temp, input.substring(i, i+1));
-      } 
+      }
       if(table == 0) {
         this.queues = temp;
       } else if (table == 1) {
@@ -369,7 +375,7 @@ export class ApptTablesComponent implements OnInit {
         let temp = this.filterByValue(this.refilter(table), input.substring(0, 1));
         for(let i = 1; i < input.length; i++) {
           temp = this.filterByValue(temp, input.substring(i, i+1));
-        } 
+        }
         if(table == 0) {
           this.queues = temp;
         } else if (table == 1) {

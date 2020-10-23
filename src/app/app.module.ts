@@ -52,6 +52,8 @@ export class AppModule implements DoBootstrap  {
     customElements.define('appt-tables', apptTables);
     const quickView = createCustomElement(QuickviewComponent, {injector});
     customElements.define('quick-view', quickView);
+    const apptRecords = createCustomElement(ApptRecordsComponent, {injector});
+    customElements.define('appt-records', apptRecords);
   }
 
   ngDoBootstrap() {}

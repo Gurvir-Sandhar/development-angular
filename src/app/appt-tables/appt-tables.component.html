@@ -47,7 +47,7 @@
             {{meeting.time}}
           </th>
           <td *ngIf="meeting.contactId">
-            <a href="./#/record/{{meeting.contactId}}">{{meeting.name}}</a>
+            <button type="button" class="btn btn-link" (click)="openRecordView(meeting)">{{meeting.name}}</button>
           </td>
           <td *ngIf="!meeting.contactId">
             <a>{{meeting.name}}</a>
