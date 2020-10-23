@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
+@Component({
+  selector: 'app-appt-records',
+  templateUrl: './appt-records.component.html',
+  styleUrls: ['./appt-records.component.css']
+})
+export class ApptRecordsComponent implements OnInit {
 
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
