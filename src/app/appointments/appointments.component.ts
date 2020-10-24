@@ -8,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppointmentsComponent implements OnInit {
 
   // boolean conditions control which view will be shown
-  table = true;
-  detail = false;
-  record = false;
+  table = true;       // appointments table
+  detail = false;     // appointment details
+  record = false;     // student record
 
   constructor() { }
 

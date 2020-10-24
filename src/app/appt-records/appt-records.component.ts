@@ -11,17 +11,20 @@ export class ApptRecordsComponent implements OnInit {
   @Output() toggleRecord = new EventEmitter();
 
   isPhoto = false;
-  name = 'name';
-  id = 'id';
-  email = 'email@pdx.edu';
+  recordData;
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.recordData = this.apiService.getInformation();
+    console.log(this.recordData); // for debugging
   }
 
-  closeRecordView(): void{
+  closeRecordView(): void {
     this.toggleRecord.emit();
   }
 
+  dropMenu(): void {
+    document.getElementById('myDropdown').classList.toggle('show');
+  }
 }
