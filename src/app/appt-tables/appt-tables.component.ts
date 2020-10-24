@@ -89,6 +89,9 @@ export class ApptTablesComponent implements OnInit {
    */
   appointments: any;
 
+  // Test
+  prev_inputs = ['', '', '']
+
   constructor(private http: HttpClient, private apiService: ApiService) { }
 
   // General etiquite is initializing all variables in NgOnInit vs in constructor 
@@ -402,18 +405,56 @@ export class ApptTablesComponent implements OnInit {
       }
     // indicates a new character was added so filter based on the new character of existing filtered array
     } else {
-      if(table == 0) {
-        this.queues = this.filterByValue(this.queues, input);
-      }
-      else if(table == 1) {
-        this.actives = this.filterByValue(this.actives, input);
-      }
-      else if(table == 2) {
-        this.completeds = this.filterByValue(this.completeds, input);
-      }
+      this.callME(table, input);
     }
 
     this.updateTablePagesInfo(table);
+  }
+
+  /**
+   * A middle-man function to properly call the function to filter the function - Requiring All
+   * @param table which table (int) => used to determine which table the user is interacting with
+   * @param input the value currently in input (filter) field => full string of user's input 
+   * @param type int value to tell us how the user interacted with the filter => changes the array we fill feed into the RA filter function
+   *             1: refilters on all appointments of that table 
+   *             2: refilters on subset of appointments already filtered
+   */
+  private callME(table, input) {
+    let temp, type;
+
+    // if the previous input is one less than the length of current input we can filter on what we've already filtered
+    if((this.prev_inputs[table].length+1 == input.length)) {
+      type = 2;
+    // else we have to filter on all appointments of this table type
+    } else {
+      type = 1;
+    }
+    this.prev_inputs[table] = input;
+
+    if(table == 0) {
+      if(type == 1) {
+        temp = this.filterByValue(this.refilter(table), input);
+      } else if(type == 2) {
+        temp = this.filterByValue(this.queues, input);
+      }
+      this.queues = this.sort(temp);
+    }
+    else if(table == 1) {
+      if(type == 1) {
+        temp = this.filterByValue(this.refilter(table), input);
+      } else if(type == 2) {
+        temp = this.filterByValue(this.actives, input);
+      }
+      this.actives = this.sort(temp);
+    }
+    else if(table == 2) {
+      if(type == 1) {
+        temp = this.filterByValue(this.refilter(table), input);
+      } else if(type == 2) {
+        temp = this.filterByValue(this.completeds, input);
+      }
+      this.completeds = this.sort(temp);
+    }
   }
 
   /**
@@ -428,6 +469,7 @@ export class ApptTablesComponent implements OnInit {
     input = temp;
     // status of meeting is changed to this table so we have to re-filter it
     if(typeof thing == 'number') {
+      // if input isn't empty
       if(input.length > 0) {
         this.callRA(table, input, 2);
       } else {
@@ -438,9 +480,10 @@ export class ApptTablesComponent implements OnInit {
         } else if (table == 2) {
           this.completeds = this.refilter(table);
         }
-    }
+      }
     // usually indicates 'delete' so we need to refilter based on remaining input
     } else if(thing.data == null) {
+      // if input isn't empty
       if(input.length > 0) {
         this.callRA(table, input, 1);
       } else {
@@ -454,7 +497,15 @@ export class ApptTablesComponent implements OnInit {
       }
     // indicates a new character was added so filter based on the new character of existing filtered array
     } else {
-      this.callRA(table, input, 2);
+      // if the previous input is 1 character less than current input length, filter by what we've already filtered + the new character
+      if(this.prev_inputs[table].toString().length+1 == input.toString().length) {
+        this.prev_inputs[table] = input;
+        this.callRA(table, input, 2);
+      // else we have to filter on all appointments of this table type
+      } else {
+        this.prev_inputs[table] = input;
+        this.callRA(table, input, 1);
+      }
     }
 
     this.updateTablePagesInfo(table);
@@ -465,6 +516,8 @@ export class ApptTablesComponent implements OnInit {
    * @param table which table (int) => used to determine which table the user is interacting with
    * @param input the value currently in input (filter) field => full string of user's input 
    * @param type int value to tell us how the user interacted with the filter => changes the array we fill feed into the RA filter function
+   *             1: refilters on all appointments of that table 
+   *             2: refilters on subset of appointments already filtered
    */
   private callRA(table, input, type) {
     let temp;
@@ -524,6 +577,9 @@ export class ApptTablesComponent implements OnInit {
     } else {
       this.callMA(table, input);
     }
+
+    // set prev_input for other filter types
+    this.prev_inputs[table] = input;
 
     this.updateTablePagesInfo(table);
   }
