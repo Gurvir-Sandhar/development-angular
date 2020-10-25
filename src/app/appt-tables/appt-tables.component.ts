@@ -74,11 +74,19 @@ export class ApptTablesComponent implements OnInit {
    * => page is the current page
    * => totalPages is the # of pages needed to display all of the meetings based on range
    * => range is the # of meetings being displayed per each table's select menu
+   * 
+   * Note that many of the functions use the index to access different tables based on what is being interacted with.
+   * 0 is for the appointments in the queue table => queues
+   * 1 is for the appointments in the in progress table => actives
+   * 2 is for the appointments in the completeds table => completeds
+   * 
+   * Also note that previous_input will hold what the input was before its latest change, 
+   * this is how we verify what type of change has been made so we can be a little more efficient - see filter function.
    * */
   tables = [
-    {index: 0, name: 'Appointments Queue', id: 'queues', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
-    {index: 1, name: 'Appointments In Progress', id: 'actives', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
-    {index: 2, name: 'Appointments Completed', id: 'completeds', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25},
+    {index: 0, name: 'Appointments Queue', id: 'queues', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25, previous_input: ''},
+    {index: 1, name: 'Appointments In Progress', id: 'actives', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25, previous_input: ''},
+    {index: 2, name: 'Appointments Completed', id: 'completeds', source: [], start: 1, end: 5, total: 0, page: 1, totalPages: 0, range: 25, previous_input: ''},
   ];
 
   /**
@@ -88,9 +96,6 @@ export class ApptTablesComponent implements OnInit {
    * Completed: Finished (Finish), Canceled (Cancel), No show (No-show)
    */
   appointments: any;
-
-  // Test
-  prev_inputs = ['', '', '']
 
   constructor(private http: HttpClient, private apiService: ApiService) { }
 
@@ -412,7 +417,7 @@ export class ApptTablesComponent implements OnInit {
   }
 
   /**
-   * A middle-man function to properly call the function to filter the function - Requiring All
+   * A middle-man function to properly call the function to filter the function - Match Exact
    * @param table which table (int) => used to determine which table the user is interacting with
    * @param input the value currently in input (filter) field => full string of user's input 
    * @param type int value to tell us how the user interacted with the filter => changes the array we fill feed into the RA filter function
@@ -423,13 +428,13 @@ export class ApptTablesComponent implements OnInit {
     let temp, type;
 
     // if the previous input is one less than the length of current input we can filter on what we've already filtered
-    if((this.prev_inputs[table].length+1 == input.length)) {
+    if((this.tables[table].previous_input.toString().length+1 == input.toString().length)) {
       type = 2;
     // else we have to filter on all appointments of this table type
     } else {
       type = 1;
     }
-    this.prev_inputs[table] = input;
+    this.tables[table].previous_input = input;
 
     if(table == 0) {
       if(type == 1) {
@@ -498,12 +503,12 @@ export class ApptTablesComponent implements OnInit {
     // indicates a new character was added so filter based on the new character of existing filtered array
     } else {
       // if the previous input is 1 character less than current input length, filter by what we've already filtered + the new character
-      if(this.prev_inputs[table].toString().length+1 == input.toString().length) {
-        this.prev_inputs[table] = input;
+      if(this.tables[table].previous_input.toString().length+1 == input.toString().length) {
+        this.tables[table].previous_input = input;
         this.callRA(table, input, 2);
       // else we have to filter on all appointments of this table type
       } else {
-        this.prev_inputs[table] = input;
+        this.tables[table].previous_input = input;
         this.callRA(table, input, 1);
       }
     }
@@ -579,7 +584,7 @@ export class ApptTablesComponent implements OnInit {
     }
 
     // set prev_input for other filter types
-    this.prev_inputs[table] = input;
+    this.tables[table].previous_input = input;
 
     this.updateTablePagesInfo(table);
   }
