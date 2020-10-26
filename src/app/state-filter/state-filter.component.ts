@@ -12,9 +12,7 @@ export class StateFilterComponent implements OnInit {
   // Lists fetched from api
   public users;
   public appointments;
-  // TODO: get team data from API
-  // Not sure where the API call is in vue project
-  public teams = ['Red', 'Blue', 'Green', 'White', 'Black']
+  public teams: Array<any> = [];
 
   // Variables decided by user
   public teamId;
@@ -36,7 +34,7 @@ export class StateFilterComponent implements OnInit {
 
   public applyTeam(item) {
     var team: string= item.target.value;
-    this.teamId = this.teams.findIndex(i => i == team);
+    this.teamId = this.teams.findIndex(i => i.teamName == team);
     this.updateFilters();
   }
 
@@ -79,6 +77,20 @@ export class StateFilterComponent implements OnInit {
   public getAppointments(){
     this.api.query('appointments').subscribe(Response => {
       this.appointments = Response;
+
+      var tempSet: Set<String> = new Set();
+      function team(id, name) {
+        this.teamId = id;
+        this.teamName = name;
+      }
+      this.appointments.forEach(element => {
+        var temp = new team(element.teamId, element.teamName);
+        temp = JSON.stringify(temp)
+        if (tempSet.has(temp) == false) {
+          tempSet.add(temp);
+          this.teams.push(JSON.parse(temp));
+        }
+      });
     })
   }
 
