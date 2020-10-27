@@ -1,0 +1,34 @@
+.offset {
+  padding-top: 60px;
+  padding-left: 60px;
+}
+
+h1 {
+  color: brown;
+}
+
+th {
+  font-weight: normal;
+}
+
+.columns {
+  font-weight: bold;
+}
+
+.mfsw-row .column {
+  float: left;
+  padding: 0 10px;
+  min-width: 120px;
+}
+.mfsw-row .left {
+  width: 30%;
+}
+.mfsw-row .right {
+  width: 70%;
+  text-align: right;
+}
+.mfsw-row:after {
+  content: "";
+  display: block;
+  clear: both;
+}
