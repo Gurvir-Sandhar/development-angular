@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApptTablesComponent } from './appt-tables.component';
+import { QuickviewComponent } from './quickview.component';
 
-describe('ApptTablesComponent', () => {
-  let component: ApptTablesComponent;
-  let fixture: ComponentFixture<ApptTablesComponent>;
+describe('QuickviewComponent', () => {
+  let component: QuickviewComponent;
+  let fixture: ComponentFixture<QuickviewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApptTablesComponent ]
+      declarations: [ QuickviewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApptTablesComponent);
+    fixture = TestBed.createComponent(QuickviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
