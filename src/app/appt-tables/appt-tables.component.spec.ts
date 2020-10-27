@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
 import { ApptTablesComponent } from './appt-tables.component';
+import { HttpClientTestingModule} from '@angular/common/http/testing';
+import testData from '../testData';
 
 describe('ApptTablesComponent', () => {
   let component: ApptTablesComponent;
@@ -8,7 +10,8 @@ describe('ApptTablesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApptTablesComponent ]
+      declarations: [ ApptTablesComponent ],
+      imports: [ HttpClientTestingModule ]
     })
     .compileComponents();
   });
@@ -16,10 +19,29 @@ describe('ApptTablesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ApptTablesComponent);
     component = fixture.componentInstance;
+    // redefines ngOnInit() so we can use our own testData
+    component.ngOnInit = () => {};
+    component.appointments = component.sort(testData);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('apply requiring all filter', () => {
+    component.filterRA({data: 'abc'}, 2, 'masters program');
+    // check a name is there
+    expect(component.tables[2].source).toContain(jasmine.objectContaining({subject: 'masters program'}));
+    // check a similar name isn't
+    expect(component.tables[2].source).not.toContain(jasmine.objectContaining({subject: 'postbacc program'}));
+    // check a different name isn't
+    expect(component.tables[2].source).not.toContain(jasmine.objectContaining({subject: 'graduation'}));
+  });
+  it('apply matching any filter', () => {
+    // apply filter
+    component.filterME({ data: 'abc' }, 2, 'masters program');
+    // check a name is there
+    expect(component.tables[2].source).toContain(jasmine.objectContaining({subject: 'masters program'}));
+    // check a similar name is
+    expect(component.tables[2].source).toContain(jasmine.objectContaining({subject: 'postbacc program'}));
+    // check a different name isn't
+    expect(component.tables[2].source).not.toEqual(jasmine.objectContaining('graduation'));
   });
 });
