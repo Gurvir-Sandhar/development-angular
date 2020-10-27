@@ -91,19 +91,21 @@ export class StateFilterComponent implements OnInit {
     this.api.query('appointments').subscribe(Response => {
       this.appointments = Response;
 
-      var tempSet: Set<String> = new Set();
-      function team(id, name) {
-        this.teamId = id;
-        this.teamName = name;
-      }
-      this.appointments.forEach(element => {
-        var temp = new team(element.teamId, element.teamName);
-        temp = JSON.stringify(temp)
-        if (tempSet.has(temp) == false) {
-          tempSet.add(temp);
-          this.teams.push(JSON.parse(temp));
+      if (this.teams.length == 0) {
+        var tempSet: Set<String> = new Set();
+        function team(id, name) {
+          this.teamId = id;
+          this.teamName = name;
         }
-      });
+        this.appointments.forEach(element => {
+          var temp = new team(element.teamId, element.teamName);
+          temp = JSON.stringify(temp)
+          if (tempSet.has(temp) == false) {
+            tempSet.add(temp);
+            this.teams.push(JSON.parse(temp));
+          }
+        });
+      }
     })
   }
 
