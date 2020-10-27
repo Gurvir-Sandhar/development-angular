@@ -33,15 +33,28 @@ export class StateFilterComponent implements OnInit {
   });
 
   public applyTeam(item) {
-    var team: string= item.target.value;
-    this.teamId = this.teams.findIndex(i => i.teamName == team);
+    var team: string = item.target.value;
+
+    function teamIdSearch(team, array) {
+      var value = '';
+      array.forEach(element => {
+        if (element.teamName == team)
+          value = element.teamId;
+      });
+      return value;
+    }
+
+    this.teamId = teamIdSearch(team, this.teams)
     this.updateFilters();
   }
 
   public applyUser(item) {
     var user: string = item.target.value;
     var index = this.users.findIndex(i => i.name == user)
-    this.userId = this.users[index].id;
+    if (index == -1)
+      this.userId = '';
+    else 
+      this.userId = this.users[index].id;
     this.updateFilters();
   }
 
@@ -100,8 +113,5 @@ export class StateFilterComponent implements OnInit {
     this.api.stateQuery(this.teamId, this.userId, 
       this.dateString)
     .subscribe()
-
-    // Unsure what to do with returned value.
-    // Even in demo the query always 404s
   }
 }
