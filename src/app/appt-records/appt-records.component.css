@@ -1,47 +1,39 @@
-/*.bodyBox{
-  width:200px;
-  height:200px;
-  position:absolute;
-  left:50%;
-
-  transform: translate(-50%);
-}
-
-.footer{
-  bottom:0;
-  clear: both;
-  position: absolute
-} */
-
-body{
-  background-color: rgb(109,141,34)!important;
-  /*background-image: url('psu_img.jpg');
-  background-repeat:no-repeat;
-  background-position:center center;*/
+.record {
+  background-color: rgb(109, 141, 34) !important;
+  height: 100vh;
+  overflow: hidden;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-body form{
+.container{
+  background-color: rgb(109, 141, 34) !important;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.record form {
   border-radius: 25px;
-  margin:8% 1%;
+  margin: 3% 1%;
   background-color: white;
 }
 
-li{
-  float:left;
-  list-style:none;
+li {
+  /*float: left;*/
+  list-style: none;
   display: inline-block;
   margin: 0 4%;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  height: 50px;
-  width:100%;
+.footer-record {
+  margin:0 10%;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
 }
 
-.black_overlay{
+.black_overlay {
   display: none;
   position: absolute;
   top: 0%;
@@ -49,9 +41,9 @@ li{
   width: 100%;
   height: 100%;
   background-color: darkgray;
-  z-index:1001;
+  z-index: 1001;
   -moz-opacity: 0.8;
-  opacity:.80;
+  opacity: .80;
   filter: alpha(opacity=88);
 }
 
@@ -66,33 +58,34 @@ li{
   border-radius: 25px;
   /*border: 5px solid #ff4c00;*/
   background-color: white;
-  z-index:1002;
+  z-index: 1002;
   overflow: auto;
 }
 
-a:link{
+a:link {
   color: white;
   text-decoration: none;
 }
 
-a:link:hover{
+a:link:hover {
   color: gainsboro;
   text-decoration: underline;
 }
 
-.dropdown-toggle{
-  color:white;
+.dropdown-toggle {
+  color: white;
   text-decoration: none;
 }
 
-.dropdown-toggle:hover, .dropdown-toggle:focus{
-  color:gainsboro;
+.dropdown-toggle:hover,
+.dropdown-toggle:focus {
+  color: gainsboro;
   text-decoration: underline;
 }
 
-.dropdown-toggle:hover .dropdown-menu{
+.dropdown-toggle:hover .dropdown-menu {
   display: block;
-  position:absolute;
+  position: absolute;
   bottom: 100%;
 }
 
@@ -104,10 +97,10 @@ a:link:hover{
 .dropdown-menu {
   display: none;
   position: absolute;
-  bottom: 50px;
+  top: -220px;
   background-color: #f1f1f1;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -122,6 +115,88 @@ a:link:hover{
   display: block;
 }
 
-.dropdown-menu a:hover {background-color: #f1f1f1}
+.dropdown-menu a:hover {
+  background-color: #f1f1f1
+}
 
-.show {display:block;}
+.show {
+  display: block;
+}
+
+.gotop {
+  position: fixed;
+  bottom: 5%;
+  z-index: 100;
+  width: 3rem;
+  background: lightgray;
+  color: #fff;
+  padding: .5rem;
+  border-radius: .5rem;
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+.float-right a {
+  text-decoration: none;
+}
+
+.gotop:hover,
+.gotop:active {
+  background: rgba(167, 5, 65, 0.56) ！important;
+  color: #fff;
+  text-decoration: none
+}
+
+.popup_close {
+  position: absolute;
+  right: 3%;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  display: block;
+  font-family: Helvetica, STHeiti;
+  _font-family: '\u9ed1\u4f53', 'Book Antiqua', Palatino;
+  font-size: 18px;
+  border-radius: 20px;
+  background: #999;
+  color: #FFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  -moz-transition: linear .06s;
+  -webkit-transition: linear .06s;
+  transition: linear .06s;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.popup_close:hover {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  right: 3%;
+  top: 2px;
+  color: #FFF;
+  box-shadow: 0 1px 3px rgba(209, 40, 42, .5);
+  background: #d1282a;
+  border-radius: 24px;
+  transition: all 0.2s ease-out;
+
+}
+
+.return-table{
+  margin: 0 1%;
+  left:1px;
+  top:5px;
+}
+
+.return-table a:link{
+  color: black;
+  text-decoration:none;
+}
+
+.return-table a:hover{
+  text-decoration:none;
+}
