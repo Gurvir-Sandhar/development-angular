@@ -9,6 +9,7 @@ import { ApiService } from '../api.service';
 export class QuickviewComponent implements OnInit {
 
   @Output() toggleDetail = new EventEmitter();
+  @Output() toggleRecordFromDetail = new EventEmitter();
 
   detail;
   list = false;
@@ -30,6 +31,10 @@ export class QuickviewComponent implements OnInit {
    */
   closeQuickView() {
     this.toggleDetail.emit();
+  }
+
+  openRecordView(): void {
+    this.toggleRecordFromDetail.emit();
   }
 
   /**

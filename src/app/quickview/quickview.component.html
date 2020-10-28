@@ -7,16 +7,16 @@
         <span></span>X Done
       </button>
       <hr>
-  
+
       <div class="mfsw-row">
         <div class="column">
           <p>
-            <a *ngIf="detail.contactId" href="./#/record/{{detail.contactId}}">{{detail.contactName}}</a>
+            <button class="btn btn-link" (click)="openRecordView()" *ngIf="detail.contactId" href="./#/record/{{detail.contactId}}">{{detail.contactName}}</button>
             <a *ngIf="!detail.contactId">{{detail.contactName}}</a>
           </p>
         </div>
       </div>
-      
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Team</strong>
@@ -25,7 +25,7 @@
           <span>{{detail.teamName}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Appointment</strong>
@@ -34,7 +34,7 @@
           <span>{{detail.id}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Interaction</strong>
@@ -43,7 +43,7 @@
           <span>{{detail.interactionId}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Here for</strong>
@@ -52,7 +52,7 @@
           <span>{{detail.apptType}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Signed in at</strong>
@@ -61,7 +61,7 @@
           <span>{{detail.interactionCreatedOn}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Here to see</strong>
@@ -77,7 +77,7 @@
             <select *ngIf="list" id="options" type="selectdropdown block" (change)="changeSelect($event.target.value)">
               <option value="">Choose One</option>
               <option *ngFor="let user of users; let k = index" value="{{k}}">{{user.name}}</option>
-            </select> 
+            </select>
           </div>
           <div class="right">
             <button type="button" class="btn btn-warning" *ngIf="reassignShow" (click)="reassign()">
@@ -87,7 +87,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Meeting with</strong>
@@ -96,7 +96,7 @@
           <span>{{detail.interactionOwnerName}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Major asserted</strong>
@@ -105,7 +105,7 @@
           <span>{{detail.major}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Preprof asserted</strong>
@@ -114,7 +114,7 @@
           <span>{{detail.preprof}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Honors asserted</strong>
@@ -123,7 +123,7 @@
           <span>{{detail.honors}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Expected grad</strong>
@@ -132,7 +132,7 @@
           <span>{{detail.gradExpected}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>State</strong>
@@ -141,7 +141,7 @@
           <span>{{detail.condition}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Subject</strong>
@@ -154,7 +154,7 @@
           </a>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Name</strong>
@@ -163,7 +163,7 @@
           <span>{{detail.name}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Reasons</strong>
@@ -172,7 +172,7 @@
           <span>{{detail.reasons}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Notes</strong>
@@ -181,7 +181,7 @@
           <span>{{detail.notes}}</span>
         </div>
       </div>
-  
+
       <div class="mfsw-row">
         <div class="column left">
           <strong>Appointment Start</strong>
@@ -190,13 +190,13 @@
           <span>{{detail.startOn}}</span>
         </div>
       </div>
-  
+
       <hr>
       <button type="button" class="btn btn-success btn-block">
         <!-- TODO BEGIN SESSION SCREEN + UPDATE STATUS -->
         <span>>> Begin Session</span>
       </button>
-  
+
     </div>
     <div *ngIf="!check()">
       ERROR
