@@ -1,27 +1,26 @@
-<div>
+<div class="dropdown">
 <ul>
     <li>
-        <form [formGroup]="form" class="form-group">
-            <select formControlName="dropdown" class="form-control" (change)="applyTeam($event)">
-                <option>Choose team</option>
-                <option *ngFor="let list of teams">{{list.teamName}}</option>
+        <form [formGroup]="form">
+            <select class="dropbtn" formControlName="dropdown"(change)="applyTeam($event)">
+                <option class="dropdown-content">Choose team</option>
+                <option class="dropdown-content" *ngFor="let list of teams">{{list.teamName}}</option>
             </select>
         </form>
     </li>
     <li>
-        <form [formGroup]="form" class="form-group">
-            <select formControlName="dropdown" class="form-control" (change)="applyUser($event)">
-                <option>Users (all)</option>
-                <option *ngFor="let list of users">{{list.name}}</option>
+        <form [formGroup]="form">
+            <select class="dropbtn" formControlName="dropdown" (change)="applyUser($event)">
+                <option class="dropdown-content">Users (all)</option>
+                <option class="dropdown-content" *ngFor="let list of users">{{list.name}}</option>
             </select>
         </form>
     </li>
     <li>
-        <span>{{formatDate(currentDate)}}</span>
-        <input type="date" class="form-group" placeholder="'mm/dd/yyyy'" (change)="applyDate($event)">
+        <input class="dropbtn" type="date" (change)="applyDate($event)">
     </li>
     <li>
-        <button (click)="getAppointments()">Refresh</button>
+        <button class="dropbtn" (click)="getAppointments()">Refresh</button>
     </li>
 </ul>
 </div>

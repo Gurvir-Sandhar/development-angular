@@ -75,16 +75,20 @@ export class StateFilterComponent implements OnInit {
     else {
       this.currentDate = new Date(date);
     }
-    this.dateString = this.currentDate.getFullYear() + '-'
-      + (this.currentDate.getMonth() + 1) + '-'
-      + this.currentDate.getUTCDate();
-  }
+    var year = this.currentDate.getFullYear();
+    var month = this.currentDate.getMonth() + 1;
+    var day = this.currentDate.getUTCDate();
 
-  public formatDate(val) {
-    //NOTE: To ensure the locale and timezone match, can
-    //alternately set the timeZone in the options to UTC.
-    return val.toLocaleDateString("en-US"
-      , { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+    function addZero(value) {
+      if (value < 10)
+        return '0' + value
+      else
+        return value
+    }
+
+    month = addZero(month)
+    day = addZero(day)
+    this.dateString = year + '-' + month + '-' + day;
   }
 
   public getAppointments(){
