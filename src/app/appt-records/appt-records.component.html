@@ -1,95 +1,96 @@
+
 <body>
 <div class="record">
 
   <div class="return-table">
     <button class="btn btn-link" (click)="closeRecordView()">⬅ Return back</button>
   </div>
+  
   <div class="container">
-
     <form class="form-horizontal" role="form">
 
-      <!--Header of form START -->
-      <div class="form-group">
-        <h1 align="center" valign="center">
-          Appointment Information
-        </h1>
-      </div>
-      <!--Header of form END -->
-
-      <!--Student's photo START -->
-      <!--If there is a photo for student from test data, run 'isPhoto', otherwise run 'notPhoto' -->
-      <div *ngIf="isPhoto; else notPhoto" class="form-group" align="center" valign="center">
-        <!-- Waiting for student's photo from test data -->
-
-      </div>
-      <ng-template #notPhoto>
-        <div class="form-group" align="center" valign="center">
-          <img id="not_photo" src="../assets/defaultProfilePic.png" alert="student's photo" width="15%">
-          <p>No photo on file</p>
+        <!--Header of form START -->
+        <div class="form-group">
+          <h1 align="center" valign="center">
+            Appointment Information
+          </h1>
         </div>
-      </ng-template>
-      <!--Student's photo END -->
+        <!--Header of form END -->
 
-      <!--Student's information content START -->
-      <div class="form-group">
-        <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
-          <div style="width: 400px;">Record for: {{recordData.contactName}}</div>
-        </h2>
-        <label class="control-label col-sm-3" style="margin:1.5% 25%;">
-          <h3>ID: {{recordData.contactId}}</h3>
-        </label>
-        <p> </p>
-        <label class="control-label col-sm-3" style="margin:1.5% 25%;">
-          <h3>Email: Not in test api so far. </h3>
-        </label>
-        <p></p>
+        <!--Student's photo START -->
+        <!--If there is a photo for student from test data, run 'isPhoto', otherwise run 'notPhoto' -->
+        <div *ngIf="isPhoto; else notPhoto" class="form-group" align="center" valign="center">
+          <!-- Waiting for student's photo from test data -->
+
+        </div>
+        <ng-template #notPhoto>
+          <div class="form-group" align="center" valign="center">
+            <img id="not_photo" src="../assets/defaultProfilePic.png" alert="student's photo" width="15%">
+            <p>No photo on file</p>
+          </div>
+        </ng-template>
+        <!--Student's photo END -->
+
+        <!--Student's information content START -->
+        <div class="form-group">
+          <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
+            <div style="width: 400px;">Record for: {{recordData.contactName}}</div>
+          </h2>
+          <label class="control-label col-sm-3" style="margin:1.5% 25%;">
+            <h3>ID: {{recordData.contactId}}</h3>
+          </label>
+          <p> </p>
+          <label class="control-label col-sm-3" style="margin:1.5% 25%;">
+            <h3>Email: Not in test api so far. </h3>
+          </label>
+          <p></p>
+        </div>
+        <!--Student's information content END -->
+
+        <!--Contents of floating popup START class="btn btn-danger rounded-circle"-->
+        <div id="light" class="white_content">test
+          <!--Close button X of floating popup -->
+          <a button class="popup_close" type="button"
+            onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">X</a>
+        </div>
+        <div id="fade" class="black_overlay"></div>
+        <!--Contents of floating popup END -->
+
+      </form>
+      <!-- Go top bar START-->
+      <div class="float-right">
+        <a class="gotop d-none d-sm-block" href="javascript:scroll(0,0)">🔝</a>
       </div>
-      <!--Student's information content END -->
-
-      <!--Contents of floating popup START class="btn btn-danger rounded-circle"-->
-      <div id="light" class="white_content">test
-        <!--Close button X of floating popup -->
-        <a button class="popup_close" type="button"
-           onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">X</a>
-      </div>
-      <div id="fade" class="black_overlay"></div>
-      <!--Contents of floating popup END -->
-
-    </form>
-    <!-- Go top bar START-->
-    <div class="float-right">
-      <a class="gotop d-none d-sm-block" href="javascript:scroll(0,0)">🔝</a>
+      <!--Go top bar END-->
     </div>
-    <!--Go top bar END-->
-  </div>
-  <!--Footer START -->
-  <!--Still need to change the style of dropdown to dropup. -->
-  <div class="footer-record">
-    <li id="tab_advisingContact"><a href="javascript:void(0)" data-for-block="block_advisingContact"
-                                    onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Contact
-      Details</a></li>
-    <li id="tab_interactionHistory"><a href="javascript:void(0) " data-for-block="block_interactionHistory"
-                                       onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">History</a>
-    </li>
-    <li id="tab_contactAttachments"><a href="javascript:void(0) " data-for-block="block_contactAttachments"
-                                       onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Attachments</a>
-    </li>
-    <li v-show="numTeams > 0" id="tab_interactionCreate"><a href="javascript:void(0) "
-                                                            data-for-modal="createInteractionModal"
-                                                            onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Create
-      Interaction</a></li>
-    <li id="tab_otherResources" class="dropdown">
-      <a href=" " class="dropdown-toggle" data-toggle="dropdown" tabindex="0" onclick="dropMenu()">External
-        Resources<span class="caret"></span></a>
-      <div id="myDropdown" class="dropdown-menu">
-        <a href="https://example.com" target="_blank" rel="noopener">Link</a>
-        <a href="https://example.com" target="_blank" rel="noopener">Link</a>
-        <a href="https://example.com" target="_blank" rel="noopener">Link</a>
-        <a href="https://example.com" target="_blank" rel="noopener">Link</a>
-      </div>
-    </li>
-  </div>
-  <!--Footer END -->
+    <!--Footer START -->
+    <!--Still need to change the style of dropdown to dropup. -->
+    <div class="footer-record">
+      <li id="tab_advisingContact"><a href="javascript:void(0)" data-for-block="block_advisingContact"
+          onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Contact
+          Details</a></li>
+      <li id="tab_interactionHistory"><a href="javascript:void(0) " data-for-block="block_interactionHistory"
+          onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">History</a>
+      </li>
+      <li id="tab_contactAttachments"><a href="javascript:void(0) " data-for-block="block_contactAttachments"
+          onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Attachments</a>
+      </li>
+      <li v-show="numTeams > 0" id="tab_interactionCreate"><a href="javascript:void(0) "
+          data-for-modal="createInteractionModal"
+          onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">Create
+          Interaction</a></li>
+      <li id="tab_otherResources" class="dropdown">
+        <a href=" " class="dropdown-toggle" data-toggle="dropdown"  tabindex="0" onclick="dropMenu()">External
+          Resources<span class="caret"></span></a>
+        <div id="myDropdown" class="dropdown-menu">
+          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
+          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
+          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
+          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
+        </div>
+      </li>
+    </div>
+    <!--Footer END -->
 
-</div>
+  </div>
 </body>
