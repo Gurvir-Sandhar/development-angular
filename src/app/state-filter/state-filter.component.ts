@@ -15,10 +15,10 @@ export class StateFilterComponent implements OnInit {
   public teams: Array<any> = [];
 
   // Variables decided by user
-  public teamId;
-  public userId;
-  public currentDate;
-  public dateString;
+  public teamId: string;
+  public userId: string;
+  public currentDate: Date;
+  public dateString: string;
 
   constructor(private api: ApiService) {}
 
@@ -64,7 +64,7 @@ export class StateFilterComponent implements OnInit {
   }
 
   private getUsers() {
-    this.users = this.api.query('users').subscribe(Response =>
+    this.api.query('users').subscribe(Response =>
       this.users = Response)
   }
 
