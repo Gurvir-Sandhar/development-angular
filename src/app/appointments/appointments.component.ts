@@ -27,4 +27,9 @@ export class AppointmentsComponent implements OnInit {
     this.record = !this.record;
   }
 
+  toggleRecordFromDetail(): void {
+    this.detail = !this.detail;
+    this.record = !this.record;
+  }
+
 }

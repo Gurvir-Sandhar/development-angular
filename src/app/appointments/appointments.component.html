@@ -4,7 +4,7 @@
     <appt-tables (toggleDetail)='toggleDetail()' (toggleRecord)='toggleRecord()'></appt-tables>
   </div>
   <div *ngIf="detail">
-    <quick-view (toggleDetail)='toggleDetail()'></quick-view>
+    <quick-view (toggleDetail)='toggleDetail()' (toggleRecordFromDetail)='toggleRecordFromDetail()'></quick-view>
   </div>
   <div *ngIf="record">
     <appt-records (toggleRecord)='toggleRecord()'></appt-records>

@@ -1,11 +1,10 @@
-
-
 .record {
   background-color: rgb(109, 141, 34) !important;
   height: 100vh;
   overflow: hidden;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .container{
   background-color: rgb(109, 141, 34) !important;
   height: 100vh;
@@ -13,6 +12,7 @@
   overflow: hidden;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .record form {
   border-radius: 25px;
   margin: 3% 1%;
@@ -119,8 +119,6 @@ a:link:hover {
   background-color: #f1f1f1
 }
 
-
-
 .gotop {
   position: fixed;
   bottom: 5%;
@@ -183,15 +181,18 @@ a:link:hover {
   transition: all 0.2s ease-out;
 
 }
+
 .return-table{
   margin: 0 1%;
   left:1px;
   top:5px;
 }
-.return-table a:link{
+
+.return-table a:link {
   color: black;
   text-decoration:none;
 }
-.return-table a:hover{
+
+.return-table a:hover {
   text-decoration:none;
 }
