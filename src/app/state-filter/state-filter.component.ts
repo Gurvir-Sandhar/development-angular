@@ -53,7 +53,7 @@ export class StateFilterComponent implements OnInit {
     var index = this.users.findIndex(i => i.name == user)
     if (index == -1)
       this.userId = '';
-    else 
+    else
       this.userId = this.users[index].id;
     this.updateFilters();
   }
@@ -65,7 +65,7 @@ export class StateFilterComponent implements OnInit {
 
   private getUsers() {
     this.users = this.api.query('users').subscribe(Response =>
-      this.users = Response)
+      this.users = Response);
   }
 
   private getDate(date) {
@@ -84,7 +84,7 @@ export class StateFilterComponent implements OnInit {
     //NOTE: To ensure the locale and timezone match, can
     //alternately set the timeZone in the options to UTC.
     return val.toLocaleDateString("en-US"
-      , { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+      , { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   }
 
   public getAppointments(){
@@ -99,21 +99,21 @@ export class StateFilterComponent implements OnInit {
         }
         this.appointments.forEach(element => {
           var temp = new team(element.teamId, element.teamName);
-          temp = JSON.stringify(temp)
+          temp = JSON.stringify(temp);
           if (tempSet.has(temp) == false) {
             tempSet.add(temp);
             this.teams.push(JSON.parse(temp));
           }
         });
       }
-    })
+    });
   }
 
   public updateFilters() {
     // /apps/api/test/filters/?teamId=(teamID)&pickOwner=(userID)&pickDay=(today)
 
-    this.api.stateQuery(this.teamId, this.userId, 
+    this.api.stateQuery(this.teamId, this.userId,
       this.dateString)
-    .subscribe()
+    .subscribe();
   }
 }

@@ -4,7 +4,7 @@
         <form [formGroup]="form" class="form-group">
             <select formControlName="dropdown" class="form-control" (change)="applyTeam($event)">
                 <option>Choose team</option>
-                <option *ngFor="let list of teams">{{list.teamName}}</option>
+                <option *ngForOf="let list of teams">{{list.name}}</option>
             </select>
         </form>
     </li>
@@ -12,7 +12,7 @@
         <form [formGroup]="form" class="form-group">
             <select formControlName="dropdown" class="form-control" (change)="applyUser($event)">
                 <option>Users (all)</option>
-                <option *ngFor="let list of users">{{list.name}}</option>
+                <option *ngForOf="let list of users">{{list.name}}</option>
             </select>
         </form>
     </li>
