@@ -34,7 +34,8 @@ describe('StateFilterComponent', () => {
     expect(component.teamId).toEqual('test team');
   });
   it('state-filter should have a date', () => {
-    component.currentDate = new Date();
-    expect(component.currentDate).toEqual(new Date());
+    const someDate = new Date();
+    component.currentDate = someDate;
+    expect(component.currentDate.toString()).toEqual(someDate.toString());
   });
 });
