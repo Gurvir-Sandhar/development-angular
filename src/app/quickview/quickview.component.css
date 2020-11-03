@@ -1,0 +1,20 @@
+.mfsw-row .column {
+  float: left;
+  padding: 0 10px;
+  min-width: 120px;
+}
+.mfsw-row .left {
+  width: 30%;
+}
+.mfsw-row .right {
+  width: 70%;
+}
+.mfsw-row:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+h1 {
+color: brown;
+}
