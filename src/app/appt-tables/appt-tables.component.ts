@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
 
 /*
@@ -97,7 +96,7 @@ export class ApptTablesComponent implements OnInit {
    */
   appointments: any;
 
-  constructor(private http: HttpClient, private apiService: ApiService) { }
+  constructor(private apiService: ApiService) { }
 
   // General etiquite is initializing all variables in NgOnInit vs in constructor 
   ngOnInit() {
