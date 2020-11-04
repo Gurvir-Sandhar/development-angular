@@ -65,11 +65,19 @@ export class QuickviewComponent implements OnInit {
   }
 
   /**
-   * NOT FINISHED - SHOULD CHANGE THE ACTUAL OBJECT IN SERVER
+   * TODO ADD API CALL TO MAKE CHANGE IN SERVER
    * Changes the name being displayed - changed value of who the user is meeting
    */
   reassign() {
     this.detail.ownerName = this.changeTo;
+  }
+
+  /**
+   * Start appointment
+   * TODO MAKE API CALL TO MAKE CHANGE IN SERVER
+   */
+  startAppointment() {
+    
   }
 
 }

@@ -73,17 +73,19 @@
             <!-- <span class="glyphicon glyphicon-edit"></span> -->
             T
           </button>
-          <div class="right">
-            <select *ngIf="list" id="options" type="selectdropdown block" (change)="changeSelect($event.target.value)">
-              <option value="">Choose One</option>
-              <option *ngFor="let user of users; let k = index" value="{{k}}">{{user.name}}</option>
-            </select> 
-          </div>
-          <div class="right">
-            <button type="button" class="btn btn-warning" *ngIf="reassignShow" (click)="reassign()">
-              <!-- Glyphicon -->
-              Reassign Appointment
-            </button>
+          <div *ngIf="list">
+            <div class="right">
+              <select *ngIf="list" id="options" type="selectdropdown block" (change)="changeSelect($event.target.value)">
+                <option value="">Choose One</option>
+                <option *ngFor="let user of users; let k = index" value="{{k}}">{{user.name}}</option>
+              </select> 
+            </div>
+            <div class="right">
+              <button type="button" class="btn btn-warning" *ngIf="reassignShow" (click)="reassign()">
+                <!-- Glyphicon -->
+                Reassign Appointment
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -192,7 +194,7 @@
       </div>
   
       <hr>
-      <button type="button" class="btn btn-success btn-block">
+      <button type="button" class="btn btn-success btn-block" (click)="startAppointment()">
         <!-- TODO BEGIN SESSION SCREEN + UPDATE STATUS -->
         <span>>> Begin Session</span>
       </button>
