@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
 import { StateFilterComponent } from './state-filter/state-filter.component';
 import { NgModule, DoBootstrap, Injector } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
@@ -23,7 +22,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    StateFilterComponent
+    StateFilterComponent,
+    ApptTablesComponent,
+    AppointmentsComponent,
+    QuickviewComponent
   ],
   imports: [
     BrowserModule,
