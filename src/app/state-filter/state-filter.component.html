@@ -1,0 +1,26 @@
+<div class="dropdown">
+<ul>
+    <li>
+        <form [formGroup]="form">
+            <select class="dropbtn" formControlName="dropdown"(change)="applyTeam($event)">
+                <option class="dropdown-content">Choose team</option>
+                <option class="dropdown-content" *ngFor="let list of teams">{{list.teamName}}</option>
+            </select>
+        </form>
+    </li>
+    <li>
+        <form [formGroup]="form">
+            <select class="dropbtn" formControlName="dropdown" (change)="applyUser($event)">
+                <option class="dropdown-content">Users (all)</option>
+                <option class="dropdown-content" *ngFor="let list of users">{{list.name}}</option>
+            </select>
+        </form>
+    </li>
+    <li>
+        <input class="dropbtn" type="date" (change)="applyDate($event)">
+    </li>
+    <li>
+        <button class="dropbtn" (click)="getAppointments()">Refresh</button>
+    </li>
+</ul>
+</div>
