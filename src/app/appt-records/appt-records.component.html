@@ -5,7 +5,7 @@
   <div class="return-table">
     <button class="btn btn-link" (click)="closeRecordView()">⬅ Return back</button>
   </div>
-  
+
   <div class="container">
     <form class="form-horizontal" role="form">
 
@@ -34,14 +34,14 @@
         <!--Student's information content START -->
         <div class="form-group">
           <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
-            <div style="width: 400px;">Record for: {{recordData.contactName}}</div>
+            <div style="width: 400px;">Record for: {{recordData?.contact.fullName}}</div>
           </h2>
           <label class="control-label col-sm-3" style="margin:1.5% 25%;">
-            <h3>ID: {{recordData.contactId}}</h3>
+            <h3>ID: {{recordData?.contact.badgeId}}</h3>
           </label>
           <p> </p>
           <label class="control-label col-sm-3" style="margin:1.5% 25%;">
-            <h3>Email: Not in test api so far. </h3>
+            <h3>Email: {{recordData?.contact.email}} </h3>
           </label>
           <p></p>
         </div>
