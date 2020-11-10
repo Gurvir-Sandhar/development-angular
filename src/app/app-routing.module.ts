@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {AboutComponent} from './about/about.component';
 import {AppointmentsComponent} from './appointments/appointments.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'appointments',
     component: AppointmentsComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   },
   // otherwise redirect to home
   { path: '**', redirectTo: '' },
