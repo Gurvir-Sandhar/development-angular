@@ -147,8 +147,8 @@ a:link:hover {
 
 .popup_close {
   position: absolute;
-  right: 3%;
-  top: 2px;
+  right: 5%;
+  top: 15px;
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -174,8 +174,8 @@ a:link:hover {
   width: 24px;
   height: 24px;
   line-height: 24px;
-  right: 3%;
-  top: 2px;
+  right: 5%;
+  top: 15px;
   color: #FFF;
   box-shadow: 0 1px 3px rgba(209, 40, 42, .5);
   background: #d1282a;
@@ -194,4 +194,24 @@ a:link:hover {
 }
 .return-table a:hover{
   text-decoration:none;
+}
+#light-create .btn{
+  background-color: rgb(83, 161, 80);
+  color:white;
+  text-align:center;
+  
+}
+
+#contact_detail label{
+  margin-top:15px;
+  display:inline-block;
+  width:150px;
+}
+#contact_detail #detail{
+  display:inline-bloce;
+  width: 150px;
+}
+
+#contact_title{
+  font-size:20px;
 }
