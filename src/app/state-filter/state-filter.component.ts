@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 
@@ -8,6 +8,9 @@ import { ApiService } from '../api.service';
   styleUrls: ['./state-filter.component.css']
 })
 export class StateFilterComponent implements OnInit {
+
+  // Emitter for updating table with state filter info
+  @Output() updateState = new EventEmitter<any>();
 
   // Lists fetched from api
   public users;
@@ -45,6 +48,7 @@ export class StateFilterComponent implements OnInit {
     }
 
     this.teamId = teamIdSearch(team, this.teams)
+    this.updateTables();
     this.updateFilters();
   }
 
@@ -55,11 +59,13 @@ export class StateFilterComponent implements OnInit {
       this.userId = '';
     else
       this.userId = this.users[index].id;
+    this.updateTables();
     this.updateFilters();
   }
 
   public applyDate(item) {
     this.getDate(item.target.value);
+    this.updateTables();
     this.updateFilters();
   }
 
@@ -119,5 +125,19 @@ export class StateFilterComponent implements OnInit {
     this.api.stateQuery(this.teamId, this.userId,
       this.dateString)
     .subscribe();
+  }
+
+  public updateTables() {
+    function stateInfo(team: string, user: string, date: string) {
+      if (team == undefined)
+        team = '';
+      if (user == undefined)
+        user = '';
+      this.teamId = team;
+      this.userId = user;
+      this.date = date;
+    }
+    var update = new stateInfo(this.teamId, this.userId, this.dateString);
+    this.updateState.emit(update);
   }
 }

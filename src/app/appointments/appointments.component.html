@@ -6,7 +6,6 @@
   <div *ngIf="record">
     <appt-records (toggleRecord)='toggleRecord()'></appt-records>
   </div>
-</div>
   <div *ngIf="!detail">
     <appt-tables (toggleDetail)='toggleDetail($event.detail)'></appt-tables>
   </div>
