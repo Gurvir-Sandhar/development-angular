@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { StateFilterComponent } from './state-filter/state-filter.component';
 import { NgModule, DoBootstrap, Injector } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; import { CommonModule } from '@angular/common';
@@ -24,8 +25,8 @@ const routes: Routes = [
     AppComponent,
     ApptTablesComponent,
     AppointmentsComponent,
-    QuickviewComponent,
-    ApptRecordsComponent
+    StateFilterComponent,
+    QuickviewComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +40,7 @@ const routes: Routes = [
     RouterModule,
     ApptTablesComponent,
     AppointmentsComponent
+    QuickviewComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

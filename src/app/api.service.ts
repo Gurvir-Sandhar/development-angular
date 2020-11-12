@@ -22,6 +22,7 @@ export class ApiService {
 
   /**
    * Abstract way to call GET function
+
    * @param url URL GET call will use
    */
   public httpGET(url) {

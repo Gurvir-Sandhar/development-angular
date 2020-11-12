@@ -1,8 +1,3 @@
-.offset {
-  padding-top: 60px;
-  padding-left: 60px;
-}
-
 h1 {
   color: brown;
 }
@@ -31,4 +26,11 @@ th {
   content: "";
   display: block;
   clear: both;
+
+}
+
+@media screen and (max-width: 720px) {
+  .appt-table{
+    min-width: 652px;
+  }
 }

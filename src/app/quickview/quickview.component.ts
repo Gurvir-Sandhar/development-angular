@@ -19,7 +19,7 @@ export class QuickviewComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.detail = this.apiService.getInformation();
     this.apiService.getApptUsers().subscribe(data => {
       this.users = data;
@@ -27,9 +27,9 @@ export class QuickviewComponent implements OnInit {
   }
 
   /**
-   * Emits to parent component 'Appointments' to toggle this view being shown
+   * Emits to parent componet 'Appointments' to toggle this view being shown
    */
-  closeQuickView(): void {
+  closeQuickView() {
     this.toggleDetail.emit();
   }
 
@@ -44,7 +44,11 @@ export class QuickviewComponent implements OnInit {
    * Changes the select value
    * @param index int for which users to display  in dropdown
    */
-  changeSelect(index): void {
+
+   * Changes the select value
+   * @param index int for which users to display  in dropdown
+   */
+  changeSelect(index) {
     if(index != "") {
       this.changeTo = this.users[index].name;
     } else {
@@ -60,7 +64,7 @@ export class QuickviewComponent implements OnInit {
   /**
    * Returns true/false if detail variable is valid value
    */
-  public check(): boolean {
+  public check() {
     if(this.detail) return true;
     return false;
   }
@@ -68,16 +72,27 @@ export class QuickviewComponent implements OnInit {
   /**
    * Hides/shows the select dropdown list
    */
-  public show(): void {
+
+  public show() {
     this.list = !this.list;
   }
 
   /**
    * NOT FINISHED - SHOULD CHANGE THE ACTUAL OBJECT IN SERVER
+
+   * TODO ADD API CALL TO MAKE CHANGE IN SERVER
    * Changes the name being displayed - changed value of who the user is meeting
    */
-  reassign(): void {
+  reassign() {
     this.detail.ownerName = this.changeTo;
+  }
+
+  /**
+   * Start appointment
+   * TODO MAKE API CALL TO MAKE CHANGE IN SERVER
+   */
+  startAppointment() {
+    
   }
 
 }

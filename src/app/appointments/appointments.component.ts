@@ -31,5 +31,4 @@ export class AppointmentsComponent implements OnInit {
     this.detail = !this.detail;
     this.record = !this.record;
   }
-
 }
