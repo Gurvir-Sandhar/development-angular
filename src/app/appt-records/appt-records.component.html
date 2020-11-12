@@ -21,7 +21,7 @@
         <!--If there is a photo for student from test data, run 'isPhoto', otherwise run 'notPhoto' -->
         <div *ngIf="isPhoto; else notPhoto" class="form-group" align="center" valign="center">
           <!-- Waiting for student's photo from test data -->
-
+          <img id="is_photo" src="../assets/student.png" alert="student's photo" width="15%">
         </div>
         <ng-template #notPhoto>
           <div class="form-group" align="center" valign="center">
@@ -34,14 +34,14 @@
         <!--Student's information content START -->
         <div class="form-group">
           <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
-            <div style="width: 400px;">Record for: {{recordData?.contact.fullName}}</div>
+            <div style="width: 400px;">Record for: {{recordData.name}}</div>
           </h2>
-          <label class="control-label col-sm-3" style="margin:1.5% 25%;">
-            <h3>ID: {{recordData?.contact.badgeId}}</h3>
+          <label class="control-label col-sm-3" style="width: 400px; margin:1.5% 25%;">
+            <h3>ID: {{recordData.id}}</h3>
           </label>
           <p> </p>
-          <label class="control-label col-sm-3" style="margin:1.5% 25%;">
-            <h3>Email: {{recordData?.contact.email}} </h3>
+          <label class="control-label col-sm-3" style="width: 400px; margin:1.5% 25%;">
+            <h3>Email: {{recordData.email}} </h3>
           </label>
           <p></p>
         </div>
