@@ -1,4 +1,11 @@
 <div>
+  <p>Nav bar would go here</p>
+  <div *ngIf="table">
+    <appt-tables (toggleDetail)='toggleDetail()' (toggleRecord)='toggleRecord()'></appt-tables>
+  </div>
+  <div *ngIf="record">
+    <appt-records (toggleRecord)='toggleRecord()'></appt-records>
+  </div>
   <div *ngIf="!detail">
     <appt-tables (toggleDetail)='toggleDetail($event.detail)'></appt-tables>
   </div>

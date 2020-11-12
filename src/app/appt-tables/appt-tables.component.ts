@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
 
 /*
@@ -36,8 +37,8 @@ array = [{
 })
 export class ApptTablesComponent implements OnInit {
 
-  // Emitter and variable used to trigger quickview page
   @Output() toggleDetail = new EventEmitter();
+  @Output() toggleRecord = new EventEmitter();
   isDataAvailable:boolean = false;
 
   // List of all column names for html to load
@@ -107,6 +108,11 @@ export class ApptTablesComponent implements OnInit {
   openQuickView(meeting) {
     this.apiService.saveUserInformation(meeting);
     this.toggleDetail.emit();
+  }
+
+  openRecordView(meeting): void {
+    this.apiService.saveUserInformation((meeting));
+    this.toggleRecord.emit();
   }
 
   // API call to server for list of all appointments - when received, we sort them into respective arrays aka tables
@@ -349,6 +355,23 @@ export class ApptTablesComponent implements OnInit {
    * Filters specific tables based on input string - calls which function
    * @param thing the input event object from HTML
    * @param table which table (int)
+   * @param tableName which table is being interacted with
+   */
+  public filter(thing, table, tableName) {
+    let element = document.getElementById(tableName + "FilterButton");
+    let input = (<HTMLInputElement>document.getElementById(tableName+"FilterInput")).value;
+    if(element.innerHTML == 'Matching Any') {
+      this.filterMA(thing, table, input);
+    } else {
+      this.filterMA(thing, table, input);
+    }
+  }
+
+  /**
+   * Filters specific tables based on input string - calls which function
+   * @param thing the input event object from HTML
+   * @param table which table (int)
+
    * @param tableName which table is being interacted with 
    */
   public filter(thing, table, tableName) {
@@ -385,6 +408,7 @@ export class ApptTablesComponent implements OnInit {
       } else if (table == 2) {
         this.completeds = temp;
       }
+
     // usually indicates 'delete' so we need to refilter based on remaining input
     } else if(thing.data == null) {
       // input not empty, filter on input
@@ -397,7 +421,6 @@ export class ApptTablesComponent implements OnInit {
         } else if (table == 2) {
           this.completeds = temp;
         }
-      // input is empty, show all entries
       } else {
         if(table == 0) {
           this.queues = this.refilter(table);

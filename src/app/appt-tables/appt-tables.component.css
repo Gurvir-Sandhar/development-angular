@@ -26,6 +26,7 @@ th {
   content: "";
   display: block;
   clear: both;
+
 }
 
 @media screen and (max-width: 720px) {

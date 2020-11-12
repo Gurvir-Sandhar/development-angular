@@ -7,15 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppointmentsComponent implements OnInit {
 
-  detail = false;
+  // boolean conditions control which view will be shown
+  table = true;       // appointments table
+  detail = false;     // appointment details
+  record = false;     // student record
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  toggleDetail() {
+  toggleDetail(): void {
+    this.table = !this.table;
     this.detail = !this.detail;
   }
 
+  toggleRecord(): void {
+    this.table = !this.table;
+    this.record = !this.record;
+  }
+
+  toggleRecordFromDetail(): void {
+    this.detail = !this.detail;
+    this.record = !this.record;
+  }
 }

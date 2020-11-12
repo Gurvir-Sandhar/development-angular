@@ -18,6 +18,7 @@
 
       <!-- Filter search bar and button -->
       <div class="column right">
+
         <label style="font-weight: bold;">Filter Results: &nbsp;</label>
         <input id="{{table.id}}FilterInput" type="text" (input)="filter($event, table.index, table.id)" value="">
         <span>&nbsp;</span>
@@ -45,7 +46,7 @@
             {{meeting.time}}
           </th>
           <td *ngIf="meeting.contactId">
-            <a href="./#/record/{{meeting.contactId}}">{{meeting.name}}</a>
+            <button type="button" class="btn btn-link" (click)="openRecordView(meeting)">{{meeting.name}}</button>
           </td>
           <td *ngIf="!meeting.contactId">
             <a>{{meeting.name}}</a>
@@ -67,16 +68,16 @@
           </td>
           <td>
             <div class="dropdown">
-              <a *ngIf="meeting.condition === 'Scheduled' && table.id === 'queues'"class="btn btn-primary dropdown-toggle btn-block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a *ngIf="meeting.condition === 'Scheduled' && table.id === 'queues'"class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
-              <a *ngIf="meeting.condition === 'Checked In' && table.id === 'queues'" class="btn btn-success dropdown-toggle btn-block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a *ngIf="meeting.condition === 'Checked In' && table.id === 'queues'" class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
-              <a *ngIf="meeting.condition === 'Active' && table.id === 'actives'" class="btn btn-info dropdown-toggle btn-block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a *ngIf="meeting.condition === 'Active' && table.id === 'actives'" class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
-              <a *ngIf="(meeting.condition === 'Finished' || meeting.condition === 'No-show' || meeting.condition === 'Canceled') && table.id === 'completeds'" class="btn btn-warning dropdown-toggle btn-block" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a *ngIf="(meeting.condition === 'Finished' || meeting.condition === 'No-show' || meeting.condition === 'Canceled') && table.id === 'completeds'" class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{meeting.condition}}
               </a>
               <div class="dropdown-menu">
@@ -103,6 +104,7 @@
         <span>&nbsp;Page {{table.page}}/{{table.totalPages}}&nbsp;</span>
       </div>
     </div>
+=======
     <br>
 
   </div>  

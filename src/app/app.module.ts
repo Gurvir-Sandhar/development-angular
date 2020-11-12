@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ApptTablesComponent } from './appt-tables/appt-tables.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { QuickviewComponent } from './quickview/quickview.component';
+import { ApptRecordsComponent } from './appt-records/appt-records.component';
 
 const routes: Routes = [
   { path: '**', pathMatch: 'full', component: AppointmentsComponent }
@@ -22,9 +23,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    StateFilterComponent,
     ApptTablesComponent,
     AppointmentsComponent,
+    StateFilterComponent,
     QuickviewComponent
   ],
   imports: [
@@ -38,7 +39,7 @@ const routes: Routes = [
   exports: [
     RouterModule,
     ApptTablesComponent,
-    AppointmentsComponent,
+    AppointmentsComponent
     QuickviewComponent
   ],
   providers: [],
@@ -53,6 +54,8 @@ export class AppModule implements DoBootstrap  {
     customElements.define('appt-tables', apptTables);
     const quickView = createCustomElement(QuickviewComponent, {injector});
     customElements.define('quick-view', quickView);
+    const apptRecords = createCustomElement(ApptRecordsComponent, {injector});
+    customElements.define('appt-records', apptRecords);
   }
 
   ngDoBootstrap() {}

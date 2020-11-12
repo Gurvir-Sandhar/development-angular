@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
  * Note I used two different ways we could use the GET functions.
  * Either we feed it the URL from the function call in the components,
  * OR
- * we set up specfic functions here that the components can call so the 
+ * we set up specfic functions here that the components can call so the
  * components don't need to know the url - they could all be contained here
  * instead of being all over the code.
  * There are pros and cons to both.
@@ -15,31 +15,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  apiURL: string = 'http://localhost:6543/apps/api/test/'
-
-  constructor(private http: HttpClient) { }
-
-  // TODO: Need to write cases for anything except success 200
-  
-  public query(endpoint: string) {
-    return this.http.get(this.apiURL+endpoint)
-  }
-
-  public stateQuery(teamId: string, owner: string, day: string) {
-    if (teamId == undefined)
-      teamId = '';
-    if (owner == undefined)
-      owner = '';
-    if (day == undefined)
-      day = '';
-    return this.http.get(this.apiURL+'filters?teamId='+teamId+'&pickOwner='+
-      owner+'&pickDay='+day)
-  }
 
   information;
 
+  constructor(private http: HttpClient) { }
+
   /**
-   * Abstract way to call GET function 
+   * Abstract way to call GET function
+
    * @param url URL GET call will use
    */
   public httpGET(url) {
@@ -66,5 +49,12 @@ export class ApiService {
    */
   public getInformation() {
     return this.information;
+  }
+
+  /**
+   * Function that gets Record data, includes contact, attachments, and history
+   */
+  public getRecordData() {
+    return this.http.get('http://localhost:6543/apps/api/test/record');
   }
 }
