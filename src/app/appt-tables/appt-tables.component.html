@@ -1,4 +1,6 @@
 <body>
+  <app-state-filter (updateState)="updateCurrentState($event)"></app-state-filter>
+
   <div *ngFor="let table of tables">
 
     <h1>{{table.name}}</h1>

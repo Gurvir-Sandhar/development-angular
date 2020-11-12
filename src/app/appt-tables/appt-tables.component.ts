@@ -716,4 +716,24 @@ export class ApptTablesComponent implements OnInit {
 
     this.setDisplayArray(table);
   }
+
+  private updateTables(update, table) {
+    var temp = this.refilter(table);
+    if (update.userId != '')
+      temp = temp.filter(data => data.ownerId == update.userId);
+    if (update.teamId != '')
+      temp = temp.filter(data => data.teamId == update.teamId);
+    if (temp.length != 0)
+      temp = temp.filter(data => data.startOn.slice(0,10) == update.date)
+    return temp;
+  }
+
+  public updateCurrentState($event) {
+   this.queues = this.updateTables($event, 0);
+   this.actives = this.updateTables($event, 1);
+   this.completeds = this.updateTables($event, 2);
+   this.updateTablePagesInfo(0);
+   this.updateTablePagesInfo(1);
+   this.updateTablePagesInfo(2);
+  }
 }
