@@ -10,6 +10,7 @@ import { ApptTablesComponent } from './appt-tables/appt-tables.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { QuickviewComponent } from './quickview/quickview.component';
 import { ApptRecordsComponent } from './appt-records/appt-records.component';
+import { StudentInteractionComponent } from './student-interaction/student-interaction.component';
 
 const routes: Routes = [
   { path: '**', pathMatch: 'full', component: AppointmentsComponent }
@@ -25,7 +26,8 @@ const routes: Routes = [
     ApptTablesComponent,
     AppointmentsComponent,
     QuickviewComponent,
-    ApptRecordsComponent
+    ApptRecordsComponent,
+    StudentInteractionComponent
   ],
   imports: [
     BrowserModule,
