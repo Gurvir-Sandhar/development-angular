@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from '../api.service';
 
 @Component({
   selector: 'app-student-interaction',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentInteractionComponent implements OnInit {
 
-  constructor() { }
+  isPhoto = false;  // true if student profile picture exists
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
   }

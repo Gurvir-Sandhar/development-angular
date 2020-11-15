@@ -1,0 +1,15 @@
+
+body {
+  margin: 3em;
+}
+
+.interaction-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interaction-name {
+  color: #683e23;
+}
+

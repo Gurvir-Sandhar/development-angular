@@ -1,1 +1,25 @@
-<p>student-interaction works!</p>
+<body>
+
+  <div class="interaction-header">
+    <div *ngIf="isPhoto; else noPhoto">
+      <!--TODO-->
+      <!--Use student profile picture here, if it exists -->
+    </div>
+
+    <ng-template #noPhoto>
+      <div style="align-content: center">
+        <img id="pfp" src="../assets/defaultProfilePic.png" width="50%">
+        <p>No photo on file.</p>
+      </div>
+    </ng-template>
+
+    <div class="interaction-name">
+      <h1>Interaction: placeholder name</h1>
+      <div class="interaction-name-details" >
+        <h5 style="float: left">"Drop-in for placeholder name"</h5>
+        <h5 stlyel="float: right">&nbsp; created on placeholder date</h5>
+      </div>
+    </div>
+  </div>
+
+</body>
