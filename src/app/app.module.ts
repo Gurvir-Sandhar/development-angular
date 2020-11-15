@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { createCustomElement } from '@angular/elements';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppComponent } from './app.component';
 import { ApptTablesComponent } from './appt-tables/appt-tables.component';
@@ -11,6 +12,7 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { QuickviewComponent } from './quickview/quickview.component';
 import { ApptRecordsComponent } from './appt-records/appt-records.component';
 import { StudentInteractionComponent } from './student-interaction/student-interaction.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: '**', pathMatch: 'full', component: AppointmentsComponent }
@@ -35,12 +37,14 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    NoopAnimationsModule,
+    MatTabsModule
   ],
   exports: [
     RouterModule,
     ApptTablesComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
