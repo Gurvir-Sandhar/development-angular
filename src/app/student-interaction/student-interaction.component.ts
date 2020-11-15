@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ApiService} from '../api.service';
 
 @Component({
   selector: 'app-student-interaction',
   templateUrl: './student-interaction.component.html',
-  styleUrls: ['./student-interaction.component.css']
+  styleUrls: ['./student-interaction.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StudentInteractionComponent implements OnInit {
 
