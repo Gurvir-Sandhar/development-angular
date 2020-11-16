@@ -61,7 +61,7 @@ body {
   color: white;
 }
 
-.table td, .table th {
+.advisingTable td, .advisingTable th {
   border-top: 0px;
 }
 
@@ -69,5 +69,10 @@ body {
   margin: 1em;
 }
 
-thead {
+.reassign-btn, .resolve-btn {
+  padding: 0px;
+}
+
+.history-table {
+  margin: 2em;
 }
