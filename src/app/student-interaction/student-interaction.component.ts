@@ -10,10 +10,15 @@ import {ApiService} from '../api.service';
 export class StudentInteractionComponent implements OnInit {
 
   isPhoto = false;  // true if student profile picture exists
+  interactionData;
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.apiService.getInteractionData().subscribe(data => {
+      console.log(data);  // for debugging
+      this.interactionData = data;
+    });
   }
 
 }

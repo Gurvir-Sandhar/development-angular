@@ -49,3 +49,25 @@ body {
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
   background: none;
 }
+
+.advising-grid-parent {
+  display: grid;
+  grid-template-columns: repeat(2,50%);
+  grid-template-rows: repeat(2,50%);
+}
+
+.advisingButton {
+  margin: 1em 0em;
+  color: white;
+}
+
+.table td, .table th {
+  border-top: 0px;
+}
+
+.advising-grid-parent > div {
+  margin: 1em;
+}
+
+thead {
+}
