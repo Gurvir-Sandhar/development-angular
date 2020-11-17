@@ -294,7 +294,87 @@
       </mat-tab>
 
       <mat-tab label="Properties">
-        Properties <!--TODO-->
+        <div class="properties-tab">
+          <table class="table">
+            <thead>
+              <h3>Interaction Properties Tab</h3>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Assigned to</th>
+                <td>placeholder</td>
+              </tr>
+              <tr>
+                <th scope="row">Assigned to</th>
+                <td>{{interactionData?.interaction.contact.studentRecord.academicAdvisor}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Contact ID</th>
+                <td>{{interactionData?.interaction.contact.id}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Contact Name</th>
+                <td>{{interactionData?.interaction.contact.fullName}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Created</th>
+                <td>{{interactionData?.interaction.createdOn}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Medium</th>
+                <td>{{interactionData?.interaction.mediaType}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Interaction ID</th>
+                <td>{{interactionData?.interaction.id}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Interaction State</th>
+                <td>{{interactionData?.interaction.interactionState}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Last resolved</th>
+                <td>{{interactionData?.interaction.lastResolvedAt}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Messages count</th>
+                <td>{{interactionData?.interaction.messageCount}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Priority</th>
+                <td>{{interactionData?.interaction.interactionPriority}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Reply State</th>
+                <td>{{interactionData?.interaction.replyState}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Subject</th>
+                <td>{{interactionData?.interaction.subject}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Subtopic</th>
+                <td>{{interactionData?.interaction.subtopic}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Assigned Team</th>
+                <td>placeholder</td>
+              </tr>
+              <tr>
+                <th scope="row">Assigned Team</th>
+                <td>{{interactionData?.interaction.teamName}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Thread last updated</th>
+                <td>{{interactionData?.interaction.interactionThreadLastUpdated}}</td>
+              </tr>
+              <tr>
+                <th scope="row">Topic</th>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

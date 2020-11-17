@@ -109,3 +109,11 @@ body {
   padding: 1em;
   background-color: rgba(128,128,128, 0.1);
 }
+
+.properties-tab {
+  margin: 2em;
+}
+
+.properties-tab th, .properties-tab td {
+  border-top: 0px;
+}
