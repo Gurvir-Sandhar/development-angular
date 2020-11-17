@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-appointments',
@@ -11,11 +11,11 @@ export class AppointmentsComponent implements OnInit {
   table = true;       // appointments table
   detail = false;     // appointment details
   record = false;     // student record
+  load = true;        // used for reloading the appointments table
 
-  constructor() { }
+  constructor(private changeDetector: ChangeDetectorRef) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   toggleDetail(): void {
     this.table = !this.table;
@@ -30,5 +30,11 @@ export class AppointmentsComponent implements OnInit {
   toggleRecordFromDetail(): void {
     this.detail = !this.detail;
     this.record = !this.record;
+  }
+
+  updateCurrentState() {
+    this.load = false;
+    this.changeDetector.detectChanges();
+    this.load = true; 
   }
 }

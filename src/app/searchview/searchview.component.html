@@ -1,0 +1,235 @@
+<div class="search">
+
+  <h1>Search</h1>
+
+  <div *ngIf="!queried">
+    <form method="get" class="form-horizontal">
+      <input type="text"
+              class="form-control"
+              id="searchInput"
+              placeholder="Enter a PSU ID, Odin, or last name"
+              required />
+
+      <br />
+      <button type="submit" class="btn btn-primary" (click)="searchUsers()">Search Contacts</button>
+    </form>
+    <br>
+  </div>
+
+  <div *ngIf="queried">
+
+    <div aria-label="subheader" class="mfsw-row" id="searchFilters">
+
+      <!-- Show _ entries select dropdown -->
+      <div class="column left">
+        <label>Show
+          <select id="searchEntries" type="selectdropdown" aria-controls="searchRange" (change)="changeRange($event.target.value)" [(ngModel)]="range">
+            <option *ngFor="let value of entries" id="search{{value}}" value="{{value}}">{{value}}</option>
+          </select>
+          entries
+        </label>
+      </div>
+
+      <!-- Search bar -->
+      <div class="column right">
+        <label style="font-weight: bold;">Search: &nbsp;</label>
+        <input id="searchFilterInput" type="text" (change)="filter($event)" value="">
+        <span>&nbsp;</span>
+        <button id="searchType" type="button" class="btn btn-success" (click)="filterType()">Requiring All</button>
+      </div>
+    </div>
+
+    <table class="table table-striped table-hover" id="resultsTable">
+      <thead>
+        <!-- Labels for columns -->
+        <tr>
+          <th scope="col" class="columns" *ngFor="let column of columnNames">{{column.label}}</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let user of source" id="results">
+
+        <!-- TODO ADD LINKS HERE -->
+        <td >
+          <a *ngIf="validId(user.id)" href="./contact/?contactId={{user.id}}">{{user.id}}</a>
+          <a *ngIf="!validId(user.id)" href="./contact/?contactId={{user.id}}">Non-PSU ID Link</a>
+        </td>
+
+        <td>
+          {{user.name}}
+        </td>
+
+        <td>
+          {{user.email}}
+        </td>
+
+        <td>
+          {{user.phone}}
+        </td>
+
+      </tbody>
+
+      <thead>
+        <!-- Sub-labels for columns -->
+        <tr>
+          <th scope="col" class="columns" *ngFor="let column of columnNames">{{column.label}}</th>
+        </tr>
+      </thead>
+
+    </table>
+
+    <div aria-label="searchFooter" class="mfsw-row">
+      <!-- Showing _ to _ of _ -->
+      <div class="column left"> Showing {{start}} to {{end}} of {{total}} results (filtered from {{totalEntries}} total entries)</div>
+      <!-- Page _ / _ -->
+      <div class="column right">
+        <button type="button" class="btn btn-primary" (click)="prevPage()">Prev</button>&nbsp;
+        <button type="button" class="btn btn-primary" (click)="nextPage()">Next</button>
+        <span>&nbsp;Page {{page}}/{{totalPages}}&nbsp;</span>
+      </div>
+    </div>
+    <br>
+
+    <!-- TODO ADD DROP IN RECORD SCREEN via (click)="function()" -->
+    <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#dropIn">
+      Can't find this record?
+    </button>
+    <br>
+    <button type="button" class="btn btn-warning" (click)="isQueried()">
+      New Search
+    </button>
+  </div>
+
+  <!-- TODO add form validation -->
+  <div class="modal fade" id="dropIn" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="modalLabel"><strong>New Drop-In Record<br>Team: Portland State University</strong></h5>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <form #dropInForm="ngForm" (ngSubmit)="createDropIn()">
+
+            <div class="form-group">
+              <label for="firstName"><strong>First Name:<a style="color: red;">  *</a></strong>              
+                <a *ngIf="(firstName.invalid) && firstName.errors.required" style="color: red;">
+                  First name is required.
+                </a>
+              </label>
+              <input id="firstName" name="firstName" class="form-control"
+                required placeholder="First Name"
+                [(ngModel)]="formFields.firstName" #firstName="ngModel">
+
+            </div>
+
+            <div class="form-group">
+              <label for="lastName"><strong>Last Name:<a style="color: red;">  *</a></strong>
+                <a *ngIf="(lastName.invalid) && lastName.errors.required" style="color: red;">
+                  Last name is required.
+                </a>
+              </label>
+              <input id="lastName" name="lastName" class="form-control" 
+              required placeholder="Last Name"
+              [(ngModel)]="formFields.lastName" #lastName="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="email"><strong>Email:<a style="color: red;">  *</a></strong>
+                <a *ngIf="(email.invalid) && email.errors.required" style="color: red;">
+                  Email is required.
+                </a>
+              </label>
+              <input id="email" name="email" class="form-control" type="email" 
+              required placeholder="Enter email" 
+              [(ngModel)]="formFields.email" #email="ngModel">
+            </div>
+
+            <div class="form-group">
+              <label for="phoneNumber"><strong>Telephone (optional):</strong></label>
+              <input type="tel" class="form-control" id="phoneNumber" placeholder="Number here" NgModel
+              optional [(ngModel)]="formFields.number" name="number">
+            </div>
+
+            <div class="form-group">
+              <label for="appointmentDate"><strong>Appointment Date (optional):</strong></label>
+              <input type="date" class="form-control" id="appointmentDate" placeholder="Click here to pick appointment date" NgModel
+              optional [(ngModel)]="formFields.date" name="date">
+            </div>
+
+            <div *ngIf="formFields.date != ''">
+                
+              <div class="form-group">
+                <label for="appointmentTime">
+
+                  <strong>
+                    Start Time (Hour:Minute AM/PM):
+                  </strong>
+
+                  <select id="hour" type="selectdropdown" optional [(ngModel)]="formFields.hour" name="hour">
+                    <option *ngFor="let hour of hours" id="hours" value="{{hour}}">{{hour}}</option>
+                  </select>
+
+                  <strong>:</strong>
+
+                  <select type="selectdropdown" optional [(ngModel)]="formFields.minute" name="minute" value="00">
+                    <option *ngFor="let minute of minutes" id="minutes" value="{{minute}}">{{minute}}</option>
+                  </select>
+
+                  <a>&nbsp;</a>
+
+                  <select type="selectdropdown" optional [(ngModel)]="formFields.period" name="period" value="PM">
+                    <option *ngFor="let period of periods" id="periods" value="{{period}}">{{period}}</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="form-group">
+
+                <strong>
+                  Duration (Minutes):
+                </strong>
+
+                <!-- <input type="number" id="duration" name="duration" step="5" optional [(ngModel)]="formFields.duration" name="duration" value="30"/> -->
+                <input type="number" id="duration" min="1" max="120" value="" 
+                optional [(ngModel)]="formFields.duration" name="duration">
+              </div>
+            </div>
+
+            <div class="form-group">
+
+              <label for="assignedTo"><strong>Assign To:</strong></label>
+
+              <div class="dropdown">
+                <select type="selectdropdown" optional [(ngModel)]="formFields.assignedTo" name="assignedTo">
+                  <option *ngFor="let assignee of assignees; let i = index" id="assignedTo"
+                 [value]="assignees[i].name">{{assignees[i].name}}</option>
+                </select>
+              </div>  
+            </div>
+
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" (onclick)="setFormFields()" id="closeModal">Cancel</button>
+              <a id="submitting" hidden="true">Submitting drop-in form...</a>
+              <button id="submitButton" type="submit" class="btn btn-success">Create</button>
+            </div>
+
+          </form>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

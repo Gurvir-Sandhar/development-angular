@@ -35,6 +35,11 @@ export class StateFilterComponent implements OnInit {
     dropdown: new FormControl('', Validators.required)
   });
 
+  public sendParams(params) {
+    this.api.saveParams(params);
+    this.updateState.emit(params);
+  }
+
   public applyTeam(item) {
     var team: string = item.target.value;
 
@@ -137,7 +142,7 @@ export class StateFilterComponent implements OnInit {
       this.userId = user;
       this.date = date;
     }
-    var update = new stateInfo(this.teamId, this.userId, this.dateString);
-    this.updateState.emit(update);
+    let update = new stateInfo(this.teamId, this.userId, this.dateString);
+    this.sendParams(update);
   }
 }
