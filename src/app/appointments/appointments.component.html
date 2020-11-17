@@ -1,5 +1,7 @@
 <div>
-  <app-state-filter (updateState)="updateCurrentState()"></app-state-filter>
+  <div *ngIf="!record">
+    <app-state-filter (updateState)="updateCurrentState()"></app-state-filter>
+  </div>
 
   <div *ngIf="table && load">
     <appt-tables (toggleDetail)='toggleDetail()' (toggleRecord)='toggleRecord()'></appt-tables>

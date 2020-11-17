@@ -287,14 +287,8 @@
                 <td>{{recordData.interactionCreatedOn}}</td>
                 <td><button class="meta-btn" type="button">🧰</button></td>
               </tr>
-              <tr>
-
-              </tr>
             </tbody>
-
-
           </table>
-          <hr />
 
         </div>
         <div id="fade-history" class="black_overlay"></div>
@@ -321,7 +315,6 @@
           <!--Close button X of floating popup -->
           <a button class="popup_close" type="button"
             onclick="document.getElementById('light-create').style.display='none';document.getElementById('fade-create').style.display='none'">X</a>
-          <hr />
 
           <form class="form-inline" #myForm="ngForm" (ngSubmit)="createInfo(myForm.value)">
 
@@ -366,7 +359,6 @@
                 </label>
               </div>
             </div>
-            <hr />
 
             <div class="form-group col-sm-12" align="center" valign="center">
               <div ng-controller="create" class="btn col-sm-12">
@@ -374,7 +366,6 @@
               </div>
             </div>
           </form>
-          <hr />
 
         </div>
 
@@ -390,7 +381,6 @@
     </div>
 
     <!--Footer START -->
-
     <div class="footer-record">
       <li id="tab_advisingContact"><a href="javascript:void(0)" data-for-block="block_advisingContact"
           onclick="document.getElementById('light-contact').style.display='block';document.getElementById('fade-contact').style.display='block'">Contact
@@ -405,22 +395,17 @@
           onclick="document.getElementById('light-create').style.display='block';document.getElementById('fade-create').style.display='block'">Create
           Interaction</a></li>
       <li id="tab_otherResources" class="dropdown">
-        <a href=" " class="dropdown-toggle" data-toggle="dropdown" tabindex="0" onclick="dropMenu()">External
-          Resources<span class="caret"></span></a>
+        <a href=" " class="dropdown-toggle" data-toggle="dropdown" tabindex="0" (click)="dropMenu()">
+          External Resources<span class="caret"></span></a>
         <div id="myDropdown" class="dropdown-menu">
-          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
-          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
-          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
-          <a href="https://example.com" target="_blank" rel="noopener">Link</a>
+          <a href="javascript:void(0)">Link</a>
+          <a href="javascript:void(0)">Link</a>
+          <a href="javascript:void(0)">Link</a>
+          <a href="javascript:void(0)">Link</a>
         </div>
       </li>
     </div>
     <!--Footer END -->
 
-
-
-
   </div>
-
-
 </body>

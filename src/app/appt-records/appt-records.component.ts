@@ -67,7 +67,6 @@ export class ApptRecordsComponent implements OnInit {
     tr.appendChild(td6);
     editTable.appendChild(tr);
     alert("Create Successfully!");
-    
   }
 
   dropMenu(): void {
