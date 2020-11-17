@@ -11,14 +11,18 @@ export class ApptRecordsComponent implements OnInit {
   @Output() toggleRecord = new EventEmitter();
 
   isPhoto = false;
+  apptTableData;
   recordData;
   createInformation;
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.recordData = this.apiService.getInformation();
-    console.log(this.recordData); // for debugging
+    this.apptTableData = this.apiService.getInformation();
+    this.apiService.getRecordData().subscribe(data => {
+      console.log(data);  // for debugging
+      this.recordData = data;
+    });
   }
 
   closeRecordView(): void {

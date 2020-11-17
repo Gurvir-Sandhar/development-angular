@@ -1,12 +1,12 @@
 <body>
-  <div class="record">
+<div class="record">
 
-    <div class="return-table">
-      <a href=" " onclick="closeRecordView()">⬅ Return back</a>
-    </div>
-    <div class="container">
+  <div class="return-table">
+    <button class="btn btn-link" (click)="closeRecordView()">⬅ Return back</button>
+  </div>
 
-      <form class="form-horizontal" role="form">
+  <div class="container">
+    <form class="form-horizontal" role="form">
 
         <!--Header of form START -->
         <div class="form-group">
@@ -20,7 +20,7 @@
         <!--If there is a photo for student from test data, run 'isPhoto', otherwise run 'notPhoto' -->
         <div *ngIf="isPhoto; else notPhoto" class="form-group" align="center" valign="center">
           <!-- Waiting for student's photo from test data -->
-
+          <img id="is_photo" src="../assets/student.png" alert="student's photo" width="15%">
         </div>
         <ng-template #notPhoto>
           <div class="form-group" align="center" valign="center">
@@ -33,10 +33,10 @@
         <!--Student's information content START -->
         <div class="form-group">
           <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
-            <div style="width: 400px;">Record for: {{recordData.contactName}}</div>
+            <div style="width: 400px;">Record for: {{recordData.name}}</div>
           </h2>
           <label class="control-label col-sm-3" style="margin:1.5% 25%;">
-            <h3>ID: {{recordData.contactId}}</h3>
+            <h3>ID: {{recordData.id}}</h3>
           </label>
           <p> </p>
           <label class="control-label col-sm-3" style="margin:1.5% 25%;">
@@ -412,10 +412,6 @@
     </div>
     <!--Footer END -->
 
-
-
-
   </div>
-
 
 </body>

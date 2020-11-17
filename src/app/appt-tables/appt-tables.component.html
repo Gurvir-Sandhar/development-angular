@@ -1,4 +1,6 @@
 <body>
+  <app-state-filter (updateState)="updateCurrentState($event)"></app-state-filter>
+
   <div *ngFor="let table of tables">
 
     <h1>{{table.name}}</h1>
@@ -18,17 +20,14 @@
       <div class="column right">
 
         <label style="font-weight: bold;">Filter Results: &nbsp;</label>
-
         <input id="{{table.id}}FilterInput" type="text" (input)="filter($event, table.index, table.id)" value="">
-
         <span>&nbsp;</span>
-        <button id="{{table.id}}FilterButton" type="button" class="btn btn-success" (click)="filterType(table.id)">Requiring All</button>
+        <button id="{{table.id}}FilterButton" type="button" class="btn btn-success" (click)="filterType($event, table.id, table.index)">Requiring All</button>
       </div>
     </div>
 
     <table class="table table-striped table-hover" id="{{table.id}}">
-
-      <thead>
+      <thead class="thead-light">
         <!-- Labels for columns -->
         <tr>
           <th scope="col" class="columns" *ngFor="let column of columnNames">{{column.label}}</th>
@@ -105,5 +104,8 @@
         <span>&nbsp;Page {{table.page}}/{{table.totalPages}}&nbsp;</span>
       </div>
     </div>
-  </div>
-  </body>
+=======
+    <br>
+
+  </div>  
+</body>

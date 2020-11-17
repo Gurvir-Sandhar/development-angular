@@ -3,10 +3,13 @@
   <div *ngIf="table">
     <appt-tables (toggleDetail)='toggleDetail()' (toggleRecord)='toggleRecord()'></appt-tables>
   </div>
-  <div *ngIf="detail">
-    <quick-view (toggleDetail)='toggleDetail()'></quick-view>
-  </div>
   <div *ngIf="record">
     <appt-records (toggleRecord)='toggleRecord()'></appt-records>
+  </div>
+  <div *ngIf="!detail">
+    <appt-tables (toggleDetail)='toggleDetail($event.detail)'></appt-tables>
+  </div>
+  <div *ngIf="detail">
+    <quick-view (toggleDetail)='toggleDetail($event.detail)'></quick-view>
   </div>
 </div>

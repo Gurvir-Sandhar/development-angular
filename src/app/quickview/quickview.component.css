@@ -18,3 +18,8 @@
 h1 {
 color: brown;
 }
+
+.link-button {
+  margin: 0;
+  padding: 0;
+}
