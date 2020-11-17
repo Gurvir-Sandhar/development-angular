@@ -17,7 +17,7 @@
       <h1>Interaction: {{interactionData?.contact.fullName}}</h1>
       <div class="interaction-name-details" >
         <h4 style="float: left">"Drop-in for {{interactionData?.contact.fullName}}"</h4>
-        <h4 stlyel="float: right">&nbsp; created on placeholder date</h4>
+        <h4 stlyel="float: right">&nbsp; created on placeholder</h4>
       </div>
     </div>
   </div>
@@ -260,8 +260,19 @@
         </div>
       </mat-tab>
 
-      <mat-tab label="Messages"> Messages </mat-tab>
-      <mat-tab label="Attachments"> Attachments </mat-tab>
+      <mat-tab label="Messages">
+        <div class="messages-tab">
+          <h2>Message History for this Interaction</h2>
+          <div class="messages" *ngFor="let message of interactionData.messages">
+            <p class="message-header">"Drop-in for {{interactionData?.contact.fullName}}" on {{message.date}}</p>
+            <p>{{message.content}}</p>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Attachments">
+        Attachments <!--TODO-->
+      </mat-tab>
 
       <mat-tab label="Private Notes">
         <div>
@@ -269,7 +280,9 @@
         </div>
       </mat-tab>
 
-      <mat-tab label="Properties"> Properties </mat-tab>
+      <mat-tab label="Properties">
+        Properties <!--TODO-->
+      </mat-tab>
     </mat-tab-group>
   </div>
 

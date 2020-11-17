@@ -76,3 +76,17 @@ body {
 .history-table {
   margin: 2em;
 }
+
+.messages-tab {
+  margin: 2em;
+}
+
+.message-header {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.messages {
+  margin: 1.5em 3em;
+  background-color: rgba(128,128,128, 0.1);
+}
