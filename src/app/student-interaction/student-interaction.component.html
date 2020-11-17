@@ -271,12 +271,25 @@
       </mat-tab>
 
       <mat-tab label="Attachments">
-        Attachments <!--TODO-->
+        <div class="business-attachments">
+          <p class="attachment-header">Contact Attachments, SBA</p>
+          <!--TODO-->
+          <p>None found or insufficient permissions...</p>
+        </div>
+        <div class="engineering-attachments">
+          <p class="attachment-header">Contact Attachments, MCECS</p>
+          <!--TODO-->
+          <p>None found or insufficient permissions...</p>
+        </div>
       </mat-tab>
 
       <mat-tab label="Private Notes">
-        <div>
-          <h2>{{interactionData?.pvtNote}}</h2>
+        <div class="private-notes-container">
+          <h2>Team Private Notes</h2>
+          <div class="private-notes">
+            <p>These notes have changed to readonly and will soon become Interaction comments.<p>
+            <!--TODO-->
+          </div>
         </div>
       </mat-tab>
 

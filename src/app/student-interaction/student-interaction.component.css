@@ -90,3 +90,22 @@ body {
   margin: 1.5em 3em;
   background-color: rgba(128,128,128, 0.1);
 }
+
+.business-attachments, .engineering-attachments {
+  margin: 3em;
+}
+
+.attachment-header {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.private-notes-container {
+  margin: 2em;
+}
+
+.private-notes {
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(128,128,128, 0.1);
+}
