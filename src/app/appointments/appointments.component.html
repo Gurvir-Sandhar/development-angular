@@ -1,1 +1,92 @@
-<p>appointments works!</p>
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>HTML dynamic table using JavaScript</title>
+  <script type="text/javascript" src="appointments.js"></script>
+</head>
+<body onload="load()">
+<div id="myform">
+  <b>Meetings</b>
+  <button id="addTask" onclick="toggleMenu()">Add a meeting!</button>
+  <table>
+    <div id="taskForm" style="display:none">
+      <tr>
+        <td>First Name: </td>
+        <td><input type="text" id="firstname"></td>
+      </tr>
+      <tr>
+        <td>Last Name: </td>
+        <td><input type="text" id="lastname"></td>
+      </tr>
+      <tr>
+        <td>Select Team </td>
+        <select class="mdb-select md-form" id="team">
+          <option value="" disabled selected>Select Team</option>
+          <option value="Team Red">Team Red</option>
+          <option value="Team Blue">Team Blue</option>
+          <option value="Team Green">Team Green</option>
+        </select>
+      </tr>
+      <tr>
+        <td>Here To See </td>
+        <select class="mdb-select md-form" id="advisor">
+          <option value="" disabled selected>Select Advisor</option>
+          <option value="Bob">Bob</option>
+          <option value="Jim">Jim</option>
+          <option value="Sally">Sally</option>
+        </select>
+      </tr>
+
+      <tr>
+        <td>Date </td>
+        <td><input type="text" id="Date"></td>
+      </tr>
+
+      <tr>
+        <td>Time </td>
+        <td><input type="text" id="Time"></td>
+      </tr>
+
+      <tr>
+        <td>Meeting Description: </td>
+        <td><input type="text" id="Description">
+      </tr>
+
+      <tr>
+        <td>Progress: </td>
+        <td> <select class="mdb-select md-form" id="Progress">
+          <option value="" disabled selected>Progress Level</option>
+          <option value="Sign Up">Scheduled</option>
+          <option value="Check in">Check-in</option>
+          <option value="Begin">Begin</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Finished">Finished</option>
+        </select>
+          <input type="button" id="add" value="Add" onclick="Javascript:addRow()"></td>
+      </tr>
+    </div>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</div>
+<div id="mydata">
+  <b>Current Meetings</b>
+  <table id="myTableData"  border="1" cellpadding="2">
+    <tr>
+      <td>&nbsp;</td>
+      <td><b>First Name</b></td>
+      <td><b>Last Name</b></td>
+      <td><b>Team</b></td>
+      <td><b>Here to see</b></td>
+      <td><b>Date</b></td>
+      <td><b>Time</b></td>
+      <td><b>Description</b></td>
+      <td><b>Progress</b></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
