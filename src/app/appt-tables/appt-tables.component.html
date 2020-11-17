@@ -45,10 +45,12 @@
             {{meeting.time}}
           </th>
           <td *ngIf="meeting.contactId">
-            <button type="button" class="btn btn-link" (click)="openRecordView(meeting)">{{meeting.name}}</button>
+            <a href="javascript:void(0);" (click)="openRecordView(meeting)">{{meeting.name}}</a>
+            <!-- <button type="button" class="btn btn-link" (click)="openRecordView(meeting)">{{meeting.name}}</button> -->
           </td>
           <td *ngIf="!meeting.contactId">
             <a>{{meeting.name}}</a>
+            <!-- <button type="button" class="btn" disabled style="color: #000000">{{meeting.name}}</button> -->
           </td>
           <td>{{meeting.ownerName}}</td>
           <td>{{meeting.teamName}}</td>

@@ -748,7 +748,6 @@ export class ApptTablesComponent implements OnInit {
   }
 
   public updateCurrentState($event) {
-    console.log($event.date);
     this.appointments = this.updateTables($event, -1);
     this.queues = this.updateTables($event, 0);
     this.actives = this.updateTables($event, 1);
