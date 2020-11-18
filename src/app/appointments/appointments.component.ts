@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-appointments',
@@ -13,7 +14,7 @@ export class AppointmentsComponent implements OnInit {
   record = false;     // student record
   load = true;        // used for reloading the appointments table
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor(private api: ApiService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void { }
 
@@ -25,6 +26,7 @@ export class AppointmentsComponent implements OnInit {
   toggleRecord(): void {
     this.table = !this.table;
     this.record = !this.record;
+    this.api.saveParams(undefined);
   }
 
   toggleRecordFromDetail(): void {

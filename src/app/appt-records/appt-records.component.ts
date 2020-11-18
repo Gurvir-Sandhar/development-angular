@@ -22,22 +22,25 @@ export class ApptRecordsComponent implements OnInit {
   recordData;
   createInformation;
 
-  constructor(private apiService: ApiService) {}
-
-  ngOnInit(): void {
-    this.recordData = this.apiService.getInformation();
-    // console.log(this.recordData); // for debugging
-  }
   myField = {
     subject: '',
     medium: '',
     createAppt: '',
     assign: ''
   }
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.recordData = this.apiService.getInformation();
+    // console.log(this.recordData); // for debugging
+  }
+
   closeRecordView(): void {
     this.toggleRecord.emit();
   }
 
+  // TODO create the interaction in the backend - currently creates the interaction locally for demo purposes
   createInfo(info: any) {
 
     this.createInformation = info;
@@ -66,7 +69,8 @@ export class ApptRecordsComponent implements OnInit {
     tr.appendChild(td5);
     tr.appendChild(td6);
     editTable.appendChild(tr);
-    alert("Create Successfully!");
+    alert("Created Successfully!");
+    document.getElementById("closeModal").click();
   }
 
 }

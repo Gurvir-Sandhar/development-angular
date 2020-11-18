@@ -4,22 +4,16 @@
     <div class="return-table">
       <a href="javascript:void(0);" (click)="closeRecordView()">⬅ Return</a>
     </div>
+
     <div class="container">
-
       <form class="form-horizontal" role="form">
-
-        <!--Header of form START -->
         <div class="form-group">
-          <h1 align="center" valign="center">
+          <h1 align="center" valign="center" style="padding-top: 5%;">
             Appointment Information
           </h1>
         </div>
-        <!--Header of form END -->
 
-        <!--Student's photo START -->
-        <!--If there is a photo for student from test data, run 'isPhoto', otherwise run 'notPhoto' -->
-        <div *ngIf="isPhoto; else notPhoto" class="form-group" align="center" valign="center">
-          <!-- Waiting for student's photo from test data -->
+        <div *ngIf="isPhoto; else notPhoto" class="form-group" valign="center">
 
         </div>
         <ng-template #notPhoto>
@@ -28,9 +22,7 @@
             <p>No photo on file</p>
           </div>
         </ng-template>
-        <!--Student's photo END -->
 
-        <!--Student's information content START -->
         <div class="form-group">
           <h2 class="notice col-sm-3" style="margin:1.5% 25%; ">
             <div style="width: 400px;">Record for: {{recordData.contactName}}</div>
@@ -38,362 +30,392 @@
           <label class="control-label col-sm-3" style="margin:1.5% 25%;">
             <h3>ID: {{recordData.contactId}}</h3>
           </label>
-          <p> </p>
           <label class="control-label col-sm-3" style="margin:1.5% 25%;">
             <h3>Email: {{recordData.email}} </h3>
           </label>
-          <p></p>
         </div>
-        <!--Student's information content END -->
-
-
-        <!--Contents of "Contact Details" popup START -->
-        <div id="light-contact" class="white_content">
-
-          <!--Close button X of floating popup -->
-          <a button class="popup_close" type="button"
-            onclick="document.getElementById('light-contact').style.display='none';document.getElementById('fade-contact').style.display='none'">X
-          </a>
-
-          <form class="form-inline" id="contact_detail" name="contactForm" action="#" method="GET">
-            <div class="form-group col-sm-6">
-              <label id="contact_title" for="title-1" class="control-label col-sm-12">General Information</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label id="contact_title" for="title-2" class="control-label col-sm-12">Academic Information</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="first" class="control-label col-sm-6"><b>First</b></label>
-              <label id="detail" for="first-detail" class="control-label col-sm-6">{{recordData.name}}</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="advisor" class="control-label col-sm-6"><b>Academic Advisor</b></label>
-              <label id="detail" for="advisor-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="middle" class="control-label col-sm-6"><b>Middle</b></label>
-              <label id="detail" for="middle-detail" class="control-label col-sm-6">{{recordData.middleName}}</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="standing" class="control-label col-sm-6"><b>Standing</b></label>
-              <label id="detail" for="standing-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="last" class="control-label col-sm-6"><b>Last</b></label>
-              <label id="detail" for="last-detail" class="control-label col-sm-6">{{recordData.lastName}}</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="level" class="control-label col-sm-6"><b>Level</b></label>
-              <label id="detail" for="level-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="psuid" class="control-label col-sm-6"><b>PSU ID</b></label>
-              <label id="detail" for="psuid-detail" class="control-label col-sm-6">{{recordData.contactId}}</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="class" class="control-label col-sm-6"><b>Class</b></label>
-              <label id="detail" for="class-detail" class="control-label col-sm-6">Not Applicable</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="email" class="control-label col-sm-6"><b>Email</b></label>
-              <label id="detail" for="email-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="major" class="control-label col-sm-6"><b>Major</b></label>
-              <label id="detail" for="major-detail" class="control-label col-sm-6">{{recordData.major}}</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="odin" class="control-label col-sm-6"><b>Odin</b></label>
-              <label id="detail" for="odin-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="minor" class="control-label col-sm-6"><b>Minor</b></label>
-              <label id="detail" for="minor-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="phone" class="control-label col-sm-6"><b>Phone</b></label>
-              <label id="detail" for="phone-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="pre-professional" class="control-label col-sm-6"><b>Pre-Professional Program</b></label>
-              <label id="detail" for="pre-professional-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="veteran" class="control-label col-sm-6"><b>Veteran</b></label>
-              <label id="detail" for="veteran-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="gpa-psu" class="control-label col-sm-6"><b>GPA PSU UG</b></label>
-              <label id="detail" for="gpa-psu-detail" class="control-label col-sm-6">0</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="gender" class="control-label col-sm-6"><b>Gender</b></label>
-              <label id="detail" for="gender-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="gpa-overall" class="control-label col-sm-6"><b>GPA Overall UG</b></label>
-              <label id="detail" for="gpa-overall-detail" class="control-label col-sm-6">0</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="null" class="control-label col-sm-6"><b></b></label>
-              <label id="detail" for="null-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="Hrs-earned" class="control-label col-sm-6"><b>Hrs Earned UG</b></label>
-              <label id="detail" for="Hrs-earned-detail" class="control-label col-sm-6">0</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="null" class="control-label col-sm-6"><b></b></label>
-              <label id="detail" for="null-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="attended-orn" class="control-label col-sm-6"><b>Attended ORN</b></label>
-              <label id="detail" for="attended-orn-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label id="contact_title" for="title-3" class="control-label col-sm-12">Additional Information</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="null" class="control-label col-sm-6"><b></b></label>
-              <label id="detail" for="null-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="advising-hold" class="control-label col-sm-6"><b>Advising Holds</b></label>
-              <label id="detail" for="advising-hold-detail" class="control-label col-sm-6"></label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="international-student" class="control-label col-sm-6"><b>International Student</b></label>
-              <label id="detail" for="international-student-detail" class="control-label col-sm-6">unknown</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="registration-hold" class="control-label col-sm-6"><b>Registration Holds</b></label>
-              <label id="detail" for="registration-hold-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="co-admission" class="control-label col-sm-6"><b>Co-Admission</b></label>
-              <label id="detail" for="co-admission-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="admit-term" class="control-label col-sm-6"><b>Admit Term</b></label>
-              <label id="detail" for="admit-term-detail" class="control-label col-sm-6">unknown</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="last-term-attendance" class="control-label col-sm-6"><b>Last Term of Attendance</b></label>
-              <label id="detail" for="last-term-attendance-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="latest-decision" class="control-label col-sm-6"><b>Latest Decision</b></label>
-              <label id="detail" for="latest-decision-detail" class="control-label col-sm-6">unknown</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="certificate-declaration" class="control-label col-sm-6"><b>Certificate Declaration</b></label>
-              <label id="detail" for="certificate-declaration-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="applied-graduation" class="control-label col-sm-6"><b>Applied for Graduation</b></label>
-              <label id="detail" for="applied-graduation-detail"
-                class="control-label col-sm-6">{{recordData.gradExpected}}</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="enrolled-honors" class="control-label col-sm-6"><b>Enrolled in Honors</b></label>
-              <label id="detail" for="enrolled-honors-detail"
-                class="control-label col-sm-6">{{recordData.honors}}</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="college-code" class="control-label col-sm-6"><b>College Code</b></label>
-              <label id="detail" for="college-code-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="4ydg" class="control-label col-sm-6"><b>4YDG</b></label>
-              <label id="detail" for="4ydg-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-            <div class="form-group col-sm-6">
-              <label for="attrib-code" class="control-label col-sm-6"><b>Attrib Code</b></label>
-              <label id="detail" for="attrib-detail" class="control-label col-sm-6">None</label>
-            </div>
-
-
-
-          </form>
-
-        </div>
-
-        <div id="fade-contact" class="black_overlay"></div>
-        <!--Contents of contact details popup END -->
-
-        <!--Contents of History popup START -->
-        <div id="light-history" class="white_content">
-          <!--Close button X of floating popup -->
-          <a button class="popup_close" type="button"
-            onclick="document.getElementById('light-history').style.display='none';document.getElementById('fade-history').style.display='none'">X</a>
-
-          <table class="table" id="history_table">
-            <thead>
-              <tr>
-                <th scope="col"><b>Subject</b></th>
-                <th scope="col"><b>Team</b></th>
-                <th scope="col"><b>Owner</b></th>
-                <th scope="col"><b>MediaType</b></th>
-                <th scope="col"><b>State</b></th>
-                <th scope="col"><b>Created Start</b></th>
-                <th scope="col"><b>Meta</b></th>
-              </tr>
-            </thead>
-            <tbody id="tbody">
-              <tr>
-                <td><button class="sub-btn" type="button">🔍</button>{{recordData.subject}}</td>
-                <td>{{recordData.teamName}}</td>
-                <td>{{recordData.ownerName}}</td>
-                <td>In Person</td>
-                <td>Pending</td>
-                <td>{{recordData.interactionCreatedOn}}</td>
-                <td><button class="meta-btn" type="button">🧰</button></td>
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-        <div id="fade-history" class="black_overlay"></div>
-        <!--Contents of History popup END -->
-
-        <!--Contents of floating popup START -->
-        <div id="light-attach" class="white_content">
-          <!--Close button X of floating popup -->
-          <a button class="popup_close" type="button"
-            onclick="document.getElementById('light-attach').style.display='none';document.getElementById('fade-attach').style.display='none'">X</a>
-
-          <div class="attachmentsContent">
-            <p>No upload file right now.</p>
-          </div>
-
-        </div>
-        <div id="fade-attach" class="black_overlay"></div>
-        <!--Contents of floating popup END -->
-
-        <!--Contents of create interaction popup window START-->
-        <div id="light-create" class="white_content">
-          <p><b>Create new interaction</b></p>
-          <p><b>Team: {{recordData.teamName}}</b></p>
-          <!--Close button X of floating popup -->
-          <a button class="popup_close" type="button"
-            onclick="document.getElementById('light-create').style.display='none';document.getElementById('fade-create').style.display='none'">X</a>
-
-          <form class="form-inline" #myForm="ngForm" (ngSubmit)="createInfo(myForm.value)">
-
-            <div class="form-group col-sm-12">
-              <label for="subject" class="control-label col-sm-3"><b>Subject:</b></label>
-              <input name="subject" type="text" class="form-control col-sm-9" id="subContent"
-                [(ngModel)]="myField.subject"  >
-            </div>
-
-            <div class="form-group col-sm-12">
-              <label for="medium" class="control-label col-sm-3"><b>Medium:</b></label>
-              <select name="medium" class="combobox col-sm-9" id="medContent" style="height: 35px;margin-top:5px;"
-                [(ngModel)]="myField.medium" >
-                <option></option>
-                <option value="In Person">In Person</option>
-                <option value="Phone Call">Phone Call</option>
-                <option value="Video Call">Video Call</option>
-              </select>
-            </div>
-
-            <div class="form-group col-sm-12">
-              <label for="createAppt" class="control-label col-sm-3"
-                style="text-align: center; display:inline-block"><b>Create as appointment:</b></label>
-              <select [(ngModel)]="myField.createAppt"  name="createAppt" class="combobox col-sm-9"
-                id="cAContent" style="height: 35px;">
-                <option></option>
-                <option value="YES">Yes</option>
-                <option value="NO">No</option>
-              </select>
-            </div>
-
-            <div class="form-group col-sm-12">
-              <label for="assign" class="control-label col-sm-3"><b>Assign to:</b></label>
-              <div class="radio" style="float: left;">
-                <label>
-                  <input [(ngModel)]="myField.assign"  name="assign" type="radio" id="optionsRadios1"
-                    value="Me" style="margin-left:-111px;">Me
-                </label>
-                <label>
-                  <input [(ngModel)]="myField.assign"  name="assign" type="radio" id="optionsRadios2"
-                    value="Team Queue/None">Team Queue/None
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group col-sm-12" align="center" valign="center">
-              <div ng-controller="create" class="btn col-sm-12">
-                <button type="submit" class="btn btn-default">Create</button>
-              </div>
-            </div>
-          </form>
-
-        </div>
-
-        <div id="fade-create" class="black_overlay"></div>
-        <!--Contents of create interaction popup window END-->
-
       </form>
-      <!-- Go top bar START
-      <div class="float-right">
-        <a class="gotop d-none d-sm-block" href="javascript:scroll(0,0)">🔝</a>
+    </div>
+
+    <div class="modal fade" id="contactDetails" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-lg" role="document">
+  
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalLabel"><strong>Contact Details</strong></h4>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          
+          <div class="modal-body">
+  
+            <form class="form-inline" id="contact_detail" name="contactForm" action="#" method="GET">
+
+              <div class="form-group col-sm-6">
+                <label id="contact_title" for="title-3" class="control-label col-sm-12">General Information</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label id="contact_title" for="title-2" class="control-label col-sm-12">Academic Information</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="first" class="control-label col-sm-6"><b>First</b></label>
+                <label id="detail" for="first-detail" class="control-label col-sm-6">{{recordData.name}}</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="advisor" class="control-label col-sm-6"><b>Academic Advisor</b></label>
+                <label id="detail" for="advisor-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="middle" class="control-label col-sm-6"><b>Middle</b></label>
+                <label id="detail" for="middle-detail" class="control-label col-sm-6">{{recordData.middleName}}</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="standing" class="control-label col-sm-6"><b>Standing</b></label>
+                <label id="detail" for="standing-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="last" class="control-label col-sm-6"><b>Last</b></label>
+                <label id="detail" for="last-detail" class="control-label col-sm-6">{{recordData.lastName}}</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="level" class="control-label col-sm-6"><b>Level</b></label>
+                <label id="detail" for="level-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="psuid" class="control-label col-sm-6"><b>PSU ID</b></label>
+                <label id="detail" for="psuid-detail" class="control-label col-sm-6">{{recordData.contactId}}</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="class" class="control-label col-sm-6"><b>Class</b></label>
+                <label id="detail" for="class-detail" class="control-label col-sm-6">Not Applicable</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="email" class="control-label col-sm-6"><b>Email</b></label>
+                <label id="detail" for="email-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="major" class="control-label col-sm-6"><b>Major</b></label>
+                <label id="detail" for="major-detail" class="control-label col-sm-6">{{recordData.major}}</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="odin" class="control-label col-sm-6"><b>Odin</b></label>
+                <label id="detail" for="odin-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="minor" class="control-label col-sm-6"><b>Minor</b></label>
+                <label id="detail" for="minor-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="phone" class="control-label col-sm-6"><b>Phone</b></label>
+                <label id="detail" for="phone-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="pre-professional" class="control-label col-sm-6"><b>Pre-Professional Program</b></label>
+                <label id="detail" for="pre-professional-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="veteran" class="control-label col-sm-6"><b>Veteran</b></label>
+                <label id="detail" for="veteran-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="gpa-psu" class="control-label col-sm-6"><b>GPA PSU UG</b></label>
+                <label id="detail" for="gpa-psu-detail" class="control-label col-sm-6">0</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="gender" class="control-label col-sm-6"><b>Gender</b></label>
+                <label id="detail" for="gender-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="gpa-overall" class="control-label col-sm-6"><b>GPA Overall UG</b></label>
+                <label id="detail" for="gpa-overall-detail" class="control-label col-sm-6">0</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="null" class="control-label col-sm-6"><b></b></label>
+                <label id="detail" for="null-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="Hrs-earned" class="control-label col-sm-6"><b>Hrs Earned UG</b></label>
+                <label id="detail" for="Hrs-earned-detail" class="control-label col-sm-6">0</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="null" class="control-label col-sm-6"><b></b></label>
+                <label id="detail" for="null-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="attended-orn" class="control-label col-sm-6"><b>Attended ORN</b></label>
+                <label id="detail" for="attended-orn-detail" class="control-label col-sm-6"></label>
+              </div>
+              
+              <div class="form-group col-sm-6">
+                <label id="contact_title" for="title-3" class="control-label col-sm-12">Additional Information</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="null" class="control-label col-sm-6"><b></b></label>
+                <label id="detail" for="null-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="advising-hold" class="control-label col-sm-6"><b>Advising Holds</b></label>
+                <label id="detail" for="advising-hold-detail" class="control-label col-sm-6"></label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="international-student" class="control-label col-sm-6"><b>International Student</b></label>
+                <label id="detail" for="international-student-detail" class="control-label col-sm-6">unknown</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="registration-hold" class="control-label col-sm-6"><b>Registration Holds</b></label>
+                <label id="detail" for="registration-hold-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="co-admission" class="control-label col-sm-6"><b>Co-Admission</b></label>
+                <label id="detail" for="co-admission-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="admit-term" class="control-label col-sm-6"><b>Admit Term</b></label>
+                <label id="detail" for="admit-term-detail" class="control-label col-sm-6">unknown</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="last-term-attendance" class="control-label col-sm-6"><b>Last Term of Attendance</b></label>
+                <label id="detail" for="last-term-attendance-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="latest-decision" class="control-label col-sm-6"><b>Latest Decision</b></label>
+                <label id="detail" for="latest-decision-detail" class="control-label col-sm-6">unknown</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="certificate-declaration" class="control-label col-sm-6"><b>Certificate Declaration</b></label>
+                <label id="detail" for="certificate-declaration-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="applied-graduation" class="control-label col-sm-6"><b>Applied for Graduation</b></label>
+                <label id="detail" for="applied-graduation-detail"
+                  class="control-label col-sm-6">{{recordData.gradExpected}}</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="enrolled-honors" class="control-label col-sm-6"><b>Enrolled in Honors</b></label>
+                <label id="detail" for="enrolled-honors-detail"
+                  class="control-label col-sm-6">{{recordData.honors}}</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="college-code" class="control-label col-sm-6"><b>College Code</b></label>
+                <label id="detail" for="college-code-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="4ydg" class="control-label col-sm-6"><b>4YDG</b></label>
+                <label id="detail" for="4ydg-detail" class="control-label col-sm-6">None</label>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="attrib-code" class="control-label col-sm-6"><b>Attrib Code</b></label>
+                <label id="detail" for="attrib-detail" class="control-label col-sm-6">None</label>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      Go top bar END-->
+    </div>
+
+    <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-lg" role="document">
+  
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalLabel"><strong>History</strong></h4>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          
+          <div class="modal-body">
+    
+            <table class="table" id="history_table">
+              <thead>
+                <tr>
+                  <th scope="col"><b>Subject</b></th>
+                  <th scope="col"><b>Team</b></th>
+                  <th scope="col"><b>Owner</b></th>
+                  <th scope="col"><b>MediaType</b></th>
+                  <th scope="col"><b>State</b></th>
+                  <th scope="col"><b>Created Start</b></th>
+                  <th scope="col"><b>Meta</b></th>
+                </tr>
+              </thead>
+              <tbody id="tbody">
+                <tr>
+                  <td><button class="sub-btn" type="button">🔍</button>{{recordData.subject}}</td>
+                  <td>{{recordData.teamName}}</td>
+                  <td>{{recordData.ownerName}}</td>
+                  <td>In Person</td>
+                  <td>Pending</td>
+                  <td>{{recordData.interactionCreatedOn}}</td>
+                  <td><button class="meta-btn" type="button">🧰</button></td>
+                </tr>
+              </tbody>
+            </table>
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="attachments" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-lg" role="document">
+  
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalLabel"><strong>Attachments</strong></h4>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          
+          <!-- TODO implement displaying attachment content -->
+          <div class="modal-body">
+            <div class="attachmentsContent">
+              <p>No files uploaded.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="createInteraction" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-lg" role="document">
+  
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h4 class="modal-title" id="modalLabel"><strong>Create Interaction</strong></h4>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          
+          <div class="modal-body">
+
+            <form #myForm="ngForm" (ngSubmit)="createInfo(myForm.value)">
+
+              <br>
+              <div class="form-group">
+                <label for="subject"><b>Subject:&nbsp;</b></label>
+                <input name="subject" type="text" id="subContent"
+                  [(ngModel)]="myField.subject">
+              </div>
+
+              <div class="form-group">
+                <label for="medium"><b>Medium:&nbsp;</b></label>
+                <select name="medium" id="medContent" style="height: 35px;margin-top:5px;"
+                  [(ngModel)]="myField.medium" >
+                  <option></option>
+                  <option value="In Person">In Person</option>
+                  <option value="Phone Call">Phone Call</option>
+                  <option value="Video Call">Video Call</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="createAppt" style="text-align: center; display:inline-block"><b>Create as appointment:&nbsp;</b></label>
+                <select [(ngModel)]="myField.createAppt" name="createAppt"
+                  id="cAContent" style="height: 35px;">
+                  <option></option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="assign"><b>Assign to:</b></label>
+                <div class="radio">
+                  <label>
+                    <input [(ngModel)]="myField.assign" name="assign" type="radio" id="optionsRadios1"
+                      value="Me">Me
+                  </label>
+                  <br>
+                  <label>
+                    <input [(ngModel)]="myField.assign" name="assign" type="radio" id="optionsRadios2"
+                      value="Team Queue/None">Team Queue/None
+                  </label>
+                </div>
+              </div>
+
+              <div class="modal-footer row" align="center">
+                <button type="button" class="btn btn-secondary ml-1" data-dismiss="modal" id="closeModal">Cancel</button>
+                <button type="submit" ng-controller="create" class="btn btn-success text-nowrap">Create</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
     </div>
 
     <!--Footer START -->
     <div class="footer-record">
-      <li id="tab_advisingContact"><a href="javascript:void(0)" data-for-block="block_advisingContact"
-          onclick="document.getElementById('light-contact').style.display='block';document.getElementById('fade-contact').style.display='block'">Contact
-          Details</a></li>
-      <li id="tab_interactionHistory"><a href="javascript:void(0) " data-for-block="block_interactionHistory"
-          onclick="document.getElementById('light-history').style.display='block';document.getElementById('fade-history').style.display='block'">History</a>
+      
+      <li id="tab_advisingContact"><a href="javascript:void(0)" data-for-block="block_advisingContact" data-toggle="modal" data-target="#contactDetails">
+        Contact Details</a>
       </li>
-      <li id="tab_contactAttachments"><a href="javascript:void(0) " data-for-block="block_contactAttachments"
-          onclick="document.getElementById('light-attach').style.display='block';document.getElementById('fade-attach').style.display='block'">Attachments</a>
+
+      <li id="tab_interactionHistory"><a href="javascript:void(0) " data-for-block="block_interactionHistory" data-toggle="modal" data-target="#history">
+        History</a>
       </li>
-      <li id="tab_interactionCreate"><a href="javascript:void(0) " data-for-modal="createInteractionModal"
-          onclick="document.getElementById('light-create').style.display='block';document.getElementById('fade-create').style.display='block'">Create
-          Interaction</a></li>
+
+      <li id="tab_contactAttachments"><a href="javascript:void(0) " data-for-block="block_contactAttachments" data-toggle="modal" data-target="#attachments">
+          Attachments</a>
+      </li>
+
+      <li id="tab_interactionCreate"><a href="javascript:void(0) " data-for-modal="createInteractionModal" data-toggle="modal" data-target="#createInteraction">
+        Create Interaction</a>
+      </li>
+
       <li id="tab_otherResources" class="dropdown">
         <a class href="javascript:void(0)" class="dropdown-toggle" tabindex="0">
           External Resources<span class="caret"></span></a>
@@ -404,6 +426,7 @@
           <a href="javascript:void(0)">Link</a>
         </div>
       </li>
+
     </div>
     <!--Footer END -->
 

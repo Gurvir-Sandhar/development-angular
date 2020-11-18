@@ -89,7 +89,6 @@
     </div>
     <br>
 
-    <!-- TODO ADD DROP IN RECORD SCREEN via (click)="function()" -->
     <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#dropIn">
       Can't find this record?
     </button>
@@ -99,7 +98,6 @@
     </button>
   </div>
 
-  <!-- TODO add form validation -->
   <div class="modal fade" id="dropIn" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg" role="document">
@@ -107,9 +105,7 @@
       <div class="modal-content">
 
         <div class="modal-header">
-
           <h5 class="modal-title" id="modalLabel"><strong>New Drop-In Record<br>Team: Portland State University</strong></h5>
-
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -128,7 +124,6 @@
               <input id="firstName" name="firstName" class="form-control"
                 required placeholder="First Name"
                 [(ngModel)]="formFields.firstName" #firstName="ngModel">
-
             </div>
 
             <div class="form-group">
@@ -168,8 +163,8 @@
             <div *ngIf="formFields.date != ''">
                 
               <div class="form-group">
-                <label for="appointmentTime">
 
+                <label for="appointmentTime">
                   <strong>
                     Start Time (Hour:Minute AM/PM):
                   </strong>
@@ -177,9 +172,7 @@
                   <select id="hour" type="selectdropdown" optional [(ngModel)]="formFields.hour" name="hour">
                     <option *ngFor="let hour of hours" id="hours" value="{{hour}}">{{hour}}</option>
                   </select>
-
-                  <strong>:</strong>
-
+                  <strong> :  </strong>
                   <select type="selectdropdown" optional [(ngModel)]="formFields.minute" name="minute" value="00">
                     <option *ngFor="let minute of minutes" id="minutes" value="{{minute}}">{{minute}}</option>
                   </select>
@@ -193,14 +186,10 @@
               </div>
 
               <div class="form-group">
-
                 <strong>
                   Duration (Minutes):
                 </strong>
-
-                <!-- <input type="number" id="duration" name="duration" step="5" optional [(ngModel)]="formFields.duration" name="duration" value="30"/> -->
-                <input type="number" id="duration" min="1" max="120" value="" 
-                optional [(ngModel)]="formFields.duration" name="duration">
+                <input type="number" id="duration" min="1" max="120" value="" optional [(ngModel)]="formFields.duration" name="duration">
               </div>
             </div>
 
@@ -222,14 +211,9 @@
               <a id="submitting" hidden="true">Submitting drop-in form...</a>
               <button id="submitButton" type="submit" class="btn btn-success">Create</button>
             </div>
-
           </form>
-
-
         </div>
-
       </div>
     </div>
   </div>
-
 </div>

@@ -4,11 +4,12 @@ h1 {
 
 th {
   font-weight: normal;
-  width: 10%;
+  max-width: 10%;
 }
 
 .columns {
   font-weight: bold;
+  width: 25% ;
 }
 
 .mfsw-row .column {
