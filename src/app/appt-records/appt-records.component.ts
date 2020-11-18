@@ -69,8 +69,4 @@ export class ApptRecordsComponent implements OnInit {
     alert("Create Successfully!");
   }
 
-  dropMenu(): void {
-    document.getElementById('myDropdown').classList.toggle('show');
-  }
-
 }
