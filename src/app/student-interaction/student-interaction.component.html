@@ -273,13 +273,21 @@
       <mat-tab label="Attachments">
         <div class="business-attachments">
           <p class="attachment-header">Contact Attachments, SBA</p>
-          <!--TODO-->
-          <p>None found or insufficient permissions...</p>
+          <ul *ngFor="let business of interactionData.attachments.business">
+            <li>
+              {{business.attachmentFilename}}
+              <button class=" btn btn-link">link</button>
+            </li>
+          </ul>
         </div>
         <div class="engineering-attachments">
           <p class="attachment-header">Contact Attachments, MCECS</p>
-          <!--TODO-->
-          <p>None found or insufficient permissions...</p>
+          <ul *ngFor="let engineering of interactionData.attachments.engineering">
+            <li>
+              {{engineering.attachmentFilename}}
+              <button class=" btn btn-link">link</button>
+            </li>
+          </ul>
         </div>
       </mat-tab>
 
