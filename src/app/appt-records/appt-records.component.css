@@ -30,14 +30,14 @@ li {
   /*float: left;*/
   list-style: none;
   display: inline-block;
-  margin: 0 4%;
+  margin: 0 5%;
 }
 
 .footer-record {
   /*margin:0 10%;*/
   position: fixed;
   bottom: 10px;
-  width: 100%;
+  width: 74%;
 }
 
 .black_overlay {
