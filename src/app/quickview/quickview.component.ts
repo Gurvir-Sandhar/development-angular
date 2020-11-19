@@ -45,7 +45,7 @@ export class QuickviewComponent implements OnInit {
    * @param index int for which users to display  in dropdown
    */
 
-   * Changes the select value
+   /* Changes the select value
    * @param index int for which users to display  in dropdown
    */
   changeSelect(index) {
@@ -85,6 +85,7 @@ export class QuickviewComponent implements OnInit {
    */
   reassign() {
     this.detail.ownerName = this.changeTo;
+    this.show();
   }
 
   /**

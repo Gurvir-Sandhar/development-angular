@@ -1,5 +1,13 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ApiService } from '../api.service';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output
+} from '@angular/core';
+
+import {
+  ApiService
+} from '../api.service';
 
 @Component({
   selector: 'app-appt-records',
@@ -11,24 +19,58 @@ export class ApptRecordsComponent implements OnInit {
   @Output() toggleRecord = new EventEmitter();
 
   isPhoto = false;
-  apptTableData;
   recordData;
+  createInformation;
 
-  constructor(private apiService: ApiService) { }
+  myField = {
+    subject: '',
+    medium: '',
+    createAppt: '',
+    assign: ''
+  }
+
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.apptTableData = this.apiService.getInformation();
-    this.apiService.getRecordData().subscribe(data => {
-      console.log(data);  // for debugging
-      this.recordData = data;
-    });
+    this.recordData = this.apiService.getInformation();
+    // console.log(this.recordData); // for debugging
   }
 
   closeRecordView(): void {
     this.toggleRecord.emit();
   }
 
-  dropMenu(): void {
-    document.getElementById('myDropdown').classList.toggle('show');
+  // TODO create the interaction in the backend - currently creates the interaction locally for demo purposes
+  createInfo(info: any) {
+
+    this.createInformation = info;
+    // console.log(this.createInformation);
+    let editTable = document.getElementById("tbody");
+    let tr = document.createElement("tr");
+    let td0 = document.createElement("td");
+    td0.innerHTML = this.createInformation.subject;
+    let td1 = document.createElement("td");
+    td1.innerHTML = this.recordData.teamName;
+    let td2 = document.createElement("td");
+    td2.innerHTML = this.recordData.ownerName;
+    let td3 = document.createElement("td");
+    td3.innerHTML = this.createInformation.medium;
+    let td4 = document.createElement("td");
+    td4.innerHTML = "Pending";
+    let td5 = document.createElement("td");
+    var myDate = new Date();
+    td5.innerHTML = myDate.toLocaleString();
+    let td6 = document.createElement("td");
+    tr.appendChild(td0);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tr.appendChild(td6);
+    editTable.appendChild(tr);
+    alert("Created Successfully!");
+    document.getElementById("closeModal").click();
   }
+
 }

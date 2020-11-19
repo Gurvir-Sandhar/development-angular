@@ -1,6 +1,5 @@
 <body>
-  <app-state-filter (updateState)="updateCurrentState($event)"></app-state-filter>
-
+  
   <div *ngFor="let table of tables">
 
     <h1>{{table.name}}</h1>
@@ -46,16 +45,15 @@
             {{meeting.time}}
           </th>
           <td *ngIf="meeting.contactId">
-            <button type="button" class="btn btn-link" (click)="openRecordView(meeting)">{{meeting.name}}</button>
+            <a href="javascript:void(0);" (click)="openRecordView(meeting)">{{meeting.name}}</a>
+            <!-- <button type="button" class="btn btn-link" (click)="openRecordView(meeting)">{{meeting.name}}</button> -->
           </td>
           <td *ngIf="!meeting.contactId">
             <a>{{meeting.name}}</a>
+            <!-- <button type="button" class="btn" disabled style="color: #000000">{{meeting.name}}</button> -->
           </td>
           <td>{{meeting.ownerName}}</td>
           <td>{{meeting.teamName}}</td>
-          <!-- His example only has (none) where that is the actual value, not sure how this should interact -->
-          <!-- <td *ngIf="!meeting.interactionOwnerName">(none)</td> -->
-          <!-- <td *ngIf="meeting.interactionOwnerName">{{meeting.interactionOwnerName}}</td> -->
           <td>{{meeting.interactionOwnerName}}</td>
           <td>
             <a *ngIf="meeting.interactionId" href="./#/appointments/{{meeting.interactionId}}" role="button" class="btn btn-primary">
@@ -87,6 +85,14 @@
           </td>
         </tr>
       </tbody>
+
+      <thead>
+        <!-- Labels for lower columns -->
+        <tr>
+          <th scope="col" class="columns" *ngFor="let column of columnNames">{{column.label}}</th>
+        </tr>
+      </thead>
+
     </table>
 
     <div aria-label="{{table.id}}Footer" class="mfsw-row">
@@ -104,7 +110,6 @@
         <span>&nbsp;Page {{table.page}}/{{table.totalPages}}&nbsp;</span>
       </div>
     </div>
-=======
     <br>
 
   </div>  

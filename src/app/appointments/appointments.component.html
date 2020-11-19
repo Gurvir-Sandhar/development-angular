@@ -1,15 +1,15 @@
 <div>
-  <p>Nav bar would go here</p>
-  <div *ngIf="table">
+  <div *ngIf="!record">
+    <app-state-filter (updateState)="updateCurrentState()"></app-state-filter>
+  </div>
+
+  <div *ngIf="table && load">
     <appt-tables (toggleDetail)='toggleDetail()' (toggleRecord)='toggleRecord()'></appt-tables>
   </div>
   <div *ngIf="record">
     <appt-records (toggleRecord)='toggleRecord()'></appt-records>
   </div>
-  <div *ngIf="!detail">
-    <appt-tables (toggleDetail)='toggleDetail($event.detail)'></appt-tables>
-  </div>
   <div *ngIf="detail">
-    <quick-view (toggleDetail)='toggleDetail($event.detail)'></quick-view>
+    <quick-view (toggleDetail)='toggleDetail()'></quick-view>
   </div>
 </div>

@@ -1,36 +1,43 @@
 .record {
   background-color: rgb(109, 141, 34) !important;
-  height: 100vh;
+  height: calc(100vh - 68px);
+  height: -o-calc(100% - 68px); /* opera */
+  height: -webkit-calc(100% - 68px); /* google, safari */
+  height: -moz-calc(100% - 68px); /* firefox */
   overflow: hidden;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .container{
   background-color: rgb(109, 141, 34) !important;
-  height: 100vh;
+  height: calc(100vh - 68px);
+  height: -o-calc(100% - 68px); /* opera */
+  height: -webkit-calc(100% - 68px); /* google, safari */
+  height: -moz-calc(100% - 68px); /* firefox */
   width: 100%;
   overflow: hidden;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .record form {
-  border-radius: 25px;
-  margin: 3% 1%;
+  /* border-radius: 25px; */
+  /* margin: 3% 1%; */
   background-color: white;
+  margin-top: -2%;
 }
 
 li {
   /*float: left;*/
   list-style: none;
   display: inline-block;
-  margin: 0 4%;
+  margin: 0 5%;
 }
 
 .footer-record {
-  margin:0 10%;
+  /*margin:0 10%;*/
   position: fixed;
   bottom: 10px;
-  width: 100%;
+  width: 74%;
 }
 
 .black_overlay {
@@ -39,7 +46,8 @@ li {
   top: 0%;
   left: 0%;
   width: 100%;
-  height: 100%;
+  height: 116%;
+  
   background-color: darkgray;
   z-index: 1001;
   -moz-opacity: 0.8;
@@ -97,7 +105,7 @@ a:link:hover {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: -220px;
+  top: -212px;
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -119,19 +127,6 @@ a:link:hover {
   background-color: #f1f1f1
 }
 
-.gotop {
-  position: fixed;
-  bottom: 5%;
-  z-index: 100;
-  width: 3rem;
-  background: lightgray;
-  color: #fff;
-  padding: .5rem;
-  border-radius: .5rem;
-  font-size: 2rem;
-  text-decoration: none;
-}
-
 .float-right a {
   text-decoration: none;
 }
@@ -145,8 +140,8 @@ a:link:hover {
 
 .popup_close {
   position: absolute;
-  right: 3%;
-  top: 2px;
+  right: 5%;
+  top: 15px;
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -172,8 +167,8 @@ a:link:hover {
   width: 24px;
   height: 24px;
   line-height: 24px;
-  right: 3%;
-  top: 2px;
+  right: 5%;
+  top: 15px;
   color: #FFF;
   box-shadow: 0 1px 3px rgba(209, 40, 42, .5);
   background: #d1282a;
@@ -188,11 +183,32 @@ a:link:hover {
   top:5px;
 }
 
-.return-table a:link {
+.return-table a:link{
   color: black;
   text-decoration:none;
 }
 
-.return-table a:hover {
+.return-table a:hover{
   text-decoration:none;
+}
+
+#contact_detail label{
+  margin-top:15px;
+  display:inline-block;
+  /* width:150px; */
+}
+
+#contact_detail #detail{
+  display:inline-bloce;
+  /* width: 150px; */
+}
+
+#contact_title{
+  font-size:20px;
+  padding: 0;
+}
+
+.sub-btn{
+  padding: 1px 3px;
+  text-decoration: none;
 }
