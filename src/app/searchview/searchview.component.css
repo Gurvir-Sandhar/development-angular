@@ -36,3 +36,26 @@ th {
     min-width: 652px;
   }
 }
+
+a {
+  color: #02759A;
+}
+
+.btn-light {
+  background-color: #02759A;
+}
+
+.btn-success {
+  background-color: #6a7f10;
+  border-color: #6a7f10;
+}
+
+.btn-primary {
+  background-color: #02759A;
+  border-color: #02759A;
+}
+
+.btn-danger {
+  background-color: #cd4628;
+  border-color: #cd4628;
+}

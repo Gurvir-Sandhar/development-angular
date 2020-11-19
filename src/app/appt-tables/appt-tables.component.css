@@ -38,3 +38,47 @@ th {
     min-width: 652px;
   }
 }
+
+.btn-link {
+  color: #02759A;
+}
+
+.btn-light {
+  color: white;
+  background-color: #cd4628;
+}
+
+.btn-success {
+  background-color: #6a7f10;
+  border-color: #6a7f10;
+}
+
+.btn-success.dropdown-toggle {
+  background-color: #6a7f10;
+  border-color: #6a7f10;
+}
+
+.btn-primary {
+  background-color: #02759A;
+  border-color: #02759A;
+}
+
+.btn-primary.dropdown-toggle {
+  background-color: #02759A;
+  border-color: #02759A;
+}
+
+.btn-danger {
+  background-color: #cd4628;
+  border-color: #cd4628;
+}
+
+.btn-info {
+  background-color: #cd4628;
+  border-color: #cd4628;
+}
+
+.btn-info.dropdown-toggle {
+  background-color: #cd4628;
+  border-color: #cd4628;
+}
