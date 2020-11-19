@@ -20,8 +20,8 @@ font-size: 16px;
 height: 2.5em;
 border: 0px;
 outline: none;
-background-color: #6a7f10;
-color: white;
+background-color: white;
+color: #007bff;
 font-family: inherit; /* Important for vertical align on mobile phones */
 margin: 0; /* Important for vertical align on mobile phones */
 padding-left: 6px;
