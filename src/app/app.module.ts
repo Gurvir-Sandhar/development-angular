@@ -7,15 +7,17 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
 import { createCustomElement } from '@angular/elements';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { ApptTablesComponent } from './appt-tables/appt-tables.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { QuickviewComponent } from './quickview/quickview.component';
 import { ApptRecordsComponent } from './appt-records/appt-records.component';
-import { SearchviewComponent } from './searchview/searchview.component';
+import { StudentInteractionComponent } from './student-interaction/student-interaction.component';\
 import { HeaderBarComponent } from './header-bar/header-bar.component';
+import { SearchviewComponent } from './searchview/searchview.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: AppointmentsComponent },
@@ -35,7 +37,8 @@ const routes: Routes = [
     AppointmentsComponent,
     StateFilterComponent,
     QuickviewComponent,
-    ApptRecordsComponent
+    ApptRecordsComponent,
+    StudentInteractionComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
+    NoopAnimationsModule,
+    MatTabsModule,
     FormsModule
   ],
   exports: [
@@ -51,8 +56,8 @@ const routes: Routes = [
     ApptTablesComponent,
     AppointmentsComponent,
     QuickviewComponent,
-    ApptRecordsComponent
-    
+    ApptRecordsComponent,
+    StudentInteractionComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
