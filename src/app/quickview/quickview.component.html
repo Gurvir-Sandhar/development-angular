@@ -16,11 +16,11 @@
         <div class="column">
           <p>
             <button class="btn btn-link link-button" (click)="openRecordView()" *ngIf="detail.contactId" href="./#/record/{{detail.contactId}}">{{detail.contactName}}</button>
+
             <a *ngIf="!detail.contactId">{{detail.contactName}}</a>
           </p>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Team</strong>
@@ -29,7 +29,6 @@
           <span>{{detail.teamName}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Appointment</strong>
@@ -38,7 +37,6 @@
           <span>{{detail.id}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Interaction</strong>
@@ -47,7 +45,6 @@
           <span>{{detail.interactionId}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Here for</strong>
@@ -56,7 +53,6 @@
           <span>{{detail.apptType}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Signed in at</strong>
@@ -65,7 +61,6 @@
           <span>{{detail.interactionCreatedOn}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Here to see</strong>
@@ -78,24 +73,25 @@
               <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
             </svg>
           </button>
-          <div class="right">
-            <select *ngIf="list" id="options" type="selectdropdown block" (change)="changeSelect($event.target.value)">
-              <option value="">Choose One</option>
-              <option *ngFor="let user of users; let k = index" value="{{k}}">{{user.name}}</option>
-            </select>
-          </div>
-          <div class="right">
-            <button type="button" class="btn btn-warning" *ngIf="reassignShow" (click)="reassign()">
-              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 0 0 3 14.5h10a1.5 1.5 0 0 0 1.5-1.5V8a.5.5 0 0 0-1 0v5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 0 0-1H3A1.5 1.5 0 0 0 1.5 3v10z"/>
-              </svg>
-              Reassign Appointment
-            </button>
+          <div *ngIf="list">
+            <div class="right">
+              <select id="options" type="selectdropdown block" (change)="changeSelect($event.target.value)">
+                <option value="">Choose One</option>
+                <option *ngFor="let user of users; let k = index" value="{{k}}">{{user.name}}</option>
+              </select>
+            </div>
+            <div class="right">
+              <button type="button" class="btn btn-warning" *ngIf="reassignShow" (click)="reassign()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                  <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 0 0 3 14.5h10a1.5 1.5 0 0 0 1.5-1.5V8a.5.5 0 0 0-1 0v5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 0 0-1H3A1.5 1.5 0 0 0 1.5 3v10z"/>
+                </svg>
+                Reassign Appointment
+              </button>
+            </div>
           </div>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Meeting with</strong>
@@ -104,7 +100,6 @@
           <span>{{detail.interactionOwnerName}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Major asserted</strong>
@@ -113,7 +108,6 @@
           <span>{{detail.major}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Preprof asserted</strong>
@@ -122,7 +116,6 @@
           <span>{{detail.preprof}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Honors asserted</strong>
@@ -131,7 +124,6 @@
           <span>{{detail.honors}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Expected grad</strong>
@@ -140,7 +132,6 @@
           <span>{{detail.gradExpected}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>State</strong>
@@ -149,7 +140,6 @@
           <span>{{detail.condition}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Subject</strong>
@@ -157,6 +147,7 @@
         <div class="column right">
           <span>{{detail.subject}}</span>&nbsp;
           <a *ngIf="detail.interactionId" href="./#/appointments/{{detail.interactionId}}" role="button" class="btn btn-primary">
+
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-link-45deg" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
               <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
@@ -164,6 +155,7 @@
           </a>
         </div>
       </div>
+
 
       <div class="mfsw-row">
         <div class="column left">
@@ -173,7 +165,6 @@
           <span>{{detail.name}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Reasons</strong>
@@ -182,7 +173,6 @@
           <span>{{detail.reasons}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Notes</strong>
@@ -191,7 +181,6 @@
           <span>{{detail.notes}}</span>
         </div>
       </div>
-
       <div class="mfsw-row">
         <div class="column left">
           <strong>Appointment Start</strong>
@@ -200,7 +189,6 @@
           <span>{{detail.startOn}}</span>
         </div>
       </div>
-
       <hr>
       <button type="button" class="btn btn-success btn-block">
         <!-- TODO BEGIN SESSION SCREEN + UPDATE STATUS -->
@@ -211,6 +199,7 @@
           Begin Session
         </span>
       </button>
+
 
     </div>
     <div *ngIf="!check()">
