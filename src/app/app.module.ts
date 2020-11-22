@@ -22,7 +22,8 @@ import { SearchviewComponent } from './searchview/searchview.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: AppointmentsComponent },
   { path: 'search', component: SearchviewComponent },
-  { path: 'appt-records', component: ApptRecordsComponent}
+  { path: 'appt-records', component: ApptRecordsComponent},
+  { path: 'student-interaction', component: StudentInteractionComponent}
   // { path: "appointment/:id", component: AppointmentComponent}
   // NOTE: Alan's about component showed an under construction page for the About link
   // { path: "about", component: AboutComponent }

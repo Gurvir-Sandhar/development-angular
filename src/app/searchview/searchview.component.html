@@ -50,8 +50,8 @@
 
         <!-- TODO ADD LINKS HERE -->
         <td >
-          <a *ngIf="validId(user.id)" href="./contact/?contactId={{user.id}}">{{user.id}}</a>
-          <a *ngIf="!validId(user.id)" href="./contact/?contactId={{user.id}}">Non-PSU ID Link</a>
+          <a  routerLink="/student-interaction" routerLinkActive="active" *ngIf="validId(user.id)" href="./contact/?contactId={{user.id}}">{{user.id}}</a>
+          <a  routerLink="/student-interaction" routerLinkActive="active" *ngIf="!validId(user.id)" href="./contact/?contactId={{user.id}}">Non-PSU ID Link</a>
         </td>
 
         <td>
@@ -116,7 +116,7 @@
           <form #dropInForm="ngForm" (ngSubmit)="createDropIn()">
 
             <div class="form-group">
-              <label for="firstName"><strong>First Name:<a style="color: red;">  *</a></strong>              
+              <label for="firstName"><strong>First Name:<a style="color: red;">  *</a></strong>
                 <a *ngIf="(firstName.invalid) && firstName.errors.required" style="color: red;">
                   First name is required.
                 </a>
@@ -132,7 +132,7 @@
                   Last name is required.
                 </a>
               </label>
-              <input id="lastName" name="lastName" class="form-control" 
+              <input id="lastName" name="lastName" class="form-control"
               required placeholder="Last Name"
               [(ngModel)]="formFields.lastName" #lastName="ngModel">
             </div>
@@ -143,8 +143,8 @@
                   Email is required.
                 </a>
               </label>
-              <input id="email" name="email" class="form-control" type="email" 
-              required placeholder="Enter email" 
+              <input id="email" name="email" class="form-control" type="email"
+              required placeholder="Enter email"
               [(ngModel)]="formFields.email" #email="ngModel">
             </div>
 
@@ -161,7 +161,7 @@
             </div>
 
             <div *ngIf="formFields.date != ''">
-                
+
               <div class="form-group">
 
                 <label for="appointmentTime">
@@ -202,7 +202,7 @@
                   <option *ngFor="let assignee of assignees; let i = index" id="assignedTo"
                  [value]="assignees[i].name">{{assignees[i].name}}</option>
                 </select>
-              </div>  
+              </div>
             </div>
 
             <div class="modal-footer">
