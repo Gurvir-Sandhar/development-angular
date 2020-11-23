@@ -18,9 +18,10 @@ import { SearchviewComponent } from './searchview/searchview.component';
 import { HeaderBarComponent } from './header-bar/header-bar.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', component: AppointmentsComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home'},
+  { path: 'home', component: AppointmentsComponent },
   { path: 'search', component: SearchviewComponent },
-  { path: 'appt-records', component: ApptRecordsComponent}
+  {path: '**', redirectTo: '/home'}
   // { path: "appointment/:id", component: AppointmentComponent}
   // NOTE: Alan's about component showed an under construction page for the About link
   // { path: "about", component: AboutComponent }
