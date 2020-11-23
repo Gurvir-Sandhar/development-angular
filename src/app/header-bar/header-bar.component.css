@@ -5,6 +5,9 @@ body {
 }
 
 .navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
     overflow: hidden;
     background-color: #333;
     font-family: Arial;
@@ -12,7 +15,6 @@ body {
 
 /* Links inside the navbar */
 .navbar a {
-    float: left;
     font-size: 16px;
     color: white;
     text-align: center;
