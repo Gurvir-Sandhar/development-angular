@@ -98,4 +98,12 @@ export class ApiService {
   public getParams() {
     return this.params;
   }
+
+  /**
+   * Function that gets Appointments data, includes attachments, contact, history, interaction, messages, pvtNotes
+   */
+  public getInteractionData() {
+    return this.http.get('http://localhost:6543/apps/api/test/appointment');
+  }
+
 }

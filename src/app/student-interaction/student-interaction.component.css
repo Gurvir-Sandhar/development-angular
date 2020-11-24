@@ -1,0 +1,133 @@
+
+body {
+  margin: 0em 3em;
+}
+
+.interaction-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.interaction-name {
+  color: #683e23;
+}
+
+.interaction-name h1 {
+  font-size: 3em;
+}
+
+.interaction-name h4 {
+  font-size: 1.5em;
+}
+
+/* Styles for tab labels */
+.mat-tab-label {
+  padding: 1em;
+  color: #387eb5;
+  font-weight: 500;
+  border-color: #7e7e7e;
+  border-style: solid;
+  border-width: thin;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+  padding: 1em;
+  color: #7e7e7e;
+  font-weight: 700;
+  border-style: solid;
+  border-width: thin;
+  border-bottom: none;
+  border-radius: 5px 5px 0px 0px;
+}
+
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background: none;
+}
+
+.advising-grid-parent {
+  display: grid;
+  grid-template-columns: repeat(2,50%);
+  grid-template-rows: repeat(2,50%);
+}
+
+.advisingButton {
+  margin: 2em 0em;
+  color: white;
+}
+
+thead h3 {
+  font-size: 1.5em !important;
+  color:  #683e23;
+}
+
+.advisingTable td, .advisingTable th {
+  border-top: 0px;
+}
+
+.advising-grid-parent > div {
+  margin: 1em;
+}
+
+.reassign-btn, .resolve-btn {
+  padding: 0px;
+}
+
+.history-table {
+  margin: 2em;
+}
+
+.messages-tab {
+  margin: 2em;
+}
+
+.messages-tab h2 {
+  color: #683e23;
+}
+
+.message-header {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.messages {
+  margin: 1.5em 3em;
+  background-color: rgba(128,128,128, 0.1);
+}
+
+.business-attachments, .engineering-attachments {
+  margin: 3em;
+}
+
+.attachment-header {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #683e23;
+}
+
+.private-notes-container {
+  margin: 2em;
+}
+
+.private-notes-container h2 {
+  color: #683e23;
+}
+
+.private-notes {
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba(128,128,128, 0.1);
+}
+
+.properties-tab {
+  margin: 2em;
+}
+
+.properties-tab th, .properties-tab td {
+  border-top: 0px;
+}
