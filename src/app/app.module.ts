@@ -23,6 +23,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   { path: 'home', component: AppointmentsComponent },
   { path: 'search', component: SearchviewComponent },
+  { path: 'student-interaction', component: StudentInteractionComponent },
   {path: '**', redirectTo: '/home'}
   // { path: "appointment/:id", component: AppointmentComponent}
   // NOTE: Alan's about component showed an under construction page for the About link
